@@ -1,0 +1,16 @@
+.next/
+
+dist/
+
+*.log
+*.tmp
+
+client/.next/
+server/.next/
+
+client/tsconfig.json
+server/tsconfig.json
+client/tsconfig.build.json
+server/tsconfig.build.json
+
+node_modules/
