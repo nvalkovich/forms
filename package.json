@@ -1,0 +1,46 @@
+{
+  "name": "forms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build --prefix client && npm run build --prefix server",
+    "start": "npm run build && concurrently \"npm start --prefix server\" \"npm start --prefix client\"",
+    "dev": "concurrently \"npm run start:dev --prefix server\" \"npm run dev --prefix client\"",
+    "lint": "eslint . --fix",
+    "format": "npx prettier --write .",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "",
+  "private": true,
+  "license": "ISC",
+  "lint-staged": {
+    "client/src/**/*.{js,mjs,cjs,ts,jsx,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "server/src/**/*.{js,mjs,cjs,ts,jsx,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "@types/node": "^22.13.1",
+    "@types/react": "^19.0.8",
+    "@typescript-eslint/eslint-plugin": "^8.23.0",
+    "@typescript-eslint/parser": "^8.23.0",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.19.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "globals": "^15.14.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.23.0"
+  }
+}
