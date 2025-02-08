@@ -18,14 +18,14 @@ export default [
         ecmaVersion: "latest",
         sourceType: "module",
         ecmaFeatures: {
-          jsx: true, // Включаем поддержку JSX
+          jsx: true, 
         },
-        project: "./tsconfig.json", // Укажите путь к вашему tsconfig.json
+        project: "./tsconfig.json", 
       },
       globals: {
-        ...globals.browser, // Для работы с глобальными переменными браузера
-        process: "readonly", // Добавляем process как глобальную переменную
-        React: "readonly", // Указываем React как глобальную переменную
+        ...globals.browser, 
+        process: "readonly", 
+        React: "readonly", 
       },
     },
     ignores: ["**/node_modules/**", "**/dist/**"],
@@ -35,7 +35,7 @@ export default [
     },
     settings: {
       react: {
-        version: "detect", // Даем ESLint определять версию React
+        version: "detect", 
       },
     },
     rules: {
