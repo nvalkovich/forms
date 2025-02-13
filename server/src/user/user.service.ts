@@ -5,7 +5,7 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { errorMessages } from 'src/types/types';
+import { errorMessageKeys } from 'src/types/types';
 import { pgSQLDuplicateKeyErrorCode, passwordSaltRounds } from 'src/constants';
 
 @Injectable()
@@ -35,12 +35,12 @@ export class UserService {
         error.driverError.code === pgSQLDuplicateKeyErrorCode
       ) {
         throw new HttpException(
-          { message: errorMessages.userExists },
+          { message: errorMessageKeys.userExists },
           HttpStatus.CONFLICT,
         );
       }
       throw new HttpException(
-        { message: errorMessages.internalServerError },
+        { message: errorMessageKeys.internalServerError },
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
@@ -48,5 +48,9 @@ export class UserService {
 
   async findOne(email: string) {
     return await this.userRepo.findOne({ where: { email: email } });
+  }
+
+  async findById(id: string) {
+    return await this.userRepo.findOne({ where: { id } });
   }
 }

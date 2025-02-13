@@ -1,0 +1,49 @@
+{
+  "HomePage": {
+    "title": "Main"
+  },
+  "AuthPage": {
+    "register": "Register",
+    "login": "Login",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "loginSuccessful": "Login successful!",
+    "registerSuccessful": "Registration successful!",
+    "loginError": "Login failed",
+    "registerError": "Registration failed",
+    "invalidCredentials": "Invalid credentials. Check entered data!",
+    "userExists": "User with this email already exist",
+    "internalServerError": "Internal server error. Please, try later"
+  },
+  "AuthValidation": {
+    "nameRequired": "Name is reqired field",
+    "emailRequired": "Email is reqired field",
+    "passwordRequired": "Password is reqired field",
+    "invalidEmail": "Invalid email",
+    "passwordMinLength": "Password must contain at least 6 characters"
+  },
+    "Profile": {
+    "profile": "Profile",
+    "name": "Name",
+    "email": "Email",
+    "errorFetchingProfile": "Error fetching profile"
+  },
+  "Header": {
+    "templates": "Templates",
+    "create": "Create",
+    "admin": "Admin",
+    "search": "Search",
+    "toggleTheme": "Toggle theme",
+    "changeLanguage": "Change language",
+    "profile": "Profile",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register",
+    "russian": "Russian",
+    "english": "English"
+  }
+}

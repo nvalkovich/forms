@@ -22,11 +22,15 @@ export enum Routes {
   register = 'register',
 }
 
+export enum errorMessageKeys {
+  userExists = 'userExists',
+  invalidCredentials = 'invalidCredentials',
+  internalServerError = 'internalServerError',
+  jwtSecretNotDefined = 'jwtSecretIsNotDefined',
+}
+
 export enum errorMessages {
-  userExists = 'User with this email already exists',
-  invalidCredentials = 'Invalid credentials',
-  internalServerError = 'Internal server error',
-  jwtSecretNotDefined = 'JWT_SECRET is not defined',
+  userNotFound = 'User not found',
 }
 
 export enum validationErrors {

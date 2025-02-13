@@ -4,13 +4,15 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UserData } from 'src/types/types';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
-import { errorMessages } from 'src/types/types';
+import { errorMessageKeys } from 'src/types/types';
+import { ProfileService } from 'src/profile/profile.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
+    private readonly profileService: ProfileService,
   ) {}
 
   async validateUser(email: string, password: string) {
@@ -20,14 +22,13 @@ export class AuthService {
       return user;
     }
 
-    throw new UnauthorizedException(errorMessages.invalidCredentials);
+    throw new UnauthorizedException(errorMessageKeys.invalidCredentials);
   }
 
   login(user: UserData) {
     const { id, email } = user;
     return {
-      id,
-      email,
+      user,
       token: this.jwtService.sign({ id, email }),
     };
   }
@@ -35,6 +36,12 @@ export class AuthService {
   async register(createUserDto: CreateUserDto) {
     const { user } = await this.userService.create(createUserDto);
     const token = this.jwtService.sign({ id: user.id, email: user.email });
+
+    await this.profileService.createProfile(user.id, {
+      bio: '',
+      avatarUrl: '',
+      isPublic: true,
+    });
 
     return { user, token };
   }

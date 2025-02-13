@@ -10,6 +10,7 @@ import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UserModule } from './user/user.module';
     TypeOrmModule.forFeature([User]),
     AuthModule,
     UserModule,
+    ProfileModule,
   ],
   controllers: [HealthController, AppController, UserController],
   providers: [AppService, UserService],
