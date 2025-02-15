@@ -50,20 +50,29 @@ export const useAuthSubmit = (type: AuthType) => {
         return await loginUser(data.email, data.password);
     };
 
+    const getErrorMessage = (key: string) => {
+        try {
+            return t(key);
+        } catch {
+            return t('internalServerError');
+        }
+    };
+
     const onSubmit = async (data: AuthFormData) => {
         try {
             const response = await handleRegisterAndLogin(data);
             handleAuthResponse(response, login, messages.success, navigate);
         } catch (err) {
             if (err instanceof Error) {
-                try {
-                    toast.error(t(err.message));
-                } catch {
-                    toast.error(t('internalServerError'));
+                if (err.message.includes('Failed to fetch')) {
+                    toast.error(getErrorMessage('networkError'));
+                } else {
+                    toast.error(getErrorMessage(err.message));
                 }
+            } else {
+                toast.error(getErrorMessage('internalServerError'));
             }
         }
     };
-
     return { onSubmit };
 };

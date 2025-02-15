@@ -17,7 +17,8 @@
     "registerError": "Registration failed",
     "invalidCredentials": "Invalid credentials. Check entered data!",
     "userExists": "User with this email already exist",
-    "internalServerError": "Internal server error. Please, try later"
+    "internalServerError": "Internal server error. Please, try later",
+    "networkError": "Network error. Please check your connection and try again."
   },
   "AuthValidation": {
     "nameRequired": "Name is reqired field",
