@@ -1,0 +1,50 @@
+{
+  "HomePage": {
+    "title": "Главная"
+  },
+  "AuthPage": {
+    "register": "Регистрация",
+    "login": "Вход",
+    "name": "Имя",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "forgotPassword": "Забыли пароль?",
+    "noAccount": "Нет аккаунта?",
+    "haveAccount": "Уже есть аккаунт?",
+    "loginSuccessful": "Успешный вход!",
+    "registerSuccessful": "Регистрация успешна!",
+    "loginError": "Ошибка входа",
+    "registerError": "Ошибка регистрации",
+    "invalidCredentials": "Неправильные входные данные. Проверьте введенные данные!",
+    "userExists": "Пользователь с такой электронной почтой уже существует",
+    "internalServerError": "Ошибка сервера. Пожалуйста, попробуйте позже",
+    "networkError": "Ошибка соединения. Пожалуйста, проверьте своё соединение и попробуйте позже"
+  },
+  "AuthValidation": {
+    "nameRequired": "Имя - обязательное поле",
+    "emailRequired": "Электронная почта - обязательное поле",
+    "passwordRequired": "Пароль - обязательное поле",
+    "invalidEmail": "Невалидная электронная почта",
+    "passwordMinLength": "Пароль должен содержать как минимум 6 символов"
+  },
+  "Profile": {
+    "profile": "Профиль",
+    "name": "Имя",
+    "email": "Электронная почта",
+    "errorFetchingProfile": "Ошибка загрузки профиля"
+  },
+  "Header": {
+    "templates": "Шаблоны",
+    "create": "Создать шаблон",
+    "admin": "Админ",
+    "search": "Поиск",
+    "toggleTheme": "Сменить тему",
+    "changeLanguage": "Выбрать язык",
+    "profile": "Профиль",
+    "logout": "Выйти",
+    "login": "Войти",
+    "register": "Зарегистрироваться",
+    "russian": "Русский",
+    "english": "Английский"
+  }
+}

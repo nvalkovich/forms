@@ -2,6 +2,7 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "@typescript-eslint/eslint-plugin";
 import pluginReact from "eslint-plugin-react";
+import pluginReactHooks from "eslint-plugin-react-hooks"; // Add this import
 import typescriptParser from "@typescript-eslint/parser";
 import configPrettier from "eslint-config-prettier";
 
@@ -18,24 +19,25 @@ export default [
         ecmaVersion: "latest",
         sourceType: "module",
         ecmaFeatures: {
-          jsx: true, // Включаем поддержку JSX
+          jsx: true,
         },
-        project: "./tsconfig.json", // Укажите путь к вашему tsconfig.json
+        project: "./tsconfig.json",
       },
       globals: {
-        ...globals.browser, // Для работы с глобальными переменными браузера
-        process: "readonly", // Добавляем process как глобальную переменную
-        React: "readonly", // Указываем React как глобальную переменную
+        ...globals.browser,
+        process: "readonly",
+        React: "readonly",
       },
     },
     ignores: ["**/node_modules/**", "**/dist/**"],
     plugins: {
       react: pluginReact,
       "@typescript-eslint": tseslint,
+      "react-hooks": pluginReactHooks,
     },
     settings: {
       react: {
-        version: "detect", // Даем ESLint определять версию React
+        version: "detect",
       },
     },
     rules: {
@@ -45,6 +47,8 @@ export default [
       ...tseslint.configs.recommended.rules,
       ...pluginReact.configs.flat.recommended.rules,
       ...configPrettier.rules,
+      "react-hooks/rules-of-hooks": "error", 
+      "react-hooks/exhaustive-deps": "error",
     },
   },
 ];
