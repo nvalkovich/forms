@@ -9,4 +9,7 @@ export const styleConstants = {
         textColor: '#333',
         borderColor: '#ddd',
     },
+    greyLight: '#f0f0f0',
+    greyDark: '#e0e0e0',
+    whiteTransparent: 'rgba(255, 255, 255, 0.1)',
 };

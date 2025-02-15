@@ -7,6 +7,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { errorMessageKeys } from 'src/types/types';
 import { pgSQLDuplicateKeyErrorCode, passwordSaltRounds } from 'src/constants';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -51,7 +52,51 @@ export class UserService {
     return await this.userRepo.findOne({ where: { email: email } });
   }
 
+  async findAll() {
+    return await this.userRepo.find();
+  }
+
   async findById(id: string) {
     return await this.userRepo.findOne({ where: { id } });
+  }
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    try {
+      const user = await this.userRepo.findOne({ where: { id } });
+      if (!user) {
+        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      }
+
+      if (updateUserDto.isBlocked !== undefined) {
+        user.isBlocked = updateUserDto.isBlocked;
+      }
+      if (updateUserDto.isAdmin !== undefined) {
+        user.isAdmin = updateUserDto.isAdmin;
+      }
+
+      await this.userRepo.save(user);
+      return user;
+    } catch {
+      throw new HttpException(
+        'Internal Server Error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  async delete(id: string) {
+    try {
+      const user = await this.userRepo.findOne({ where: { id } });
+      if (!user) {
+        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      }
+
+      await this.userRepo.remove(user);
+      return { message: 'User deleted successfully' };
+    } catch {
+      throw new HttpException(
+        'Internal Server Error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }

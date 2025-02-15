@@ -1,17 +1,28 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthProvider';
 import { useNavigation, Routes } from '@/hooks/useNavigation';
 import UserProfile from '@/components/Profile/Profile';
 
 export default function ProfilePage() {
-    const { token, user } = useAuth();
+    const { token, user, refreshUser } = useAuth();
     const { navigate } = useNavigation();
+    const [loading, setLoading] = useState(true);
 
-    console.log(user, token);
+    useEffect(() => {
+        if (!token) {
+            navigate(Routes.login);
+            return;
+        } else {
+            refreshUser().finally(() => setLoading(false));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [token]);
 
-    if (!user || !token) {
-        navigate(Routes.login);
+    if (loading) return <p>Загрузка...</p>;
+
+    if (!user) {
         return;
     }
 

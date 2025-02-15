@@ -18,20 +18,28 @@ type AuthResponse = {
 };
 
 const useAuthMessages = (type: AuthType, t: (key: string) => string) => {
-    return type === AuthType.login
-        ? { success: t('loginSuccessful'), error: t('loginError') }
-        : { success: t('registerSuccessful'), error: t('registerError') };
+    const blokedUserMessage = t('userIsBlocked');
+
+    const authMessages =
+        type === AuthType.login
+            ? { success: t('loginSuccessful'), error: t('loginError') }
+            : { success: t('registerSuccessful'), error: t('registerError') };
+    return { blokedUserMessage, ...authMessages };
 };
 
 const handleAuthResponse = (
     response: AuthResponse,
     login: (token: string, user: User) => void,
-    successMessage: string,
+    messages: Record<string, string>,
     navigate: (route: Routes) => void,
 ) => {
+    if (response.user && response.user.isBlocked) {
+        toast.error(messages.blokedUserMessage);
+        return;
+    }
     if (response.token && response.user) {
         login(response.token, response.user);
-        toast.success(successMessage);
+        toast.success(messages.successMessage);
         navigate(Routes.profile);
     }
 };
@@ -61,7 +69,7 @@ export const useAuthSubmit = (type: AuthType) => {
     const onSubmit = async (data: AuthFormData) => {
         try {
             const response = await handleRegisterAndLogin(data);
-            handleAuthResponse(response, login, messages.success, navigate);
+            handleAuthResponse(response, login, messages, navigate);
         } catch (err) {
             if (err instanceof Error) {
                 if (err.message.includes('Failed to fetch')) {
