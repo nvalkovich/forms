@@ -39,6 +39,7 @@ export class UserService {
           HttpStatus.CONFLICT,
         );
       }
+
       throw new HttpException(
         { message: errorMessageKeys.internalServerError },
         HttpStatus.INTERNAL_SERVER_ERROR,

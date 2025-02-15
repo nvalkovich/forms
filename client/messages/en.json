@@ -27,11 +27,13 @@
     "invalidEmail": "Invalid email",
     "passwordMinLength": "Password must contain at least 6 characters"
   },
-    "Profile": {
+  "Profile": {
     "profile": "Profile",
     "name": "Name",
     "email": "Email",
-    "errorFetchingProfile": "Error fetching profile"
+    "errorFetchingProfile": "Error fetching profile",
+    "templates": "Templates",
+    "forms": "Forms"
   },
   "Header": {
     "templates": "Templates",

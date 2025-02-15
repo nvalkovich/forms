@@ -1,7 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
-import { getUserProfile } from '@/services/api';
+import { createContext, useContext } from 'react';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { LocalStorageKeys } from '@/hooks/useLocalStorage';
 import { User } from '@/types';
@@ -14,7 +13,6 @@ enum AuthContextErrors {
 interface AuthContextType {
     token: string | null;
     user: User | null;
-    isLoading: boolean;
     login: (newToken: string, newUser: User) => void;
     logout: () => void;
 }
@@ -30,30 +28,6 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         LocalStorageKeys.user,
         null,
     );
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        if (token) {
-            const fetchProfile = async () => {
-                try {
-                    const profile = await getUserProfile(token);
-                    setUser(profile);
-                } catch (error) {
-                    console.error(
-                        AuthContextErrors.errorFetchingProfile,
-                        error,
-                    );
-                    setUser(null);
-                } finally {
-                    setIsLoading(false);
-                }
-            };
-            fetchProfile();
-        } else {
-            setIsLoading(false);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [token]);
 
     const login = (newToken: string, newUser: User) => {
         setToken(newToken);
@@ -66,7 +40,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     return (
-        <AuthContext.Provider value={{ token, user, isLoading, login, logout }}>
+        <AuthContext.Provider value={{ token, user, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

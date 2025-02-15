@@ -33,11 +33,3 @@ export async function registerUser(
 
     return handleResponse(res);
 }
-
-export async function getUserProfile(token: string) {
-    const res = await fetch(`${API_URL}/profile`, {
-        headers: { Authorization: `Bearer ${token}` },
-    });
-
-    return res.json();
-}

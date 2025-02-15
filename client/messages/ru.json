@@ -31,7 +31,9 @@
     "profile": "Профиль",
     "name": "Имя",
     "email": "Электронная почта",
-    "errorFetchingProfile": "Ошибка загрузки профиля"
+    "errorFetchingProfile": "Ошибка загрузки профиля",
+    "templates": "Шаблоны",
+    "forms": "Формы"
   },
   "Header": {
     "templates": "Шаблоны",

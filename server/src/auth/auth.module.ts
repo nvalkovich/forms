@@ -9,7 +9,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { jwtExpiresValue } from 'src/constants';
 import { envVariables } from 'src/types/types';
-import { ProfileModule } from 'src/profile/profile.module';
 
 @Module({
   imports: [
@@ -23,7 +22,6 @@ import { ProfileModule } from 'src/profile/profile.module';
       }),
       inject: [ConfigService],
     }),
-    ProfileModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy],
