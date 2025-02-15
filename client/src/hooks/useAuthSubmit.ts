@@ -56,9 +56,11 @@ export const useAuthSubmit = (type: AuthType) => {
             handleAuthResponse(response, login, messages.success, navigate);
         } catch (err) {
             if (err instanceof Error) {
-                toast.error(t(err.message));
-            } else {
-                toast.error(t('internalServerError'));
+                try {
+                    toast.error(t(err.message));
+                } catch {
+                    toast.error(t('internalServerError'));
+                }
             }
         }
     };

@@ -1,36 +1,40 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 enum errors {
-    errorReadLS = 'Error reading from localStorage',
-    errorWriteLS = 'Error writing to localStorage',
+    errorReadLS = 'Ошибка при чтении из localStorage',
+    errorWriteLS = 'Ошибка при записи в localStorage',
 }
 
 function useLocalStorage<T>(key: string, initialValue: T) {
-    const [storedValue, setStoredValue] = useState<T>(() => {
-        try {
-            const item = window.localStorage.getItem(key);
-            if (!item) {
-                return initialValue;
-            }
+    // Инициализируем состояние начальным значением
+    const [storedValue, setStoredValue] = useState<T>(initialValue);
+
+    // Используем useEffect для работы с localStorage только на клиенте
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            // Проверяем, что мы в браузере
             try {
-                return JSON.parse(item);
-            } catch {
-                return item as T;
+                const item = window.localStorage.getItem(key);
+                if (item) {
+                    setStoredValue(JSON.parse(item));
+                }
+            } catch (error) {
+                console.error(errors.errorReadLS, error);
             }
-        } catch (error) {
-            console.error(errors.errorReadLS, error);
-            return initialValue;
         }
-    });
+    }, [key]);
 
     const setValue = (value: T | ((val: T) => T)) => {
-        try {
-            const valueToStore =
-                value instanceof Function ? value(storedValue) : value;
-            setStoredValue(valueToStore);
-            window.localStorage.setItem(key, JSON.stringify(valueToStore));
-        } catch (error) {
-            console.error(errors.errorWriteLS, error);
+        if (typeof window !== 'undefined') {
+            // Проверяем, что мы в браузере
+            try {
+                const valueToStore =
+                    value instanceof Function ? value(storedValue) : value;
+                setStoredValue(valueToStore);
+                window.localStorage.setItem(key, JSON.stringify(valueToStore));
+            } catch (error) {
+                console.error(errors.errorWriteLS, error);
+            }
         }
     };
 
