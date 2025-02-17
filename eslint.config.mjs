@@ -47,7 +47,7 @@ export default [
       ...tseslint.configs.recommended.rules,
       ...pluginReact.configs.flat.recommended.rules,
       ...configPrettier.rules,
-      "react-hooks/rules-of-hooks": "error", 
+      "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "error",
     },
   },

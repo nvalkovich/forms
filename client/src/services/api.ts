@@ -1,4 +1,5 @@
 import API_URL from '@/utils/config';
+import { User } from '@/types';
 
 async function handleResponse(res: Response) {
     const data = await res.json();
@@ -34,10 +35,31 @@ export async function registerUser(
     return handleResponse(res);
 }
 
-export async function getUserProfile(token: string) {
-    const res = await fetch(`${API_URL}/profile`, {
-        headers: { Authorization: `Bearer ${token}` },
+export async function updateUserStatus(
+    userId: string,
+    updates: { isBlocked?: boolean; isAdmin?: boolean },
+) {
+    const res = await fetch(`${API_URL}/users/${userId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates),
     });
+    return res.json();
+}
 
+export async function deleteUser(userId: string) {
+    const res = await fetch(`${API_URL}/users/${userId}`, {
+        method: 'DELETE',
+    });
+    return res.json();
+}
+
+export async function getUsers(): Promise<User[]> {
+    const res = await fetch(`${API_URL}/users`);
+    return res.json();
+}
+
+export async function getUser(id: string) {
+    const res = await fetch(`${API_URL}/users/${id}`);
     return res.json();
 }

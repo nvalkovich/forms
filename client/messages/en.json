@@ -18,7 +18,8 @@
     "invalidCredentials": "Invalid credentials. Check entered data!",
     "userExists": "User with this email already exist",
     "internalServerError": "Internal server error. Please, try later",
-    "networkError": "Network error. Please check your connection and try again."
+    "networkError": "Network error. Please check your connection and try again.",
+    "userIsBlocked": "Unable to login! User is blocked."
   },
   "AuthValidation": {
     "nameRequired": "Name is reqired field",
@@ -27,11 +28,47 @@
     "invalidEmail": "Invalid email",
     "passwordMinLength": "Password must contain at least 6 characters"
   },
-    "Profile": {
+  "Profile": {
     "profile": "Profile",
     "name": "Name",
     "email": "Email",
-    "errorFetchingProfile": "Error fetching profile"
+    "errorFetchingProfile": "Error fetching profile",
+    "templates": "Templates",
+    "forms": "Forms",
+    "admin": "Admin",
+    "blocked": "User is blocked"
+  },
+  "Admin": {
+    "block": "Block",
+    "unblock": "Unblock",
+    "makeAdmin": "Make admin",
+    "revokeAdminRights": "Revoke admin rights",
+    "revokeAdminRightsAction": "revoke admin rights from",
+    "delete": "Delete",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "status": "Status",
+    "user": "User",
+    "admin": "Admin",
+    "blocked": "Blocked",
+    "unblocked": "Active",
+    "rowSelected": "selected",
+    "rowSelectedPlural": "selected",
+    "rowsPerPage": "Per page",
+    "sort": "Sort",
+    "noUsersForAction": "No users for action",
+    "areYouSureYouWant": "Are you sure you want to",
+    "confirmforUser": "user",
+    "confirmforUsers": "users",
+    "actionSuccess": "Action successful",
+    "actionError": "Action failed",
+    "selectAtLeastOneUser": "Select at least one user",
+    "confirmForSelf": "yourself",
+    "and": "and"
+  },
+  "ConfirmationModal": {
+    "confirm": "Confirm action"
   },
   "Header": {
     "templates": "Templates",

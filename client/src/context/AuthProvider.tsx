@@ -1,27 +1,29 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
-import { getUserProfile } from '@/services/api';
+import { createContext, useContext, useEffect } from 'react';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { LocalStorageKeys } from '@/hooks/useLocalStorage';
 import { User } from '@/types';
+import { getUser } from '@/services/api';
+import { Routes, useNavigation } from '@/hooks/useNavigation';
 
 enum AuthContextErrors {
-    errorFetchingProfile = 'Erorr fetching profile: ',
-    useAuthOutsieProvider = 'useAuth must be used inside AuthProvider',
+    errorFetchingProfile = 'Error fetching profile: ',
+    useAuthOutsideProvider = 'useAuth must be used inside AuthProvider',
 }
 
 interface AuthContextType {
     token: string | null;
     user: User | null;
-    isLoading: boolean;
     login: (newToken: string, newUser: User) => void;
     logout: () => void;
+    refreshUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
+    const { navigate } = useNavigation();
     const [token, setToken] = useLocalStorage<string | null>(
         LocalStorageKeys.token,
         null,
@@ -30,30 +32,6 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         LocalStorageKeys.user,
         null,
     );
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        if (token) {
-            const fetchProfile = async () => {
-                try {
-                    const profile = await getUserProfile(token);
-                    setUser(profile);
-                } catch (error) {
-                    console.error(
-                        AuthContextErrors.errorFetchingProfile,
-                        error,
-                    );
-                    setUser(null);
-                } finally {
-                    setIsLoading(false);
-                }
-            };
-            fetchProfile();
-        } else {
-            setIsLoading(false);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [token]);
 
     const login = (newToken: string, newUser: User) => {
         setToken(newToken);
@@ -65,8 +43,27 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(null);
     };
 
+    const refreshUser = async () => {
+        if (!token || !user?.id) return;
+        try {
+            const freshUser = await getUser(user.id);
+            setUser(freshUser);
+        } catch {
+            navigate(Routes.register);
+        }
+    };
+
+    useEffect(() => {
+        if (token && !user) {
+            refreshUser();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [token]);
+
     return (
-        <AuthContext.Provider value={{ token, user, isLoading, login, logout }}>
+        <AuthContext.Provider
+            value={{ token, user, login, logout, refreshUser }}
+        >
             {children}
         </AuthContext.Provider>
     );
@@ -75,7 +72,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 export function useAuth() {
     const context = useContext(AuthContext);
     if (!context) {
-        throw new Error(AuthContextErrors.useAuthOutsieProvider);
+        throw new Error(AuthContextErrors.useAuthOutsideProvider);
     }
     return context;
 }
