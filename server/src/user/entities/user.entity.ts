@@ -4,7 +4,11 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToMany,
+  OneToMany
 } from 'typeorm';
+
+import { Template } from 'src/template/entities/template.entity';
 
 @Entity()
 export class User {
@@ -31,4 +35,10 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => Template, (template) => template.author)
+  templates: Template[];
+
+  @ManyToMany(() => Template, (template) => template.users)
+  usedTemplates: Template[];
 }
