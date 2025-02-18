@@ -6,6 +6,8 @@ import { CreateTemplateDto } from './dto/create-template.dto';
 import { UpdateTemplateDto } from './dto/update-template.dto';
 import { User } from 'src/user/entities/user.entity';
 import { Topic } from 'src/topic/entities/topic.entity';
+import { Tag } from 'src/tag/entities/tag.entity';
+import { Question } from 'src/question/entities/question.entity';
 
 @Injectable()
 export class TemplateService {
@@ -13,58 +15,69 @@ export class TemplateService {
     @InjectRepository(Template)
     private readonly templateRepository: Repository<Template>,
 
+    @InjectRepository(Template)
+    private readonly tagRepository: Repository<Tag>,
+
     @InjectRepository(Topic)
     private readonly topicRepository: Repository<Topic>, 
+
+    @InjectRepository(Question)
+    private readonly questionRepository: Repository<Question>, 
   ) {}
 
-  async create(createTemplateDto: CreateTemplateDto, user: User): Promise<Template> {
-    
-    const { title, description, image, isPublic, topicIds } = createTemplateDto;
+async create(createTemplateDto: CreateTemplateDto, user: User): Promise<Template> {
+  const { title, description, image, isPublic, topicId, tags, questions } = createTemplateDto;
 
-    console.log(createTemplateDto)
-
-    const topics = topicIds?.length ? await this.topicRepository.find({ where: { id: In(topicIds) } }) : [];
-
-    console.log(topics)
-
-    const template = this.templateRepository.create({
-      title,
-      description,
-      image,
-      isPublic,
-      author: user,
-      topics,
-    });
-
-    
-    console.log(template)
-
-
-    return this.templateRepository.save(template);
+  // Поиск темы
+  const topicData = await this.topicRepository.findOne({ where: { id: topicId } });
+  if (!topicData) {
+    throw new NotFoundException('Topic not found');
   }
+
+  // Создание шаблона
+  const template = this.templateRepository.create({
+    title,
+    description,
+    image,
+    isPublic,
+    author: user,
+    topic: topicData,
+    tags: tags?.map(tagName => ({ name: tagName })), // Автоматическое создание тегов
+    questions: questions?.map(questionDto => ({
+      title: questionDto.title,
+      type: questionDto.type,
+      options: questionDto.options,
+      required: questionDto.required,
+      showInResults: questionDto.showInResults,
+    })), // Автоматическое создание вопросов
+  });
+
+  // Сохранение шаблона и связанных сущностей
+  return this.templateRepository.save(template);
+}
 
   async findAll(): Promise<Template[]> {
     return this.templateRepository.find({
-      relations: ['author', 'topics'],
+      relations: ['author', 'topic'],
     });
   }
 
-  async findOne(id: string, user?: User): Promise<Template> {
-    const template = await this.templateRepository.findOne({
-      where: { id },
-      relations: ['questions', 'author'],
-    });
+async findOne(id: string, user?: User): Promise<Template> {
+  const template = await this.templateRepository.findOne({
+    where: { id },
+    relations: ['questions', 'author', 'topic', 'tags'], // Добавьте 'questions' и другие связи
+  });
 
-    if (!template) {
-      throw new NotFoundException('Template not found');
-    }
-
-    if (!template.isPublic && (!user || (user.id !== template.author.id && !user.isAdmin))) {
-      throw new ForbiddenException('Access denied');
-    }
-
-    return template;
+  if (!template) {
+    throw new NotFoundException('Template not found');
   }
+
+  if (!template.isPublic && (!user || (user.id !== template.author.id && !user.isAdmin))) {
+    throw new ForbiddenException('Access denied');
+  }
+
+  return template;
+}
 
   async update(id: string, updateTemplateDto: UpdateTemplateDto, user: User): Promise<Template> {
     const template = await this.findOne(id, user);

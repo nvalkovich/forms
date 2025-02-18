@@ -2,18 +2,18 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany
+  ManyToMany
 } from 'typeorm';
 import { Template } from 'src/template/entities/template.entity';
 
 @Entity()
-export class Topic {
+export class Tag {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  title: string;
+  @Column({ unique: true })
+  name: string;
 
-  @OneToMany(() => Template, (template) => template.topic)
+  @ManyToMany(() => Template, (template) => template.tags)
   templates: Template[];
 }

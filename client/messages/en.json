@@ -83,5 +83,11 @@
     "register": "Register",
     "russian": "Russian",
     "english": "English"
+  },
+  "TemplateBuilder": {
+    "errorFetchingTopics":"Error fetching topics! Please, try later",
+    "topic": "Topic",
+    "createTemplateTitle": "Create your template!",
+    "addQuestion": "Add "
   }
 }

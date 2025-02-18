@@ -1,5 +1,6 @@
 import API_URL from '@/utils/config';
 import { User } from '@/types';
+import { TemplateFormData } from '@/types';
 
 async function handleResponse(res: Response) {
     const data = await res.json();
@@ -63,3 +64,28 @@ export async function getUser(id: string) {
     const res = await fetch(`${API_URL}/users/${id}`);
     return res.json();
 }
+
+export async function createTemplate(data: email) {
+ const res = await fetch(`${API_URL}/templates/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+    });
+
+    return handleResponse(res);
+}
+
+export async function getTopics() {
+    const res = await fetch(`${API_URL}/topics`);
+    return res.json();
+}
+
+export async function getTopicNameById(id: string) {
+     const res = await fetch(`${API_URL}/topics/${id}`);
+    return res.json();
+}
+
+
+
+
+

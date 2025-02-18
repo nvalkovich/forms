@@ -83,5 +83,11 @@
     "register": "Зарегистрироваться",
     "russian": "Русский",
     "english": "Английский"
+  },
+"TemplateBuilder": {
+    "errorFetchingTopics": "Ошибка при загрузке тем! Пожалуйста, попробуйте позже.",
+    "topic": "Тема",
+    "createTemplateTitle": "Создай свой шаблон!",
+    "addQuestion": "Add "
   }
 }

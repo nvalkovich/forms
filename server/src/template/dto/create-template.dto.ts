@@ -1,4 +1,6 @@
-import { IsString, IsOptional, IsBoolean, IsArray, IsUUID } from 'class-validator';
+import { IsString, IsOptional, IsBoolean, IsArray, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+import { CreateQuestionDto } from 'src/question/dto/create-question.dto';
 
 export class CreateTemplateDto {
   @IsString()
@@ -11,11 +13,19 @@ export class CreateTemplateDto {
   @IsString()
   image?: string;
 
+  @IsOptional()
   @IsBoolean()
   isPublic: boolean;
 
+  @IsString()
+  topicId: string;
+
   @IsArray()
-  @IsUUID('4', { each: true })
-  @IsOptional()
-  topicIds?: string[];
+  @IsString({ each: true })
+  tags: string[];
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateQuestionDto)
+  questions: CreateQuestionDto[];
 }

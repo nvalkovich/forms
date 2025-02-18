@@ -16,17 +16,21 @@ import { QuestionModule } from './question/question.module';
 import { TemplateService } from './template/template.service';
 import { Template } from './template/entities/template.entity';
 import { Topic } from './topic/entities/topic.entity';
+import { TagModule } from './tag/tag.module';
+import { Tag } from './tag/entities/tag.entity';
+import { Question } from './question/entities/question.entity';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     DatabaseModule,
-    TypeOrmModule.forFeature([User, Template, Topic]),
+    TypeOrmModule.forFeature([User, Template, Topic, Tag, Question]),
     AuthModule,
     UserModule,
     TemplateModule,
     TopicModule,
     QuestionModule,
+    TagModule,
   ],
   controllers: [HealthController, AppController, UserController],
   providers: [AppService, UserService, TemplateService],

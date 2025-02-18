@@ -6,7 +6,7 @@ import {
 } from 'typeorm';
 import { Template } from 'src/template/entities/template.entity';
 
-enum QuestionType {
+export enum QuestionType { // Добавьте export, чтобы использовать в других местах
   singleLineString = 'singleLineString',
   multiLineString = 'multiLineString',
   positiveInteger = 'positiveInteger',
@@ -18,18 +18,31 @@ export class Question {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  wording: string;
+  @Column({ nullable: true })
+  title: string;
+
+  @Column({ nullable: true })
+
+  description: string;
 
   @Column({
     type: 'enum',
-    enum: QuestionType
+    enum: QuestionType,
   })
   type: QuestionType;
+
+  @Column('json', { nullable: true })
+  options?: { value: string }[];
 
   @Column({ default: false })
   isDeleted: boolean;
 
   @ManyToOne(() => Template, (template) => template.questions, { onDelete: 'CASCADE' })
   template: Template;
+
+  @Column({ default: false })
+  required: boolean;
+
+  @Column({ default: false })
+  showInResults: boolean;
 }

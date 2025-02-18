@@ -1,3 +1,5 @@
+import { Ibarra_Real_Nova } from "next/font/google";
+
 export interface User {
     id: string;
     email: string;
@@ -29,4 +31,23 @@ export enum UserRoles {
 export enum UserStatus {
     blocked = 'Blocked',
     active = 'Active',
+}
+
+export interface Question {
+    id?: string;
+    title: string;
+    type: string;
+    description?: string;
+    required: boolean;
+    showInResults: boolean;
+}
+
+export interface TemplateFormData {
+    title: string;
+    description?: string;
+    image?: string;
+    isPublic?: boolean
+    topicId: string;
+    questions: Question[];
+
 }

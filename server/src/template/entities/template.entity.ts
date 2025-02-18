@@ -6,11 +6,13 @@ import {
   UpdateDateColumn,
   ManyToMany,
   ManyToOne,
-  OneToMany
+  OneToMany,
+  JoinTable
 } from 'typeorm';
 import { User } from 'src/user/entities/user.entity';
 import { Topic } from 'src/topic/entities/topic.entity';
 import { Question } from 'src/question/entities/question.entity';
+import { Tag } from 'src/tag/entities/tag.entity';
 
 @Entity()
 export class Template {
@@ -23,10 +25,10 @@ export class Template {
   @Column()
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   image: string;
 
-  @Column()
+  @Column({ type: 'boolean', default: false })
   isPublic: boolean;
 
   @CreateDateColumn()
@@ -41,9 +43,13 @@ export class Template {
   @ManyToMany(() => User, (user) => user.usedTemplates)
   users: User[];
 
-  @ManyToMany(() => Topic, (topic) => topic.templates)
-  topics: Topic[];
+  @ManyToOne(() => Topic, (topic) => topic.templates)
+  topic: Topic;
 
-  @OneToMany(() => Question, (question) => question.template)
+  @ManyToMany(() => Tag, (tag) => tag.templates, { cascade: true }) // Каскадное сохранение для тегов
+  @JoinTable()
+  tags: Tag[];
+
+  @OneToMany(() => Question, (question) => question.template, { cascade: true }) // Каскадное сохранение для вопросов
   questions: Question[];
 }

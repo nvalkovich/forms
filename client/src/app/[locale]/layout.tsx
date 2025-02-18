@@ -51,8 +51,11 @@ export default async function RootLayout({
                             locale={locale}
                             messages={messages}
                         >
+
                             <Header />
+                           
                             {children}
+
                         </NextIntlClientProvider>
                         <ToastContainer position="top-right" autoClose={3000} />
                     </ThemeProvider>

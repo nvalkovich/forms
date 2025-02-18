@@ -1,34 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { TopicService } from './topic.service';
-import { CreateTopicDto } from './dto/create-topic.dto';
-import { UpdateTopicDto } from './dto/update-topic.dto';
+import { Topic } from './entities/topic.entity';
 
-@Controller('topic')
+@Controller('topics')
 export class TopicController {
   constructor(private readonly topicService: TopicService) {}
 
-  @Post()
-  create(@Body() createTopicDto: CreateTopicDto) {
-    return this.topicService.create(createTopicDto);
-  }
-
   @Get()
-  findAll() {
-    return this.topicService.findAll();
+  async getAllTopics(): Promise<Topic[]> {
+    return this.topicService.getAllTopics();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.topicService.findOne(+id);
+  async getTopic(@Param('id') id: string): Promise<Topic | null> {
+    return await this.topicService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTopicDto: UpdateTopicDto) {
-    return this.topicService.update(+id, updateTopicDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.topicService.remove(+id);
+  @Post()
+  async createTopic(@Body('title') title: string): Promise<Topic> {
+    return this.topicService.createTopic(title);
   }
 }

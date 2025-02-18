@@ -7,10 +7,10 @@ import {
     StyledPaper,
     AuthFormTitle,
     AuthForm,
-    SubmitButton,
     AuthLink,
     TextFieldWithValidation,
 } from '@/components/AuthForm';
+import { Button } from '../../../../components/Button/Button'
 import { useAuthForm } from '@/hooks/useAuthForm';
 import { useAuthSubmit } from '@/hooks/useAuthSubmit';
 import { AuthType } from '@/types';
@@ -54,7 +54,7 @@ export default function RegisterPage() {
                             setShowPassword((prev) => !prev)
                         }
                     />
-                    <SubmitButton label={t('register')} />
+                    <Button label={t('login')} type={'submit'} />
                     <AuthLink
                         text={t('haveAccount')}
                         linkText={t('login')}

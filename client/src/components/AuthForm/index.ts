@@ -3,7 +3,6 @@ import { StyledPaper } from './items/StyledPaper';
 import { AuthFormTitle } from './items/AuthFormTitle';
 import { AuthForm } from './items/AuthForm';
 import { TextFieldWithValidation } from './items/TextFieldWithValidation';
-import { SubmitButton } from './items/SubmitButton';
 import { AuthLink } from './items/AuthLink';
 
 export {
@@ -12,6 +11,5 @@ export {
     AuthFormTitle,
     AuthForm,
     TextFieldWithValidation,
-    SubmitButton,
     AuthLink,
 };

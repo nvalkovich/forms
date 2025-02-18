@@ -8,9 +8,9 @@ import {
     AuthFormTitle,
     AuthForm,
     TextFieldWithValidation,
-    SubmitButton,
     AuthLink,
 } from '@/components/AuthForm';
+import { Button } from '../../../../components/Button/Button'
 import { useAuthForm } from '@/hooks/useAuthForm';
 import { useAuthSubmit } from '@/hooks/useAuthSubmit';
 import { AuthType } from '@/types';
@@ -46,7 +46,7 @@ export default function LoginPage() {
                             setShowPassword((prev) => !prev)
                         }
                     />
-                    <SubmitButton label={t('login')} />
+                    <Button label={t('login')} type={'submit'} />
                     <AuthLink
                         text={t('noAccount')}
                         linkText={t('register')}
