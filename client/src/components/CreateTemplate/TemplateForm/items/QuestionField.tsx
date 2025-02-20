@@ -29,6 +29,8 @@ import { StyledPaper } from '../../../base/StyledPaper/StyledPaper';
 import { TrashIcon, PlusIcon } from '../../../icons';
 import { useTranslations } from 'next-intl';
 import { MAX_QUESTIONS_OF_TYPE } from '@/constants';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 interface QuestionFieldProps {
     index: number;
@@ -54,8 +56,8 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
     } = useFormContext<TemplateFormData>();
 
     const {
-        fields,
-        append,
+        fields: options,
+        append: appendOption,
         remove: removeOption,
     } = useFieldArray({
         control,
@@ -86,13 +88,33 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
     const defaultType = getDefaultQuestionType(allQuestions || []);
 
     useEffect(() => {
-        if (questionType === QuestionTypes.checkbox && fields.length === 0) {
-            append({ value: '' });
+        if (questionType === QuestionTypes.checkbox && options.length === 0) {
+            appendOption({ value: '' });
         }
-    }, [questionType, fields.length, append]);
+    }, [questionType, options.length, appendOption]);
+
+
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+    } = useSortable({ id: `question-${index}` });
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+    };
 
     return (
-        <StyledPaper sx={{ mt: 4, mb: 4 }}>
+        <StyledPaper
+            ref={setNodeRef}
+            style={style}
+            {...attributes}
+            {...listeners}
+            sx={{ mt: 4, mb: 4 }}
+        >
             <Box display="flex" alignItems="center" mb={2}>
                 <Typography variant="subtitle1">
                     {`${t('question')} ${index + 1}`}
@@ -166,7 +188,7 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
             {questionType === QuestionTypes.checkbox && (
                 <Box mb={1}>
                     <Stack spacing={0}>
-                        {fields.map((option, optionIndex) => (
+                        {options.map((option, optionIndex) => (
                             <Box
                                 key={option.id}
                                 display="flex"
@@ -202,7 +224,7 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
                     </Stack>
                     <Button
                         startIcon={<PlusIcon />}
-                        onClick={() => append({ value: '' })}
+                        onClick={() => appendOption({ value: '' })}
                         sx={{ color: 'text.secondary' }}
                     >
                         {t('addOption')}

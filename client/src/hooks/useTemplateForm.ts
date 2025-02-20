@@ -68,10 +68,18 @@ export const useTemplateForm = () => {
         formState: { errors },
     } = methods;
 
-    const { fields, append, remove } = useFieldArray({
+    const { fields, append, remove, move } = useFieldArray({
         control,
         name: 'questions',
     });
 
-    return { methods, handleSubmit, errors, fields, append, remove };
+    return {
+        methods,
+        handleSubmit,
+        errors,
+        fields,
+        append,
+        remove,
+        move, 
+    };
 };

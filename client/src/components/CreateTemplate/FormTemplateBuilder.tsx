@@ -9,7 +9,7 @@ import TemplateForm from './TemplateForm/TemplateForm';
 import { useTemplateSubmit } from '@/hooks/useTemplateSubmit';
 
 export const FormTemplateBuilder = () => {
-    const { methods, fields, append, remove } = useTemplateForm();
+    const { methods, fields, append, remove, move } = useTemplateForm(); 
     const { handleSubmit } = useTemplateSubmit(methods);
 
     return (
@@ -23,6 +23,7 @@ export const FormTemplateBuilder = () => {
                             fields={fields}
                             remove={remove}
                             append={append}
+                            move={move} // Передайте move
                         />
                     </FormProvider>
                 </Box>

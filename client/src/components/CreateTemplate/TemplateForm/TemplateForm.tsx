@@ -1,20 +1,14 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React from 'react';
 import { Box, FormControlLabel, Switch } from '@mui/material';
 import { useTranslations } from 'next-intl';
-import { QuestionField, TopicSelector, TagSelector } from './items';
-import { QuestionTypes, Question } from '@/types';
-import {
-    Title,
-    Button,
-    StyledPaper,
-    TextFieldWithValidation,
-} from '../../base';
+import { TopicSelector, TagSelector } from './items';
+import { Title, Button, StyledPaper, TextFieldWithValidation } from '../../base';
 import { UseFormReturn } from 'react-hook-form';
 import { TemplateFormData, TemplateFields } from '@/types';
-import {
-    getDefaultQuestionType,
-    getDefaultQuestionValues,
-} from '@/utils/templateUtils';
+import { useDragAndDrop } from '@/hooks/useDragAndDrop';
+import { useQuestionManagement } from '@/hooks/useQuestionManagement';
+import { QuestionsList } from './QuestiontsList';
+import { Question } from '@/types';
 
 interface TemplateFormProps {
     methods: UseFormReturn<TemplateFormData>;
@@ -22,6 +16,7 @@ interface TemplateFormProps {
     fields: { id: string }[];
     remove: (index: number) => void;
     append: (question: Question) => void;
+    move: (from: number, to: number) => void;
 }
 
 const TemplateForm: React.FC<TemplateFormProps> = ({
@@ -30,40 +25,14 @@ const TemplateForm: React.FC<TemplateFormProps> = ({
     fields,
     remove,
     append,
+    move,
 }) => {
-    const {
-        register,
-        watch,
-        formState: { errors },
-    } = methods;
-
+    const { register, watch, formState: { errors } } = methods;
     const questions = watch(TemplateFields.questions);
     const t = useTranslations('TemplateBuilder');
-    const [availableType, setAvailableType] = useState<QuestionTypes | null>(
-        null,
-    );
 
-    const memoizedQuestions = useMemo(() => questions, [questions]);
-
-    const getAvailableType = useCallback((questions: Question[]) => {
-        return getDefaultQuestionType(questions);
-    }, []);
-
-    useEffect(() => {
-        const newAvailableType = getAvailableType(memoizedQuestions);
-        setAvailableType(newAvailableType);
-    }, [memoizedQuestions, getAvailableType]);
-
-    const addQuestion = () => {
-        const defaultType = getAvailableType(memoizedQuestions);
-        if (defaultType) {
-            append(getDefaultQuestionValues(defaultType));
-        }
-    };
-
-    const onQuestionDelete = (index: number) => {
-        remove(index);
-    };
+    const { onDragEnd } = useDragAndDrop(move);
+    const { addQuestion, onQuestionDelete, availableType } = useQuestionManagement(questions, append, remove);
 
     return (
         <StyledPaper className="w-50%">
@@ -92,13 +61,11 @@ const TemplateForm: React.FC<TemplateFormProps> = ({
                 <TopicSelector />
                 <TagSelector />
 
-                {fields.map((field, index) => (
-                    <QuestionField
-                        key={field.id}
-                        index={index}
-                        remove={onQuestionDelete}
-                    />
-                ))}
+                <QuestionsList
+                    fields={fields}
+                    onDragEnd={onDragEnd}
+                    onQuestionDelete={onQuestionDelete}
+                />
 
                 <FormControlLabel
                     label={t('publicTemplate')}
