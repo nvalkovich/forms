@@ -2,7 +2,10 @@ import { useTranslations } from 'next-intl';
 import { User, AdminActionsTypes } from '@/types';
 import { filterUsersForAction } from './adminUtils';
 
-const getMessageForCurrentUser = (t: ReturnType<typeof useTranslations>, otherUsersCount: number): string => {
+const getMessageForCurrentUser = (
+    t: ReturnType<typeof useTranslations>,
+    otherUsersCount: number,
+): string => {
     let message = t('confirmForSelf');
     if (otherUsersCount > 0) {
         message += ` ${t('and')} ${otherUsersCount} ${otherUsersCount > 1 ? t('confirmforUsers') : t('confirmforUser')}`;
@@ -10,11 +13,17 @@ const getMessageForCurrentUser = (t: ReturnType<typeof useTranslations>, otherUs
     return message;
 };
 
-const getMessageForOtherUsers = (t: ReturnType<typeof useTranslations>, count: number): string => {
+const getMessageForOtherUsers = (
+    t: ReturnType<typeof useTranslations>,
+    count: number,
+): string => {
     return `${count} ${count > 1 ? t('confirmforUsers') : t('confirmforUser')}`;
 };
 
-const getActionText = (t: ReturnType<typeof useTranslations>, actionType: AdminActionsTypes): string => {
+const getActionText = (
+    t: ReturnType<typeof useTranslations>,
+    actionType: AdminActionsTypes,
+): string => {
     return t(actionType).toLowerCase();
 };
 
@@ -25,7 +34,11 @@ export const getAdminConfirmationMessage = (
     actionType: AdminActionsTypes,
     currentUserId: string,
 ): string => {
-    const filteredUsers = filterUsersForAction(selectedUsers, users, actionType);
+    const filteredUsers = filterUsersForAction(
+        selectedUsers,
+        users,
+        actionType,
+    );
     const count = filteredUsers.length;
 
     if (!count) {

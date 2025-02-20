@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToMany,
-  OneToMany
+  OneToMany,
 } from 'typeorm';
 
 import { Template } from 'src/template/entities/template.entity';

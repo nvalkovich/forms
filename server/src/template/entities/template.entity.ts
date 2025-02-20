@@ -7,7 +7,7 @@ import {
   ManyToMany,
   ManyToOne,
   OneToMany,
-  JoinTable
+  JoinTable,
 } from 'typeorm';
 import { User } from 'src/user/entities/user.entity';
 import { Topic } from 'src/topic/entities/topic.entity';
@@ -46,10 +46,10 @@ export class Template {
   @ManyToOne(() => Topic, (topic) => topic.templates)
   topic: Topic;
 
-  @ManyToMany(() => Tag, (tag) => tag.templates, { cascade: true }) // Каскадное сохранение для тегов
+  @ManyToMany(() => Tag, (tag) => tag.templates, { cascade: true })
   @JoinTable()
   tags: Tag[];
 
-  @OneToMany(() => Question, (question) => question.template, { cascade: true }) // Каскадное сохранение для вопросов
+  @OneToMany(() => Question, (question) => question.template, { cascade: true })
   questions: Question[];
 }

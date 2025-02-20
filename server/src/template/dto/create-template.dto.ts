@@ -1,4 +1,10 @@
-import { IsString, IsOptional, IsBoolean, IsArray, ValidateNested } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsBoolean,
+  IsArray,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreateQuestionDto } from 'src/question/dto/create-question.dto';
 

@@ -5,11 +5,11 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class QuestionService {
-    constructor(
-      @InjectRepository(Question)
-      private readonly questionRepository: Repository<Question>,
-    ) {}
-   async getAllQuestions(): Promise<Question[]> {
-     return this.questionRepository.find();
-   }
+  constructor(
+    @InjectRepository(Question)
+    private readonly questionRepository: Repository<Question>,
+  ) {}
+  async getAllQuestions(): Promise<Question[]> {
+    return this.questionRepository.find();
+  }
 }

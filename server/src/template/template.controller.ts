@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, UseGuards, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Patch,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { TemplateService } from './template.service';
 import { CreateTemplateDto } from './dto/create-template.dto';
 import { UpdateTemplateDto } from './dto/update-template.dto';
@@ -11,13 +21,15 @@ export class TemplateController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async create(@Body() createTemplateDto: CreateTemplateDto, @Req() req: AuthenticatedRequest) {
+  async create(
+    @Body() createTemplateDto: CreateTemplateDto,
+    @Req() req: AuthenticatedRequest,
+  ) {
     return this.templateService.create(createTemplateDto, req.user);
   }
 
   @Get()
-  async findAll(
-  ) {
+  async findAll() {
     return this.templateService.findAll();
   }
 
@@ -28,10 +40,13 @@ export class TemplateController {
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateTemplateDto: UpdateTemplateDto, @Req() req: AuthenticatedRequest) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateTemplateDto: UpdateTemplateDto,
+    @Req() req: AuthenticatedRequest,
+  ) {
     return this.templateService.update(id, updateTemplateDto, req.user);
   }
-
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')

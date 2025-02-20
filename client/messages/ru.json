@@ -84,10 +84,57 @@
     "russian": "Русский",
     "english": "Английский"
   },
-"TemplateBuilder": {
+  "TemplateBuilder": {
     "errorFetchingTopics": "Ошибка при загрузке тем! Пожалуйста, попробуйте позже.",
     "topic": "Тема",
     "createTemplateTitle": "Создай свой шаблон!",
-    "addQuestion": "Add "
+    "addQuestion": "Добавить вопрос ",
+    "titleLabel": "Название",
+    "titlePlaceholder": "Название",
+    "descriptionLabel": "Описание",
+    "descriptionPlaceholder": "Описание",
+    "saveTemplate": "Сохранить шаблон",
+    "question": "Вопрос",
+    "questionTitleLabel": "Вопрос",
+    "questionTitlePlaceholder": "Введите вопрос",
+    "questionDescriptionPlaceholder": "Добавьте описание",
+    "options": "Опции",
+    "option": "Опция",
+    "addOption": "Добавить опцию",
+    "questionOptionPlaceholder": "Введите название опции",
+    "selectOrAddTags": "Выберите или добавьте теги",
+    "typeTag": "Введите тег",
+    "singleLineString": "Однострочное поле ввода",
+    "multiLineString": "Многострочное поле ввода",
+    "positiveInteger": "Числовой ввод",
+    "checkbox": "Флажки",
+    "publicTemplate": "Публичный шаблон",
+    "textInput": "Поле ввода текста"
+  },
+  "Topics": {
+    "quiz": "Квиз",
+    "education": "Образование",
+    "other": "Другое"
+  },
+  "TemplateValidation": {
+    "titleRequired": "Название это обязательное поле",
+    "descriptionRequired": "Описание это обязательное поле",
+    "topicRequired": "Тема это обязательное поле",
+    "tagsRequired": "Теги это обязательное поле",
+    "questionTitleRequired": "Название вопроса обязательно",
+    "questionTypeRequired": "Тип вопроса обязателен",
+    "optionValueRequired": "Значение опции обязательно",
+    "atLeastOneQuestion": "Форма должна содержать как минимум 1 вопрос",
+    "thisTagSelected": "Этот тег уже выбран",
+    "optionsRequired": "Опции - обязательны"
+  },
+  "LivePreview": {
+    "untitled": "Без названия",
+    "noTagsSelected": "Теги не выбраны",
+    "noTopicSelected": "Тема не выбрана",
+    "showInResults": "Показывать в результатах",
+    "notShowInResults": "Не показывать в результатах",
+    "requiredToFill": "Обязательно к заполнению",
+    "notRequiredToFill": "Не обязательно к заполнению"
   }
 }

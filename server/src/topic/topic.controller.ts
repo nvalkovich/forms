@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { TopicService } from './topic.service';
 import { Topic } from './entities/topic.entity';
 
@@ -14,6 +14,11 @@ export class TopicController {
   @Get(':id')
   async getTopic(@Param('id') id: string): Promise<Topic | null> {
     return await this.topicService.findOne(id);
+  }
+
+  @Delete(':id')
+  async deleteTopic(@Param('id') id: string) {
+    return await this.topicService.delete(id);
   }
 
   @Post()

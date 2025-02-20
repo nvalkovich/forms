@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
 import { Template } from './entities/template.entity';
@@ -7,7 +11,6 @@ import { UpdateTemplateDto } from './dto/update-template.dto';
 import { User } from 'src/user/entities/user.entity';
 import { Topic } from 'src/topic/entities/topic.entity';
 import { Tag } from 'src/tag/entities/tag.entity';
-import { Question } from 'src/question/entities/question.entity';
 
 @Injectable()
 export class TemplateService {
@@ -15,46 +18,58 @@ export class TemplateService {
     @InjectRepository(Template)
     private readonly templateRepository: Repository<Template>,
 
-    @InjectRepository(Template)
+    @InjectRepository(Tag)
     private readonly tagRepository: Repository<Tag>,
 
     @InjectRepository(Topic)
-    private readonly topicRepository: Repository<Topic>, 
-
-    @InjectRepository(Question)
-    private readonly questionRepository: Repository<Question>, 
+    private readonly topicRepository: Repository<Topic>,
   ) {}
 
-async create(createTemplateDto: CreateTemplateDto, user: User): Promise<Template> {
-  const { title, description, image, isPublic, topicId, tags, questions } = createTemplateDto;
+  async create(
+    createTemplateDto: CreateTemplateDto,
+    user: User,
+  ): Promise<Template> {
+    const { title, description, image, isPublic, topicId, tags, questions } =
+      createTemplateDto;
 
-  // Поиск темы
-  const topicData = await this.topicRepository.findOne({ where: { id: topicId } });
-  if (!topicData) {
-    throw new NotFoundException('Topic not found');
+    const topicData = await this.topicRepository.findOne({
+      where: { id: topicId },
+    });
+    if (!topicData) {
+      throw new NotFoundException('Topic not found');
+    }
+
+    const existingTags = await this.tagRepository.find({
+      where: { name: In(tags) },
+    });
+
+    const newTags = tags
+      .filter((tagName) => !existingTags.some((tag) => tag.name === tagName))
+      .map((tagName) => ({ name: tagName }));
+
+    const savedNewTags = await this.tagRepository.save(newTags);
+
+    const allTags = [...existingTags, ...savedNewTags];
+
+    const template = this.templateRepository.create({
+      title,
+      description,
+      image,
+      isPublic,
+      author: user,
+      topic: topicData,
+      tags: allTags,
+      questions: questions?.map((questionDto) => ({
+        title: questionDto.title,
+        type: questionDto.type,
+        options: questionDto.options,
+        required: questionDto.required,
+        showInResults: questionDto.showInResults,
+      })),
+    });
+
+    return this.templateRepository.save(template);
   }
-
-  // Создание шаблона
-  const template = this.templateRepository.create({
-    title,
-    description,
-    image,
-    isPublic,
-    author: user,
-    topic: topicData,
-    tags: tags?.map(tagName => ({ name: tagName })), // Автоматическое создание тегов
-    questions: questions?.map(questionDto => ({
-      title: questionDto.title,
-      type: questionDto.type,
-      options: questionDto.options,
-      required: questionDto.required,
-      showInResults: questionDto.showInResults,
-    })), // Автоматическое создание вопросов
-  });
-
-  // Сохранение шаблона и связанных сущностей
-  return this.templateRepository.save(template);
-}
 
   async findAll(): Promise<Template[]> {
     return this.templateRepository.find({
@@ -62,28 +77,37 @@ async create(createTemplateDto: CreateTemplateDto, user: User): Promise<Template
     });
   }
 
-async findOne(id: string, user?: User): Promise<Template> {
-  const template = await this.templateRepository.findOne({
-    where: { id },
-    relations: ['questions', 'author', 'topic', 'tags'], // Добавьте 'questions' и другие связи
-  });
+  async findOne(id: string, user?: User): Promise<Template> {
+    const template = await this.templateRepository.findOne({
+      where: { id },
+      relations: ['questions', 'author', 'topic', 'tags'],
+    });
 
-  if (!template) {
-    throw new NotFoundException('Template not found');
+    if (!template) {
+      throw new NotFoundException('Template not found');
+    }
+
+    if (
+      !template.isPublic &&
+      (!user || (user.id !== template.author.id && !user.isAdmin))
+    ) {
+      throw new ForbiddenException('Access denied');
+    }
+
+    return template;
   }
 
-  if (!template.isPublic && (!user || (user.id !== template.author.id && !user.isAdmin))) {
-    throw new ForbiddenException('Access denied');
-  }
-
-  return template;
-}
-
-  async update(id: string, updateTemplateDto: UpdateTemplateDto, user: User): Promise<Template> {
+  async update(
+    id: string,
+    updateTemplateDto: UpdateTemplateDto,
+    user: User,
+  ): Promise<Template> {
     const template = await this.findOne(id, user);
 
     if (user.id !== template.author.id && !user.isAdmin) {
-      throw new ForbiddenException('You do not have permission to update this template');
+      throw new ForbiddenException(
+        'You do not have permission to update this template',
+      );
     }
 
     Object.assign(template, updateTemplateDto);
@@ -95,7 +119,9 @@ async findOne(id: string, user?: User): Promise<Template> {
     const template = await this.findOne(id, user);
 
     if (user.id !== template.author.id && !user.isAdmin) {
-      throw new ForbiddenException('You do not have permission to delete this template');
+      throw new ForbiddenException(
+        'You do not have permission to delete this template',
+      );
     }
 
     await this.templateRepository.remove(template);

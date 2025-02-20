@@ -1,12 +1,7 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Template } from 'src/template/entities/template.entity';
 
-export enum QuestionType { // Добавьте export, чтобы использовать в других местах
+export enum QuestionType {
   singleLineString = 'singleLineString',
   multiLineString = 'multiLineString',
   positiveInteger = 'positiveInteger',
@@ -22,7 +17,6 @@ export class Question {
   title: string;
 
   @Column({ nullable: true })
-
   description: string;
 
   @Column({
@@ -37,7 +31,9 @@ export class Question {
   @Column({ default: false })
   isDeleted: boolean;
 
-  @ManyToOne(() => Template, (template) => template.questions, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Template, (template) => template.questions, {
+    onDelete: 'CASCADE',
+  })
   template: Template;
 
   @Column({ default: false })

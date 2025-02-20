@@ -7,7 +7,7 @@ import {
     Tooltip,
     Box,
 } from '@mui/material';
-import { FiFileText, FiPlus, FiSettings } from 'react-icons/fi';
+import { TemplatesIcon, PlusIcon, AdminPageIcon } from '../../../../icons';
 import { useTranslations } from 'next-intl';
 import { useNavigation, Routes } from '@/hooks/useNavigation';
 import { User } from '@/types';
@@ -29,18 +29,28 @@ const NavigationItems: React.FC<NavigationItemsProps> = ({
     const { navigate } = useNavigation();
 
     const navigationItemsConfig = [
-        { text: t('templates'), icon: <FiFileText />, path: Routes.templates },
+        {
+            text: t('templates'),
+            icon: <TemplatesIcon />,
+            path: Routes.templates,
+        },
         ...(token
             ? [
                   {
                       text: t('create'),
-                      icon: <FiPlus />,
+                      icon: <PlusIcon />,
                       path: Routes.createTemplate,
                   },
               ]
             : []),
         ...(user?.isAdmin
-            ? [{ text: t('admin'), icon: <FiSettings />, path: Routes.admin }]
+            ? [
+                  {
+                      text: t('admin'),
+                      icon: <AdminPageIcon />,
+                      path: Routes.admin,
+                  },
+              ]
             : []),
     ];
 

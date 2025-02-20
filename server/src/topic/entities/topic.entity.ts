@@ -1,9 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Template } from 'src/template/entities/template.entity';
 
 @Entity()
@@ -14,6 +9,8 @@ export class Topic {
   @Column()
   title: string;
 
-  @OneToMany(() => Template, (template) => template.topic)
+  @OneToMany(() => Template, (template) => template.topic, {
+    cascade: ['remove'],
+  })
   templates: Template[];
 }

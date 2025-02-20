@@ -15,7 +15,7 @@ export class TagController {
   }
 
   @Post()
-  async add(@Body() body: { tag: string }): Promise<Tag> {
-    return this.tagService.addTag(body.tag);
+  async add(@Body() body: { name: string }): Promise<Tag> {
+    return this.tagService.addTag(body.name);
   }
 }

@@ -54,7 +54,6 @@ export const createRequestsForAction = (
     return usersToUpdate.map((userId) => actionHandlers[actionType](userId));
 };
 
-
 export const updateUsersAfterAction = (
     users: User[],
     usersToUpdate: string[],

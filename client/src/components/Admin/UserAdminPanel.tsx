@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container } from '@mui/material';
 import { toast } from 'react-toastify';
 import UserTable from './UserTable/UserTable';
-import ConfirmationModal from '../ConfirmationalModal/ConfirmationModal';
+import { ConfirmationModal } from '../base';
 import { User } from '@/types';
 import { useAuth } from '../../context/AuthProvider';
 import { useTranslations } from 'next-intl';

@@ -16,15 +16,15 @@
     "loginError": "Login failed",
     "registerError": "Registration failed",
     "invalidCredentials": "Invalid credentials. Check entered data!",
-    "userExists": "User with this email already exist",
+    "userExists": "User with this email already exists",
     "internalServerError": "Internal server error. Please, try later",
     "networkError": "Network error. Please check your connection and try again.",
     "userIsBlocked": "Unable to login! User is blocked."
   },
   "AuthValidation": {
-    "nameRequired": "Name is reqired field",
-    "emailRequired": "Email is reqired field",
-    "passwordRequired": "Password is reqired field",
+    "nameRequired": "Name is required field",
+    "emailRequired": "Email is required field",
+    "passwordRequired": "Password is required field",
     "invalidEmail": "Invalid email",
     "passwordMinLength": "Password must contain at least 6 characters"
   },
@@ -85,9 +85,56 @@
     "english": "English"
   },
   "TemplateBuilder": {
-    "errorFetchingTopics":"Error fetching topics! Please, try later",
+    "errorFetchingTopics": "Error fetching topics! Please, try again later",
     "topic": "Topic",
     "createTemplateTitle": "Create your template!",
-    "addQuestion": "Add "
+    "addQuestion": "Add question",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Title",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Description",
+    "saveTemplate": "Save template",
+    "question": "Question",
+    "questionTitleLabel": "Question",
+    "questionTitlePlaceholder": "Add question",
+    "questionDescriptionPlaceholder": "Add description",
+    "options": "Options",
+    "option": "Option",
+    "addOption": "Add option",
+    "questionOptionPlaceholder": "Enter option",
+    "selectOrAddTags": "Select or add tags",
+    "typeTag": "Enter tag",
+    "singleLineString": "Single line input",
+    "multiLineString": "Multu-line input",
+    "positiveInteger": "Positive integer input",
+    "checkbox": "Checkbox",
+    "publicTemplate": "Public template",
+    "textInput": "Text input"
+  },
+  "Topics": {
+    "quiz": "Quiz",
+    "education": "Education",
+    "other": "Other"
+  },
+  "TemplateValidation": {
+    "titleRequired": "Title is required field",
+    "descriptionRequired": "Description is required field",
+    "topicRequired": "Topic is required field",
+    "tagsRequired": "Tags is required field",
+    "questionTitleRequired": "Question title is required field",
+    "questionTypeRequired": "Question type is required field",
+    "optionValueRequired": "Question option is required field",
+    "atLeastOneQuestion": "Form must contain at least one question",
+    "thisTagSelected": "This tag is already selected",
+    "optionsRequired": "Options is required"
+  },
+  "LivePreview": {
+    "untitled": "Untitled",
+    "noTagsSelected": "No tags selected",
+    "noTopicSelected": "No topic selected",
+    "showInResults": "Show in results",
+    "notShowInResults": "Don't show in results",
+    "requiredToFill": "Required",
+    "notRequiredToFill": "Not required"
   }
 }

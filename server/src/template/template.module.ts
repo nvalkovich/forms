@@ -10,7 +10,7 @@ import { Tag } from 'src/tag/entities/tag.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Template, Topic, Question, Tag])],
   providers: [TemplateService],
-    controllers: [TemplateController],
-  exports: [TemplateService],  
+  controllers: [TemplateController],
+  exports: [TemplateService],
 })
 export class TemplateModule {}

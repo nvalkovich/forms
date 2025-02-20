@@ -8,12 +8,7 @@ interface AuthFormProps {
 
 export const AuthForm = ({ onSubmit, children }: AuthFormProps) => {
     return (
-        <Box
-            component="form"
-            onSubmit={onSubmit}
-            noValidate
-            sx={{ width: '100%' }}
-        >
+        <Box component="form" onSubmit={onSubmit} sx={{ width: '100%' }}>
             {children}
         </Box>
     );

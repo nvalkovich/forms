@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, IconButton, Modal } from '@mui/material';
-import { IoCheckmark, IoClose } from 'react-icons/io5';
+import { CheckmarkIcon, CloseIcon } from '../../icons';
 import { styled } from '@mui/material/styles';
 import { useTranslations } from 'next-intl';
 
@@ -25,7 +25,7 @@ interface ConfirmationModalProps {
     onConfirm: () => Promise<void> | void;
 }
 
-const ConfirmationModal = ({
+export const ConfirmationModal = ({
     open,
     onClose,
     message,
@@ -49,15 +49,13 @@ const ConfirmationModal = ({
                     }}
                 >
                     <IconButton onClick={onConfirm}>
-                        <IoCheckmark />
+                        <CheckmarkIcon />
                     </IconButton>
                     <IconButton onClick={onClose}>
-                        <IoClose />
+                        <CloseIcon />
                     </IconButton>
                 </Box>
             </ModalContent>
         </StyledModal>
     );
 };
-
-export default ConfirmationModal;

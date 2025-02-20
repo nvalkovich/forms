@@ -1,6 +1,11 @@
-import { IsString, IsEnum, IsOptional, IsArray, IsBoolean } from 'class-validator';
-import { QuestionType } from '../entities/question.entity'; // Импортируем enum
-
+import {
+  IsString,
+  IsEnum,
+  IsOptional,
+  IsArray,
+  IsBoolean,
+} from 'class-validator';
+import { QuestionType } from '../entities/question.entity';
 export class CreateQuestionDto {
   @IsString()
   title: string;
