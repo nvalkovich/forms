@@ -1,5 +1,5 @@
 import API_URL from '@/utils/config';
-import { User, TemplateFormData } from '@/types';
+import { User, CreateTemplateData } from '@/types';
 
 export enum ApiRoutes {
     users = '/users',
@@ -103,5 +103,5 @@ export const fetchTags = () => fetchRequest(routes.tags);
 export const addTag = (tag: string) =>
     fetchRequest(routes.tags, HttpMethod.POST, { name: tag });
 
-export const createTemplate = (data: TemplateFormData) =>
+export const createTemplate = (data: CreateTemplateData) =>
     fetchRequest(routes.createTemplate, HttpMethod.POST, data);

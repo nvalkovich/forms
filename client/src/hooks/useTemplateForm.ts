@@ -6,14 +6,18 @@ import { TemplateFormData, QuestionTypes } from '@/types';
 
 export const useTemplateForm = () => {
     const t = useTranslations('TemplateValidation');
-
     const schema = yup.object({
         title: yup.string().required(t('titleRequired')),
         description: yup.string().optional(),
         topicId: yup.string().required(t('topicRequired')),
         tags: yup
             .array()
-            .of(yup.string().required())
+            .of(
+                yup.object().shape({
+                    id: yup.string().required(),
+                    name: yup.string().required(),
+                }),
+            )
             .min(1, t('tagsRequired'))
             .default([]),
         questions: yup
@@ -48,6 +52,10 @@ export const useTemplateForm = () => {
             .min(1, t('atLeastOneQuestion'))
             .default([]),
         isPublic: yup.boolean().required(),
+        users: yup.array().when('isPublic', {
+            is: false,
+            then: (schema) => schema.min(1, t('atLeastOneUserRequired')),
+        }),
     });
 
     const methods = useForm<TemplateFormData>({
@@ -59,6 +67,7 @@ export const useTemplateForm = () => {
             tags: [],
             questions: [],
             isPublic: false,
+            users: [],
         },
     });
 
@@ -73,6 +82,7 @@ export const useTemplateForm = () => {
         name: 'questions',
     });
 
+
     return {
         methods,
         handleSubmit,
@@ -80,6 +90,6 @@ export const useTemplateForm = () => {
         fields,
         append,
         remove,
-        move, 
+        move,
     };
 };

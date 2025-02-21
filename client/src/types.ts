@@ -58,9 +58,21 @@ export interface TemplateFormData {
     title: string;
     description?: string;
     topicId: string;
+    tags: Tag[];
+    questions: Question[];
+    isPublic: boolean;
+    users?: User[];
+}
+
+
+export interface CreateTemplateData {
+    title: string;
+    description?: string;
+    topicId: string;
     tags: string[];
     questions: Question[];
     isPublic: boolean;
+    users?: string[];
 }
 
 export enum TemplateFields {
@@ -71,6 +83,7 @@ export enum TemplateFields {
     questions = 'questions',
     question = 'question',
     isPublic = 'isPublic',
+    users = 'users',
 }
 
 export enum TemplateQuestionFields {
@@ -103,4 +116,9 @@ export enum Topics {
     quiz = 'quiz',
     education = 'education',
     other = 'other',
+}
+
+export enum SelectableItemsChipPlacement {
+    top = 'top',
+    bottom = 'bottom',
 }

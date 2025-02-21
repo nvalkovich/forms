@@ -2,6 +2,10 @@
   "HomePage": {
     "title": "Главная"
   },
+  "Errors": {
+    "networkError": "Ошибка соединения. Пожалуйста, проверьте своё соединение и попробуйте позже",
+    "internalServerError": "Ошибка сервера. Пожалуйста, попробуйте позже"
+  },
   "AuthPage": {
     "register": "Регистрация",
     "login": "Вход",
@@ -109,7 +113,13 @@
     "positiveInteger": "Числовой ввод",
     "checkbox": "Флажки",
     "publicTemplate": "Публичный шаблон",
-    "textInput": "Поле ввода текста"
+    "textInput": "Поле ввода текста",
+    "sortBy": "Сортировать по",
+    "name": "Имя",
+    "email": "Электронная почта",
+    "selectUsers": "Выберите пользователей",
+    "typeNameOrEmail": "Введите имя или почту",
+    "errorCreatingTemplate": "Ошибка при создании шаблона! Пожалуйста, попробуйте позже"
   },
   "Topics": {
     "quiz": "Квиз",
@@ -126,7 +136,8 @@
     "optionValueRequired": "Значение опции обязательно",
     "atLeastOneQuestion": "Форма должна содержать как минимум 1 вопрос",
     "thisTagSelected": "Этот тег уже выбран",
-    "optionsRequired": "Опции - обязательны"
+    "optionsRequired": "Опции - обязательны",
+    "atLeastOneUserRequired": "Необходимо выбрать как минимум одного пользователя"
   },
   "LivePreview": {
     "untitled": "Без названия",

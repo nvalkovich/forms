@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Stack, Typography, Divider, Chip } from '@mui/material';
+import { Box, Stack, Typography, Divider } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { Title, StyledPaper } from '../../base';
 import { HashtagIcon, TemplatesIcon } from '@/components/icons';
@@ -13,6 +13,7 @@ import {
 import { UseFormWatch } from 'react-hook-form';
 import { QuestionRenderer } from './items/QuestionRenderer';
 import { getTopicValueForView } from '@/utils/templateUtils';
+import { Chip, ChipTypes } from '@/components/base';
 
 interface LivePreviewProps {
     watch: UseFormWatch<TemplateFormData>;
@@ -81,7 +82,10 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ watch, fields }) => {
                         {loading
                             ? 'Loading...'
                             : topic?.title
-                              ? getTopicValueForView(topic.title, topicsTranslations)
+                              ? getTopicValueForView(
+                                    topic.title,
+                                    topicsTranslations,
+                                )
                               : commonTranslations('noTopicSelected')}
                     </Typography>
                 </Stack>
@@ -91,9 +95,8 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ watch, fields }) => {
                         tags.map((tag, index) => (
                             <Chip
                                 key={index}
-                                label={tag}
-                                size="small"
-                                sx={{ m: 1 }}
+                                label={tag.name}
+                                size={ChipTypes.small}
                             />
                         ))
                     ) : (

@@ -11,6 +11,7 @@ import { UpdateTemplateDto } from './dto/update-template.dto';
 import { User } from 'src/user/entities/user.entity';
 import { Topic } from 'src/topic/entities/topic.entity';
 import { Tag } from 'src/tag/entities/tag.entity';
+import { Question } from 'src/question/entities/question.entity';
 
 @Injectable()
 export class TemplateService {
@@ -23,33 +24,44 @@ export class TemplateService {
 
     @InjectRepository(Topic)
     private readonly topicRepository: Repository<Topic>,
+
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+
+    @InjectRepository(Question)
+    private readonly questionRepository: Repository<Question>,
   ) {}
 
   async create(
     createTemplateDto: CreateTemplateDto,
     user: User,
   ): Promise<Template> {
-    const { title, description, image, isPublic, topicId, tags, questions } =
-      createTemplateDto;
+    const {
+      title,
+      description,
+      image,
+      isPublic,
+      topicId,
+      tags,
+      users,
+      questions,
+    } = createTemplateDto;
 
     const topicData = await this.topicRepository.findOne({
       where: { id: topicId },
     });
-    if (!topicData) {
-      throw new NotFoundException('Topic not found');
+    if (!topicData) throw new NotFoundException('Topic not found');
+
+    const foundTags = await this.tagRepository.find({
+      where: { id: In(tags) },
+    });
+    if (foundTags.length !== tags.length) {
+      throw new NotFoundException('One or more tags not found');
     }
 
-    const existingTags = await this.tagRepository.find({
-      where: { name: In(tags) },
-    });
-
-    const newTags = tags
-      .filter((tagName) => !existingTags.some((tag) => tag.name === tagName))
-      .map((tagName) => ({ name: tagName }));
-
-    const savedNewTags = await this.tagRepository.save(newTags);
-
-    const allTags = [...existingTags, ...savedNewTags];
+    const foundUsers = users.length
+      ? await this.userRepository.find({ where: { id: In(users) } })
+      : [];
 
     const template = this.templateRepository.create({
       title,
@@ -58,22 +70,32 @@ export class TemplateService {
       isPublic,
       author: user,
       topic: topicData,
-      tags: allTags,
-      questions: questions?.map((questionDto) => ({
-        title: questionDto.title,
-        type: questionDto.type,
-        options: questionDto.options,
-        required: questionDto.required,
-        showInResults: questionDto.showInResults,
-      })),
+      tags: foundTags,
+      users: foundUsers,
     });
 
-    return this.templateRepository.save(template);
+    const savedTemplate = await this.templateRepository.save(template);
+
+
+    if (questions?.length) {
+      const createdQuestions = await this.questionRepository.save(
+        questions.map((questionDto) =>
+          this.questionRepository.create({
+            ...questionDto,
+            template: savedTemplate,
+          }),
+        ),
+      );
+      savedTemplate.questions = createdQuestions;
+      return this.templateRepository.save(savedTemplate);
+    }
+
+    return savedTemplate;
   }
 
   async findAll(): Promise<Template[]> {
     return this.templateRepository.find({
-      relations: ['author', 'topic'],
+      relations: ['questions', 'author', 'topic', 'tags'],
     });
   }
 

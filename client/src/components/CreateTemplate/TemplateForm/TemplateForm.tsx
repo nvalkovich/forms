@@ -1,8 +1,13 @@
 import React from 'react';
 import { Box, FormControlLabel, Switch } from '@mui/material';
 import { useTranslations } from 'next-intl';
-import { TopicSelector, TagSelector } from './items';
-import { Title, Button, StyledPaper, TextFieldWithValidation } from '../../base';
+import { TopicSelector, TagSelector, UserSelector } from './items';
+import {
+    Title,
+    Button,
+    StyledPaper,
+    TextFieldWithValidation,
+} from '../../base';
 import { UseFormReturn } from 'react-hook-form';
 import { TemplateFormData, TemplateFields } from '@/types';
 import { useDragAndDrop } from '@/hooks/useDragAndDrop';
@@ -19,20 +24,26 @@ interface TemplateFormProps {
     move: (from: number, to: number) => void;
 }
 
-const TemplateForm: React.FC<TemplateFormProps> = ({
+const TemplateForm = ({
     methods,
     handleSubmit,
     fields,
     remove,
     append,
     move,
-}) => {
-    const { register, watch, formState: { errors } } = methods;
+}: TemplateFormProps) => {
+    const {
+        register,
+        watch,
+        formState: { errors },
+    } = methods;
     const questions = watch(TemplateFields.questions);
+    const isPublic = watch(TemplateFields.isPublic);
     const t = useTranslations('TemplateBuilder');
 
     const { onDragEnd } = useDragAndDrop(move);
-    const { addQuestion, onQuestionDelete, availableType } = useQuestionManagement(questions, append, remove);
+    const { addQuestion, onQuestionDelete, availableType } =
+        useQuestionManagement(questions, append, remove);
 
     return (
         <StyledPaper className="w-50%">
@@ -61,12 +72,6 @@ const TemplateForm: React.FC<TemplateFormProps> = ({
                 <TopicSelector />
                 <TagSelector />
 
-                <QuestionsList
-                    fields={fields}
-                    onDragEnd={onDragEnd}
-                    onQuestionDelete={onQuestionDelete}
-                />
-
                 <FormControlLabel
                     label={t('publicTemplate')}
                     sx={{ mt: 3 }}
@@ -76,6 +81,14 @@ const TemplateForm: React.FC<TemplateFormProps> = ({
                             defaultChecked={true}
                         />
                     }
+                />
+
+                {!isPublic && <UserSelector />}
+
+                <QuestionsList
+                    fields={fields}
+                    onDragEnd={onDragEnd}
+                    onQuestionDelete={onQuestionDelete}
                 />
 
                 <Button

@@ -3,6 +3,7 @@ import { Button } from './Button/Button';
 import { TextFieldWithValidation } from './TextFieldWithValidation/TextFieldWithValidation';
 import { StyledPaper } from './StyledPaper/StyledPaper';
 import { ConfirmationModal } from './ConfirmationalModal/ConfirmationModal';
+import { Chip, ChipTypes } from './Chip/Chip';
 
 export {
     Title,
@@ -10,4 +11,6 @@ export {
     TextFieldWithValidation,
     StyledPaper,
     ConfirmationModal,
+    Chip,
+    ChipTypes,
 };

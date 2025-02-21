@@ -29,8 +29,9 @@ export enum errorMessageKeys {
   jwtSecretNotDefined = 'jwtSecretIsNotDefined',
 }
 
-export enum errorMessages {
+export enum UserMessages {
   userNotFound = 'User not found',
+  userDeletedSuccesfully = 'User deleted successfully'
 }
 
 export enum validationErrors {

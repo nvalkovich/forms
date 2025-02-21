@@ -25,9 +25,6 @@ export class Question {
   })
   type: QuestionType;
 
-  @Column('json', { nullable: true })
-  options?: { value: string }[];
-
   @Column({ default: false })
   isDeleted: boolean;
 
@@ -41,4 +38,7 @@ export class Question {
 
   @Column({ default: false })
   showInResults: boolean;
+
+  @Column('json', { nullable: true })
+  options?: { value: string }[];
 }

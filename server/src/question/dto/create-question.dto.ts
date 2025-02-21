@@ -14,6 +14,10 @@ export class CreateQuestionDto {
   type: QuestionType;
 
   @IsOptional()
+  @IsString()
+  description?: string;
+
+  @IsOptional()
   @IsArray()
   options?: { value: string }[];
 

@@ -32,8 +32,11 @@ export const getDefaultQuestionValues = (defaultType: QuestionTypes) => {
         required: false,
         showInResults: true,
         options: defaultType === QuestionTypes.checkbox ? [{ value: '' }] : [],
+        users: [],
     };
 };
 
-export const getTopicValueForView = (value: string, t: (key: string) => string) =>
-    Object.values(Topics).includes(value as Topics) ? t(value) : value;
+export const getTopicValueForView = (
+    value: string,
+    t: (key: string) => string,
+) => (Object.values(Topics).includes(value as Topics) ? t(value) : value);

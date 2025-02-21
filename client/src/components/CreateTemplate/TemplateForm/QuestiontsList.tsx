@@ -1,5 +1,10 @@
 import React from 'react';
-import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
+import {
+    DragDropContext,
+    Droppable,
+    Draggable,
+    DropResult,
+} from '@hello-pangea/dnd';
 import { QuestionField } from './items/QuestionField';
 
 interface QuestionsListProps {
@@ -17,10 +22,7 @@ export const QuestionsList: React.FC<QuestionsListProps> = ({
         <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="questions">
                 {(provided) => (
-                    <div
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                    >
+                    <div {...provided.droppableProps} ref={provided.innerRef}>
                         {fields.map((field, index) => (
                             <Draggable
                                 key={field.id}

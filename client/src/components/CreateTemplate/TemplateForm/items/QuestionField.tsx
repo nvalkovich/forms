@@ -93,14 +93,8 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
         }
     }, [questionType, options.length, appendOption]);
 
-
-    const {
-        attributes,
-        listeners,
-        setNodeRef,
-        transform,
-        transition,
-    } = useSortable({ id: `question-${index}` });
+    const { attributes, listeners, setNodeRef, transform, transition } =
+        useSortable({ id: `question-${index}` });
 
     const style = {
         transform: CSS.Transform.toString(transform),

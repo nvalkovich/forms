@@ -34,4 +34,8 @@ export class CreateTemplateDto {
   @ValidateNested({ each: true })
   @Type(() => CreateQuestionDto)
   questions: CreateQuestionDto[];
+
+  @IsArray()
+  @IsString({ each: true })
+  users: string[];
 }

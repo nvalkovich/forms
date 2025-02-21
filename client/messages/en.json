@@ -2,6 +2,10 @@
   "HomePage": {
     "title": "Main"
   },
+  "Errors": {
+    "networkError": "Network error. Please check your connection and try again.",
+    "internalServerError": "Internal server error. Please, try later"
+  },
   "AuthPage": {
     "register": "Register",
     "login": "Login",
@@ -109,7 +113,13 @@
     "positiveInteger": "Positive integer input",
     "checkbox": "Checkbox",
     "publicTemplate": "Public template",
-    "textInput": "Text input"
+    "textInput": "Text input",
+    "sortBy": "Sort by",
+    "name": "Name",
+    "email": "Email",
+    "selectUsers": "Select users",
+    "typeNameOrEmail": "Type name or email",
+    "errorCreatingTemplate": "Error while creating template! Please, try again later"
   },
   "Topics": {
     "quiz": "Quiz",
@@ -126,7 +136,8 @@
     "optionValueRequired": "Question option is required field",
     "atLeastOneQuestion": "Form must contain at least one question",
     "thisTagSelected": "This tag is already selected",
-    "optionsRequired": "Options is required"
+    "optionsRequired": "Options is required",
+    "atLeastOneUserRequired": "At least one user required"
   },
   "LivePreview": {
     "untitled": "Untitled",

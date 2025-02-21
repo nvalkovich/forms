@@ -1,13 +1,13 @@
 import { useState, useCallback } from 'react';
 import { fetchTags, addTag } from '../services/api';
+import { Tag } from '@/types';
 
 enum useTagsErrors {
     failFetch = 'errorFetchingTags',
     failAdd = 'errorAddingTags',
 }
-
 const useTags = () => {
-    const [tags, setTags] = useState<string[]>([]);
+    const [tags, setTags] = useState<Tag[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +16,7 @@ const useTags = () => {
         setError(null);
         try {
             const data = await fetchTags();
-            setTags(data.map((tag: { name: string }) => tag.name));
+            setTags(data);
         } catch {
             setError(useTagsErrors.failFetch);
         } finally {
@@ -24,16 +24,16 @@ const useTags = () => {
         }
     }, []);
 
-    const addTagData = useCallback(async (tag: string) => {
-        const trimmedTag = tag.trim();
+    const addTagData = useCallback(async (tagName: string) => {
+        const trimmedTag = tagName.trim();
         if (!trimmedTag) return;
 
         setIsLoading(true);
         setError(null);
         try {
             const newTag = await addTag(trimmedTag);
-            setTags((prevTags) => [...prevTags, newTag.name]);
-            return newTag.name;
+            setTags((prevTags) => [...prevTags, newTag]);
+            return newTag;
         } catch {
             setError(useTagsErrors.failAdd);
         } finally {
@@ -43,5 +43,4 @@ const useTags = () => {
 
     return { tags, isLoading, error, fetchTagsData, addTagData };
 };
-
 export default useTags;

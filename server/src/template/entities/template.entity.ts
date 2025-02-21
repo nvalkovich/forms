@@ -40,7 +40,8 @@ export class Template {
   @ManyToOne(() => User, (user) => user.templates, { onDelete: 'CASCADE' })
   author: User;
 
-  @ManyToMany(() => User, (user) => user.usedTemplates)
+  @ManyToMany(() => User, (user) => user.usedTemplates, { cascade: true })
+  @JoinTable()
   users: User[];
 
   @ManyToOne(() => Topic, (topic) => topic.templates)

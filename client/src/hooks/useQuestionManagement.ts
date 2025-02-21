@@ -1,6 +1,9 @@
 import { useCallback, useMemo, useState, useEffect } from 'react';
 import { QuestionTypes, Question } from '@/types';
-import { getDefaultQuestionType, getDefaultQuestionValues } from '@/utils/templateUtils';
+import {
+    getDefaultQuestionType,
+    getDefaultQuestionValues,
+} from '@/utils/templateUtils';
 
 export const useQuestionManagement = (
     questions: Question[],

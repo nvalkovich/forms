@@ -16,7 +16,7 @@ export const useDragAndDrop = (move: (from: number, to: number) => void) => {
             ) {
                 return;
             }
-            
+
             move(source.index, destination.index);
         },
         [move],

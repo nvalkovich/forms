@@ -53,10 +53,7 @@ const TopicSelector = () => {
             >
                 {topics.map((topic) => (
                     <MenuItem key={topic.id} value={topic.id}>
-                        {getTopicValueForView(
-                            topic.title,
-                            topicsTranslations,
-                        )}
+                        {getTopicValueForView(topic.title, topicsTranslations)}
                     </MenuItem>
                 ))}
             </Select>
