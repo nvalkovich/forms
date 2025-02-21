@@ -1,4 +1,5 @@
 import { Container, Box } from '@mui/material';
+import { StyledPaper } from '@/components/base';
 
 interface AuthFormContainerProps {
     children: React.ReactNode;
@@ -16,7 +17,18 @@ export const AuthFormContainer = ({ children }: AuthFormContainerProps) => {
                 py: 4,
             }}
         >
-            <Box sx={{ width: '100%' }}>{children}</Box>
+            <Box sx={{ width: '100%' }}>
+                <StyledPaper
+                    sx={{
+                        width: '100%',
+                        margin: 'auto',
+                        maxWidth: '400px',
+                        textAlign: 'center',
+                    }}
+                >
+                    {children}
+                </StyledPaper>
+            </Box>
         </Container>
     );
 };

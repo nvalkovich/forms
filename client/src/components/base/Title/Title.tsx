@@ -1,11 +1,11 @@
 import { Typography } from '@mui/material';
 import React from 'react';
 
-interface AuthFormTitleProps {
+interface TitleProps {
     title: string;
 }
 
-export const AuthFormTitle = ({ title }: AuthFormTitleProps) => {
+export const Title = ({ title }: TitleProps) => {
     return (
         <Typography component="h1" variant="h5" sx={{ mb: 3 }}>
             {title}

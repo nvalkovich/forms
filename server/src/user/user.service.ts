@@ -9,6 +9,12 @@ import { errorMessageKeys } from 'src/types/types';
 import { pgSQLDuplicateKeyErrorCode, passwordSaltRounds } from 'src/constants';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+const getUserWithoutPassword = (user: User) => {
+  return Object.fromEntries(
+    Object.entries(user).filter(([key]) => key !== 'password'),
+  );
+};
+
 @Injectable()
 export class UserService {
   constructor(
@@ -49,16 +55,26 @@ export class UserService {
   }
 
   async findOne(email: string) {
-    return await this.userRepo.findOne({ where: { email: email } });
+    const user = await this.userRepo.findOne({ where: { email: email } });
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+    return getUserWithoutPassword(user);
   }
 
   async findAll() {
-    return await this.userRepo.find();
+    const users = await this.userRepo.find();
+    return users.map((user) => getUserWithoutPassword(user));
   }
 
   async findById(id: string) {
-    return await this.userRepo.findOne({ where: { id } });
+    const user = await this.userRepo.findOne({ where: { id } });
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+    return getUserWithoutPassword(user);
   }
+
   async update(id: string, updateUserDto: UpdateUserDto) {
     try {
       const user = await this.userRepo.findOne({ where: { id } });

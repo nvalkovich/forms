@@ -10,16 +10,29 @@ import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { TemplateModule } from './template/template.module';
+import { TopicModule } from './topic/topic.module';
+import { QuestionModule } from './question/question.module';
+import { TemplateService } from './template/template.service';
+import { Template } from './template/entities/template.entity';
+import { Topic } from './topic/entities/topic.entity';
+import { TagModule } from './tag/tag.module';
+import { Tag } from './tag/entities/tag.entity';
+import { Question } from './question/entities/question.entity';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     DatabaseModule,
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Template, Topic, Tag, Question]),
     AuthModule,
     UserModule,
+    TemplateModule,
+    TopicModule,
+    QuestionModule,
+    TagModule,
   ],
   controllers: [HealthController, AppController, UserController],
-  providers: [AppService, UserService],
+  providers: [AppService, UserService, TemplateService],
 })
 export class AppModule {}

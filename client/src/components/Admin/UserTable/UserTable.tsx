@@ -1,13 +1,13 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import {UserTableRows, UserTableActions, UserTableRow} from './items';
+import { UserTableRows, UserTableActions, UserTableRow } from './items';
 import { User } from '@/types';
 import { AdminActionsTypes } from '@/types';
 import { GridRowSelectionModel } from '@mui/x-data-grid';
 
 interface UserTableProps {
     rows: UserTableRow[];
-    selectedUsers: GridRowSelectionModel; 
+    selectedUsers: GridRowSelectionModel;
     users: User[];
     onSelectionChange: (selectedIds: GridRowSelectionModel) => void;
     handleAction: (actionType: AdminActionsTypes) => void;

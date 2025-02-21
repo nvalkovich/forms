@@ -2,6 +2,10 @@ import { useState, useEffect, useCallback } from 'react';
 import { User } from '@/types';
 import { getUsers } from '@/services/api';
 
+enum useUsersErrors {
+    failFetch = 'errorFetchingUsers',
+}
+
 export const useUsers = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -13,7 +17,7 @@ export const useUsers = () => {
             const data = await getUsers();
             setUsers(data);
         } catch {
-            setError('Ошибка загрузки пользователей');
+            setError(useUsersErrors.failFetch);
         } finally {
             setLoading(false);
         }

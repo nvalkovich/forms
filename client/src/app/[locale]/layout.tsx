@@ -52,6 +52,7 @@ export default async function RootLayout({
                             messages={messages}
                         >
                             <Header />
+
                             {children}
                         </NextIntlClientProvider>
                         <ToastContainer position="top-right" autoClose={3000} />

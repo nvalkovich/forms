@@ -1,34 +1,39 @@
 import React from 'react';
 import { TextField, InputAdornment, IconButton } from '@mui/material';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { EyeIcon, EyeOffIcon } from '@/components/icons';
+import { TextFieldTypes } from '@/types';
 
 interface TextFieldWithValidationProps {
     label: string;
-    type: string;
     register: object;
     error: boolean;
     helperText: string | undefined;
     placeholder: string;
+    type?: TextFieldTypes;
+    required?: boolean;
+    multiline?: boolean;
     showPassword?: boolean;
     toggleShowPassword?: () => void;
 }
 
 export const TextFieldWithValidation = ({
     label,
-    type,
     register,
     error,
     helperText,
     placeholder,
+    type = TextFieldTypes.text,
+    multiline = false,
     showPassword,
+    required,
     toggleShowPassword,
 }: TextFieldWithValidationProps) => {
-    const isPasswordField = type === 'password';
+    const isPasswordField = type === TextFieldTypes.password;
 
     return (
         <TextField
             margin="normal"
-            required
+            required={required}
             fullWidth
             label={label}
             type={isPasswordField && showPassword ? 'text' : type}
@@ -36,6 +41,7 @@ export const TextFieldWithValidation = ({
             error={error}
             helperText={helperText}
             placeholder={placeholder}
+            multiline={multiline}
             slotProps={{
                 input: {
                     endAdornment: isPasswordField && (
@@ -44,8 +50,9 @@ export const TextFieldWithValidation = ({
                                 aria-label="toggle password visibility"
                                 onClick={toggleShowPassword}
                                 edge="end"
+                                size="small"
                             >
-                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                {showPassword ? <EyeIcon /> : <EyeOffIcon />}
                             </IconButton>
                         </InputAdornment>
                     ),

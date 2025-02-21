@@ -4,8 +4,8 @@ export interface User {
     name: string;
     isAdmin?: boolean;
     isBlocked?: boolean;
-    createdAt: string;
-    updatedAt: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export enum AuthType {
@@ -29,4 +29,96 @@ export enum UserRoles {
 export enum UserStatus {
     blocked = 'Blocked',
     active = 'Active',
+}
+
+export enum QuestionTypes {
+    singleLineString = 'singleLineString',
+    multiLineString = 'multiLineString',
+    positiveInteger = 'positiveInteger',
+    checkbox = 'checkbox',
+}
+
+export type QuestionFieldValue = string | number | string[];
+
+export interface QuestionField {
+    value: QuestionFieldValue;
+}
+
+export interface Question {
+    id?: string;
+    title: string;
+    type: QuestionTypes;
+    description?: string;
+    required: boolean;
+    showInResults: boolean;
+    options: { value: string }[];
+}
+
+export interface TemplateFormData {
+    title: string;
+    description?: string;
+    topicId: string;
+    tags: Tag[];
+    questions: Question[];
+    isPublic: boolean;
+    users?: User[];
+}
+
+
+export interface CreateTemplateData {
+    title: string;
+    description?: string;
+    topicId: string;
+    tags: string[];
+    questions: Question[];
+    isPublic: boolean;
+    users?: string[];
+}
+
+export enum TemplateFields {
+    title = 'title',
+    description = 'description',
+    topicId = 'topicId',
+    tags = 'tags',
+    questions = 'questions',
+    question = 'question',
+    isPublic = 'isPublic',
+    users = 'users',
+}
+
+export enum TemplateQuestionFields {
+    title = 'title',
+    description = 'description',
+    type = 'type',
+    options = 'options',
+    required = 'required',
+    showInResults = 'showInResults',
+}
+
+export interface Tag {
+    id: string;
+    name: string;
+}
+
+export enum TextFieldTypes {
+    text = 'text',
+    number = 'number',
+    password = 'password',
+    email = 'email',
+}
+
+export enum QuestionRendererTypes {
+    preview = 'preview',
+    input = 'input',
+}
+
+export enum Topics {
+    quiz = 'quiz',
+    education = 'education',
+    other = 'other',
+}
+
+export enum SelectableItemsChipPlacement {
+    top = 'top',
+    bottom = 'bottom',
 }

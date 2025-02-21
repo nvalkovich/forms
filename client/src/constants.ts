@@ -13,3 +13,5 @@ export const styleConstants = {
     greyDark: '#e0e0e0',
     whiteTransparent: 'rgba(255, 255, 255, 0.1)',
 };
+
+export const MAX_QUESTIONS_OF_TYPE = 4;
