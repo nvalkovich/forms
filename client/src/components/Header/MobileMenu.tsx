@@ -8,8 +8,13 @@ import {
     Divider,
 } from '@mui/material';
 import { FiX } from 'react-icons/fi';
-import { ThemeToggle, LanguageMenu, AuthButtons, ProfileButtons as ProfileMenu} from './sections/RightSection/items';
-import NavigationItems from './sections/LeftSection/items/NavigationItems';
+import {
+    ThemeToggle,
+    LanguageMenu,
+    AuthButtons,
+    ProfileButtons as ProfileMenu,
+    NavigationItems
+} from '@/components/base';
 import { User } from '@/types/user';
 
 interface MobileMenuProps {

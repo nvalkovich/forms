@@ -13,21 +13,21 @@ import { ThemeModes } from '@/context/ThemeProvider';
 
 interface TableProps {
     rows: unknown[];
-    columns: GridColDef[]; 
-    selectedRows?: GridRowSelectionModel; 
-    onSelectionChange?: (selectedIds: GridRowSelectionModel) => void; 
-    currentUserId?: string; 
-    rowIdField?: string; 
-    pageSizeOptions?: number[]; 
-    defaultPageSize?: number; 
+    columns: GridColDef[];
+    selectedRows?: GridRowSelectionModel;
+    onSelectionChange?: (selectedIds: GridRowSelectionModel) => void;
+    currentUserId?: string;
+    rowIdField?: string;
+    pageSizeOptions?: number[];
+    defaultPageSize?: number;
     maxHeight?: number | string;
 }
 
 const defaultTableConfig = {
     pageSizeOptions: [5, 10, 15],
     defaultPageSize: 10,
-    rowHeight: 52, 
-    headerHeight: 56, 
+    rowHeight: 52,
+    headerHeight: 56,
     paginationHeight: 52,
 };
 
@@ -39,7 +39,7 @@ export const Table = ({
     rowIdField = 'id',
     pageSizeOptions = defaultTableConfig.pageSizeOptions,
     defaultPageSize = defaultTableConfig.defaultPageSize,
-    maxHeight = '100%', 
+    maxHeight = '100%',
 }: TableProps) => {
     const t = useTranslations('Admin');
     const theme = useTheme();
@@ -53,7 +53,6 @@ export const Table = ({
             ? styleConstants.greyLight
             : styleConstants.whiteTransparent;
 
-
     const localeText = useMemo(
         () => ({
             MuiTablePagination: {
@@ -66,12 +65,12 @@ export const Table = ({
                     to: number;
                     count: number;
                 }) => `${from}-${to} ${t('of')} ${count}`,
-                labelRowsPerPage: t('rowsPerPage'), 
+                labelRowsPerPage: t('rowsPerPage'),
             },
             footerRowSelected: (count: number) =>
                 `${count} ${count > 1 ? t('rowSelectedPlural') : t('rowSelected')}`,
             columnHeaderSortIconLabel: t('sort'),
-            noRowsLabel: t('noRows'), 
+            noRowsLabel: t('noRows'),
         }),
         [t],
     );
@@ -79,9 +78,8 @@ export const Table = ({
     const getRowClassName = (params: GridRowClassNameParams) =>
         currentUserId && params.row.id === currentUserId ? 'current-user' : '';
 
-
     const tableStyles = {
-        height: '100%', 
+        height: '100%',
         width: '100%',
         mx: 'auto',
         '& .MuiDataGrid-cell': {
@@ -92,7 +90,7 @@ export const Table = ({
             padding: '5px',
         },
         '& .current-user': {
-            backgroundColor: currentUserBackgroundColor, 
+            backgroundColor: currentUserBackgroundColor,
         },
     };
 
@@ -104,7 +102,7 @@ export const Table = ({
                 paginationModel={paginationModel}
                 onPaginationModelChange={setPaginationModel}
                 pageSizeOptions={pageSizeOptions}
-                checkboxSelection={!!onSelectionChange} 
+                checkboxSelection={!!onSelectionChange}
                 disableRowSelectionOnClick
                 disableColumnMenu
                 disableColumnResize
@@ -115,7 +113,7 @@ export const Table = ({
                 getRowClassName={getRowClassName}
                 localeText={localeText}
                 sx={tableStyles}
-                pagination 
+                pagination
             />
         </Box>
     );

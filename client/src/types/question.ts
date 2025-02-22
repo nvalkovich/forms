@@ -18,6 +18,7 @@ export interface Question {
     required: boolean;
     showInResults: boolean;
     options: { value: string }[];
+    order?: number;
 }
 
 export enum TemplateQuestionFields {
@@ -28,5 +29,3 @@ export enum TemplateQuestionFields {
     required = 'required',
     showInResults = 'showInResults',
 }
-
-

@@ -1,5 +1,5 @@
 import API_URL from '@/utils/config';
-import { CreateTemplateData } from '@/types/template';
+import { CreateTemplateData, TemplateFormData } from '@/types/template';
 import { User } from '@/types/user';
 
 export enum ApiRoutes {
@@ -120,7 +120,7 @@ export const getTemplateById = (id: string) =>
 
 export const updateTemplate = (
     id: string,
-    data: Partial<CreateTemplateData>,
+    data: Partial<TemplateFormData>,
     token: string,
 ) =>
     fetchRequest(

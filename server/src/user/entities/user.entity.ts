@@ -8,7 +8,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { Template } from 'src/template/entities/template.entity';
+import { Template } from '../../template/entities/template.entity';
 
 @Entity()
 export class User {

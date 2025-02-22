@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Template } from 'src/template/entities/template.entity';
+import { Template } from '../../template/entities/template.entity';
 
 export enum QuestionType {
   singleLineString = 'singleLineString',
@@ -41,4 +41,7 @@ export class Question {
 
   @Column('json', { nullable: true })
   options?: { value: string }[];
+
+  @Column({ nullable: true })
+  order: number;
 }

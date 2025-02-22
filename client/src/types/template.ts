@@ -1,16 +1,18 @@
-import { Entity } from './base';
 import { Tag } from './tag';
 import { Question } from './question';
 import { User } from './user';
 
-export interface Template extends Entity {
+export interface Template {
+    id: string;
     title: string;
     description: string;
     author: User;
-    topic: { title: string };
+    topic: { id: string; title: string };
     tags: Tag[];
     createdAt: string;
     isPublic: boolean;
+    questions: Question[];
+    users?: [];
 }
 
 export interface TemplateFormData {
@@ -22,7 +24,6 @@ export interface TemplateFormData {
     isPublic: boolean;
     users?: User[];
 }
-
 
 export interface CreateTemplateData
     extends Omit<TemplateFormData, 'tags' | 'users'> {
@@ -72,3 +73,19 @@ export enum TemplateTableActionsTypes {
     delete = 'delete',
     open = 'open',
 }
+
+export enum TemplateTabs {
+    template = 'template',
+    generalSettings = 'generalSettings',
+    questions = 'questions',
+    results = 'results',
+    analytics = 'analytics',
+}
+
+export const TemplateTabsOrder = [
+    TemplateTabs.template,
+    TemplateTabs.generalSettings,
+    TemplateTabs.questions,
+    TemplateTabs.results,
+    TemplateTabs.analytics,
+];

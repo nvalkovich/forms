@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import UserTable from './UserTable/UserTable';
+import { UserTable } from './UserTable/UserTable';
 import { ConfirmationModal, StyledPaper } from '../base';
-import { useAdminPanel } from '../../hooks/useAdminPanel';
+import { useAdminPanel } from '@/hooks/admin/useAdminPanel';
 import { User } from '@/types/user';
 
 interface UserManagementProps {

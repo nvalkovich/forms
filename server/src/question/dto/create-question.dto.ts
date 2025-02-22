@@ -28,4 +28,8 @@ export class CreateQuestionDto {
   @IsOptional()
   @IsBoolean()
   showInResults?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  order?: number;
 }

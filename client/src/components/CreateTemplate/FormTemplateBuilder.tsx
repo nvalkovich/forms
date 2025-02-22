@@ -4,13 +4,13 @@ import React from 'react';
 import { FormProvider } from 'react-hook-form';
 import { LivePreview } from './LivePreview/LivePreview';
 import { Container, Stack, Box } from '@mui/material';
-import { useTemplateForm } from '@/hooks/useTemplateForm';
+import { useTemplateForm } from '@/hooks/template/useTemplateForm';
 import TemplateForm from './TemplateForm/TemplateForm';
-import { useTemplateSubmit } from '@/hooks/useTemplateSubmit';
+import { useTemplateFormSubmit } from '@/hooks/template/useTemplateFormSubmit';
 
 export const FormTemplateBuilder = () => {
     const { methods, fields, append, remove, move } = useTemplateForm();
-    const { handleSubmit } = useTemplateSubmit(methods);
+    const { handleSubmit } = useTemplateFormSubmit(methods);
 
     return (
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>

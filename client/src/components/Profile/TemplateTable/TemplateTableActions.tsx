@@ -43,6 +43,7 @@ const TemplateTableActions = ({
                     key={action.type}
                     title={action.title}
                     disableHoverListener={action.disabled}
+                    disableFocusListener
                 >
                     <IconButton
                         onClick={() => handleAction(action.type as ActionTypes)}

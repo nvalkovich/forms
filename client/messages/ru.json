@@ -44,12 +44,16 @@
     "filledForms": "Заполнено",
     "public": "Публичный",
     "private": "Приватный",
-    "errorDeletingTemplates": "Ошибка при удалении шаблонов. Пожалуйста, повторите позже",
+    "errorDeletingTemplates": "",
     "actions": "Действия",
     "edit": "Редактировать",
     "delete": "Удалить",
     "open": "Открыть",
-    "createNewTemplate": "Создать новый шаблон"
+    "createNewTemplate": "Создать новый шаблон",
+    "confirmDeleteSingle": "Вы действительно хотите удалить этот шаблон? Все связанные данные будут удалены.",
+    "confirmDeleteMultiple": "Вы действительно хотите удалить {count} шаблонов? Все связанные данные будут удалены.",
+    "deleteSuccess": "Шаблон успешно удален.",
+    "deleteError": "Ошибка при удалении шаблона. Пожалуйста, повторите позже"
   },
   "Profile": {
     "profile": "Профиль",
@@ -151,6 +155,16 @@
     "typeNameOrEmail": "Введите имя или почту",
     "errorCreatingTemplate": "Ошибка при создании шаблона! Пожалуйста, попробуйте позже",
     "templateCreated": "Шаблон успешно создан!"
+  },
+  "TemplatePage": {
+    "templateUpdatedSuccessfully": "Шаблон успешно обновлен",
+    "templateUpdateFailed": "Ошибка при обновлении шаблона",
+    "updateTemplate": "Обновить шаблон",
+    "template": "Шаблон",
+    "generalSettings": "Общие настройки",
+    "questions": "Вопросы",
+    "results": "Результаты",
+    "analytics": "Аналитика"
   },
   "Topics": {
     "quiz": "Квиз",

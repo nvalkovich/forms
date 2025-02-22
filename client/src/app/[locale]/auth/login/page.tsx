@@ -2,13 +2,17 @@
 
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { AuthFormContainer, AuthForm, AuthLink } from '@/components/AuthForm';
-import { useAuthForm } from '@/hooks/useAuthForm';
-import { useAuthSubmit } from '@/hooks/useAuthSubmit';
-import { Title, TextFieldWithValidation, Button } from '@/components/base';
+import { useAuthForm } from '@/hooks/auth/useAuthForm';
+import { useAuthSubmit } from '@/hooks/auth/useAuthSubmit';
+import {
+    TextFieldWithValidation,
+    Button,
+    TextLink,
+} from '@/components/base';
 import { TextFieldTypes } from '@/types/common';
 import { AuthType } from '@/types/common';
 import { Routes } from '@/hooks/useNavigation';
+import { AuthForm } from '@/components/base/AuthForm/AuthForm';
 
 export default function LoginPage() {
     const t = useTranslations('AuthPage');
@@ -17,9 +21,7 @@ export default function LoginPage() {
     const { onSubmit } = useAuthSubmit(AuthType.login);
 
     return (
-        <AuthFormContainer>
-            <Title title={t('login')} />
-            <AuthForm onSubmit={handleSubmit(onSubmit)}>
+            <AuthForm title={t('login')} onSubmit={handleSubmit(onSubmit)}>
                 <TextFieldWithValidation
                     label={t('email')}
                     type={TextFieldTypes.email}
@@ -39,12 +41,11 @@ export default function LoginPage() {
                     toggleShowPassword={() => setShowPassword((prev) => !prev)}
                 />
                 <Button label={t('login')} type={'submit'} />
-                <AuthLink
+                <TextLink
                     text={t('noAccount')}
                     linkText={t('register')}
                     href={Routes.register}
                 />
             </AuthForm>
-        </AuthFormContainer>
     );
 }

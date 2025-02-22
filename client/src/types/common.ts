@@ -23,12 +23,6 @@ export enum QuestionRendererTypes {
     input = 'input',
 }
 
-export enum Topics {
-    quiz = 'quiz',
-    education = 'education',
-    other = 'other',
-}
-
 export enum SelectableItemsChipPlacement {
     top = 'top',
     bottom = 'bottom',

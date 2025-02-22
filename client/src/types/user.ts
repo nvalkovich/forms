@@ -1,12 +1,13 @@
-import { Timestamps } from './base';
-import { Template } from './template';
+import { Template } from "./template";
 
-export interface User extends Timestamps {
-  id: string;
+export interface User {
+    id: string;
     email: string;
     name: string;
     isAdmin?: boolean;
     isBlocked?: boolean;
+    createdAt: Date;
+    updatedAt: Date;
     templates: Template[];
 }
 

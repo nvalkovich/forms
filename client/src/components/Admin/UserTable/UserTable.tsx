@@ -1,9 +1,10 @@
-import React from 'react';
 import { Box } from '@mui/material';
-import { UserTableRows, UserTableActions, UserTableRow } from './items';
+import { UserTableActions } from './UserTableActions/UserTableActions';
+import { UserTableRows, UserTableRow } from './UserTableRows/UserTableRows';
 import { User } from '@/types/user';
 import { AdminActionsTypes } from '@/types/common';
 import { GridRowSelectionModel } from '@mui/x-data-grid';
+
 
 interface UserTableProps {
     rows: UserTableRow[];
@@ -13,7 +14,7 @@ interface UserTableProps {
     handleAction: (actionType: AdminActionsTypes) => void;
 }
 
-const UserTable = ({
+export const UserTable = ({
     rows,
     selectedUsers,
     users,
@@ -33,5 +34,3 @@ const UserTable = ({
         </Box>
     );
 };
-
-export default UserTable;

@@ -19,7 +19,24 @@ export class TopicService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    await this.addInitialTopics();
+    const tableExists = await this.checkTableExists('topic');
+    if (tableExists) {
+      await this.addInitialTopics();
+    } else {
+      console.warn('Table "topic" does not exist. Skipping initial data insertion.');
+    }
+  }
+
+  async checkTableExists(tableName: string): Promise<boolean> {
+    const query = `
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables 
+        WHERE table_schema = 'public' 
+        AND table_name = $1
+      )
+    `;
+    const result = await this.topicRepository.query(query, [tableName]);
+    return result[0].exists; // Вернет true, если таблица существует
   }
 
   async getAllTopics(): Promise<Topic[]> {

@@ -29,7 +29,7 @@ export const TextFieldWithValidation = ({
     toggleShowPassword,
 }: TextFieldWithValidationProps) => {
     const isPasswordField = type === TextFieldTypes.password;
-    const passwordIconAriaLabel = "toggle password visibility";
+    const passwordIconAriaLabel = 'toggle password visibility';
 
     return (
         <TextField

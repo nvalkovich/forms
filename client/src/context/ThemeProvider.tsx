@@ -7,6 +7,7 @@ import {
 } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import { Loader } from '@/components/base';
 
 export enum ThemeModes {
     light = 'light',
@@ -53,7 +54,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     });
 
     if (!hydrated) {
-        return <div className="loading-screen">Loading...</div>;
+        return <Loader />;
     }
 
     return (

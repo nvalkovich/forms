@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { NodeEnv, envVariables } from 'src/types/types';
-import * as path from 'path';
+import { Initial1740274162586 } from 'src/migrations/1740274162586-Initial';
 
 @Module({
   imports: [
@@ -17,11 +17,10 @@ import * as path from 'path';
           type: 'postgres',
           url: configService.get<string>(envVariables.databaseUrl),
           autoLoadEntities: true,
-          synchronize: !isProd,
-          migrationsRun: isProd,
-          migrations: [
-            path.resolve(process.cwd(), 'src/migrations/*{.ts,.js}'),
-          ],
+          synchronize: false,
+          migrations: [Initial1740274162586],
+          migrationsRun: true,
+          logging: true
         };
       },
     }),

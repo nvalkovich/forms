@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import UserData from './items/UserData';
+import UserData from './UserData/UserData';
 import { User } from '@/types/user';
-import ProfileTabs from './ProfileTabs';
+import ProfileTabs from './ProfileTabs/ProfileTabs';
 import { StyledPaper } from '../base';
 
 interface ProfileData {

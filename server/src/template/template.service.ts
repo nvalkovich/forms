@@ -94,14 +94,14 @@ export class TemplateService {
 
   async findAll(): Promise<Template[]> {
     return this.templateRepository.find({
-      relations: ['questions', 'author', 'topic', 'tags'],
+      relations: ['questions', 'author', 'topic', 'tags', 'users'],
     });
   }
 
   async findOne(id: string, user?: User): Promise<Template> {
     const template = await this.templateRepository.findOne({
       where: { id },
-      relations: ['questions', 'author', 'topic', 'tags'],
+      relations: ['questions', 'author', 'topic', 'tags', 'users'],
     });
 
     if (!template) {

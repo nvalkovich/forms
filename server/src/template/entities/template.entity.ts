@@ -9,10 +9,10 @@ import {
   OneToMany,
   JoinTable,
 } from 'typeorm';
-import { User } from 'src/user/entities/user.entity';
-import { Topic } from 'src/topic/entities/topic.entity';
-import { Question } from 'src/question/entities/question.entity';
-import { Tag } from 'src/tag/entities/tag.entity';
+import { User } from '../../user/entities/user.entity';
+import { Topic } from '../../topic/entities/topic.entity';
+import { Question } from '../../question/entities/question.entity';
+import { Tag } from '../../tag/entities/tag.entity'
 
 @Entity()
 export class Template {

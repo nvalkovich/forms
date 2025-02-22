@@ -1,7 +1,6 @@
-import { TemplateFormData, TemplateFields
- } from '@/types/template';
+import { TemplateFormData, TemplateFields } from '@/types/template';
 import { MAX_QUESTIONS_OF_TYPE } from '@/constants';
-import { Topics } from '@/types/common';
+import { Topics } from '@/types/topic';
 import { QuestionTypes } from '@/types/question';
 
 export const getDefaultQuestionType = (
