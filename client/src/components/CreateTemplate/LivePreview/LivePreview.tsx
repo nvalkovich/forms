@@ -1,19 +1,18 @@
 import React from 'react';
 import { Box, Stack, Typography, Divider } from '@mui/material';
 import { useTranslations } from 'next-intl';
-import { Title, StyledPaper } from '../../base';
 import { HashtagIcon, TemplatesIcon } from '@/components/icons';
 import { useTopic } from '@/hooks/useTopic';
 import {
     TemplateFields,
-    TemplateQuestionFields,
     TemplateFormData,
-    QuestionRendererTypes,
-} from '@/types';
+} from '@/types/template';
+import { TemplateQuestionFields as QuestionFields } from '@/types/question';
+import { QuestionRendererTypes } from '@/types/common';
 import { UseFormWatch } from 'react-hook-form';
 import { QuestionRenderer } from './items/QuestionRenderer';
 import { getTopicValueForView } from '@/utils/templateUtils';
-import { Chip, ChipTypes } from '@/components/base';
+import { Chip, ChipTypes, Title, StyledPaper } from '@/components/base';
 
 interface LivePreviewProps {
     watch: UseFormWatch<TemplateFormData>;
@@ -32,17 +31,17 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ watch, fields }) => {
     const topicsTranslations = useTranslations('Topics');
 
     const questions = fields.map((_, index) => ({
-        title: watch(`questions.${index}.${TemplateQuestionFields.title}`),
+        title: watch(`questions.${index}.${QuestionFields.title}`),
         description: watch(
-            `questions.${index}.${TemplateQuestionFields.description}`,
+            `questions.${index}.${QuestionFields.description}`,
         ),
-        type: watch(`questions.${index}.${TemplateQuestionFields.type}`),
-        options: watch(`questions.${index}.${TemplateQuestionFields.options}`),
+        type: watch(`questions.${index}.${QuestionFields.type}`),
+        options: watch(`questions.${index}.${QuestionFields.options}`),
         required: watch(
-            `questions.${index}.${TemplateQuestionFields.required}`,
+            `questions.${index}.${QuestionFields.required}`,
         ),
         showInResults: watch(
-            `questions.${index}.${TemplateQuestionFields.showInResults}`,
+            `questions.${index}.${QuestionFields.showInResults}`,
         ),
     }));
 
@@ -73,6 +72,7 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ watch, fields }) => {
                     spacing={1}
                     alignItems="center"
                     sx={{ mb: 2 }}
+                    gap={1}
                 >
                     <TemplatesIcon />
                     <Typography
@@ -89,7 +89,7 @@ export const LivePreview: React.FC<LivePreviewProps> = ({ watch, fields }) => {
                               : commonTranslations('noTopicSelected')}
                     </Typography>
                 </Stack>
-                <Stack direction="row" spacing={1} flexWrap="wrap">
+                <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
                     <HashtagIcon />
                     {tags.length > 0 ? (
                         tags.map((tag, index) => (

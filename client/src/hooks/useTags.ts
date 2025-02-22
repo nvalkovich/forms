@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { fetchTags, addTag } from '../services/api';
-import { Tag } from '@/types';
+import { Tag } from '@/types/tag';
 
 enum useTagsErrors {
     failFetch = 'errorFetchingTags',

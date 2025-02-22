@@ -3,13 +3,14 @@ import { Box, IconButton, Tooltip } from '@mui/material';
 import { FiTrash2 } from 'react-icons/fi';
 import { TbLock, TbLockOpen2 } from 'react-icons/tb';
 import { LuUserCog, LuUser } from 'react-icons/lu';
-import { User, AdminActionsTypes } from '@/types';
+import { User } from '@/types/user';
+import { AdminActionsTypes as ActionTypes } from '@/types/common';
 import { useTranslations } from 'next-intl';
 
 interface UserTableActionsProps {
     selectedUsers: string[];
     users: User[];
-    handleAction: (actionType: AdminActionsTypes) => void;
+    handleAction: (actionType: ActionTypes) => void;
 }
 
 const UserTableActions = ({
@@ -20,21 +21,6 @@ const UserTableActions = ({
     const [selectedUserData, setSelectedUserData] = useState<User[]>([]);
     const t = useTranslations('Admin');
 
-    const translations = {
-        block: t('block'),
-        unblock: t('unblock'),
-        makeAdmin: t('makeAdmin'),
-        revokeAdminRights: t('revokeAdminRights'),
-        delete: t('delete'),
-    };
-
-    useEffect(() => {
-        const filteredUsers = users.filter((user) =>
-            selectedUsers.includes(user.id),
-        );
-        setSelectedUserData(filteredUsers);
-    }, [selectedUsers, users]);
-
     const hasBlockedUsers = selectedUserData.some((user) => user.isBlocked);
     const hasUnblockedUsers = selectedUserData.some((user) => !user.isBlocked);
     const hasAdmins = selectedUserData.some((user) => user.isAdmin);
@@ -42,36 +28,43 @@ const UserTableActions = ({
 
     const actionsConfig = [
         {
-            type: AdminActionsTypes.block,
-            title: translations.block,
+            type: ActionTypes.block,
+            title: t(ActionTypes.block),
             icon: <TbLock />,
             disabled: !hasUnblockedUsers,
         },
         {
-            type: AdminActionsTypes.unblock,
-            title: translations.unblock,
+            type: ActionTypes.unblock,
+            title: t(ActionTypes.unblock),
             icon: <TbLockOpen2 />,
             disabled: !hasBlockedUsers,
         },
         {
-            type: AdminActionsTypes.makeAdmin,
-            title: translations.makeAdmin,
+            type: ActionTypes.makeAdmin,
+            title: t(ActionTypes.makeAdmin),
             icon: <LuUserCog />,
             disabled: !hasNonAdmins,
         },
         {
-            type: AdminActionsTypes.revokeAdminRights,
-            title: translations.revokeAdminRights,
+            type: ActionTypes.revokeAdminRights,
+            title: t(ActionTypes.revokeAdminRights),
             icon: <LuUser />,
             disabled: !hasAdmins,
         },
         {
-            type: AdminActionsTypes.delete,
-            title: translations.delete,
+            type: ActionTypes.delete,
+            title: t(ActionTypes.delete),
             icon: <FiTrash2 />,
             disabled: selectedUsers.length === 0,
         },
     ];
+
+    useEffect(() => {
+        const filteredUsers = users.filter((user) =>
+            selectedUsers.includes(user.id),
+        );
+        setSelectedUserData(filteredUsers);
+    }, [selectedUsers, users]);
 
     return (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>

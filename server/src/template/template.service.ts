@@ -76,7 +76,6 @@ export class TemplateService {
 
     const savedTemplate = await this.templateRepository.save(template);
 
-
     if (questions?.length) {
       const createdQuestions = await this.questionRepository.save(
         questions.map((questionDto) =>
@@ -111,6 +110,7 @@ export class TemplateService {
 
     if (
       !template.isPublic &&
+      user &&
       (!user || (user.id !== template.author.id && !user.isAdmin))
     ) {
       throw new ForbiddenException('Access denied');

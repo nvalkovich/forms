@@ -3,8 +3,8 @@ import { useAuth } from '@/context/AuthProvider';
 import { loginUser, registerUser } from '@/services/api';
 import { useTranslations } from 'next-intl';
 import { useNavigation, Routes } from './useNavigation';
-import { User } from '@/types';
-import { AuthType } from '@/types';
+import { User } from '@/types/user';
+import { AuthType } from '@/types/common';
 
 type AuthFormData = {
     name?: string;

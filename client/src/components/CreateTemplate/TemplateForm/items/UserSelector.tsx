@@ -5,8 +5,9 @@ import { toast } from 'react-toastify';
 import { useUsers } from '@/hooks/useUsers';
 import { useTranslations } from 'next-intl';
 import { SelectableItems } from './SelectableItems/SelectableItems';
-import { SelectableItemsChipPlacement, TemplateFields } from '@/types';
-import { User } from '@/types';
+import { SelectableItemsChipPlacement } from '@/types/common';
+import { User } from '@/types/user';
+import { TemplateFields } from '@/types/template';
 
 enum SortBy {
     Name = 'name',
@@ -101,7 +102,7 @@ const UserSelector = () => {
                 getKey={(user) => user.id}
                 placeholder={t('typeNameOrEmail')}
                 label={t('selectUsers')}
-                error={!!errors.selectedUsers}
+                error={!!errors.users}
                 helperText={
                     errors.tags
                         ? validationTranslations('atLeastOneUserRequired')

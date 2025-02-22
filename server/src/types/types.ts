@@ -31,7 +31,7 @@ export enum errorMessageKeys {
 
 export enum UserMessages {
   userNotFound = 'User not found',
-  userDeletedSuccesfully = 'User deleted successfully'
+  userDeletedSuccesfully = 'User deleted successfully',
 }
 
 export enum validationErrors {

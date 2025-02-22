@@ -7,13 +7,13 @@ import {
     Button,
     StyledPaper,
     TextFieldWithValidation,
-} from '../../base';
+} from '@/components/base';
 import { UseFormReturn } from 'react-hook-form';
-import { TemplateFormData, TemplateFields } from '@/types';
+import { TemplateFormData, TemplateFields } from '@/types/template';
 import { useDragAndDrop } from '@/hooks/useDragAndDrop';
 import { useQuestionManagement } from '@/hooks/useQuestionManagement';
 import { QuestionsList } from './QuestiontsList';
-import { Question } from '@/types';
+import { Question } from '@/types/question';
 
 interface TemplateFormProps {
     methods: UseFormReturn<TemplateFormData>;

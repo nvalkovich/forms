@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
-import { User, AdminActionsTypes } from '@/types';
+import { User } from '@/types/user';
+import { AdminActionsTypes } from '@/types/common';
 import { filterUsersForAction } from './adminUtils';
 
 const getMessageForCurrentUser = (

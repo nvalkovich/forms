@@ -55,22 +55,34 @@ export class UserService {
   }
 
   async findOne(email: string) {
-    const user = await this.userRepo.findOne({ where: { email: email } });
-    if (!user) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-    }
-    return getUserWithoutPassword(user);
+    const user = await this.userRepo.findOne({
+      where: { email: email },
+      relations: ['templates', 'usedTemplates'],
+    });
+    return user;
   }
 
   async findAll() {
-    const users = await this.userRepo.find();
+    const users = await this.userRepo.find({
+      relations: ['templates', 'usedTemplates'],
+    });
     return users.map((user) => getUserWithoutPassword(user));
   }
 
   async findById(id: string) {
-    const user = await this.userRepo.findOne({ where: { id } });
+    const user = await this.userRepo.findOne({
+      where: { id },
+      relations: [
+        'templates',
+        'templates.tags',
+        'templates.topic',
+        'templates.questions',
+        'templates.users',
+        'usedTemplates',
+      ],
+    });
     if (!user) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      return;
     }
     return getUserWithoutPassword(user);
   }
@@ -108,7 +120,8 @@ export class UserService {
 
       await this.userRepo.remove(user);
       return { message: 'User deleted successfully' };
-    } catch {
+    } catch (error) {
+      console.error(error);
       throw new HttpException(
         'Internal Server Error',
         HttpStatus.INTERNAL_SERVER_ERROR,

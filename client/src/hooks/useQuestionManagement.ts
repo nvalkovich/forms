@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState, useEffect } from 'react';
-import { QuestionTypes, Question } from '@/types';
+import { QuestionTypes, Question } from '@/types/question';
 import {
     getDefaultQuestionType,
     getDefaultQuestionValues,

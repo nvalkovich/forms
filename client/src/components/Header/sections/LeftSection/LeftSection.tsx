@@ -3,7 +3,7 @@ import { Box, IconButton, Typography } from '@mui/material';
 import { FiMenu } from 'react-icons/fi';
 import { useNavigation, Routes } from '@/hooks/useNavigation';
 import NavigationItems from './items/NavigationItems';
-import { User } from '@/types';
+import { User } from '@/types/user';
 
 interface LeftSectionProps {
     isMobile: boolean;

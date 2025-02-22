@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import useTags from '@/hooks/useTags';
 import { useTranslations } from 'next-intl';
 import { SelectableItems } from './SelectableItems/SelectableItems';
-import { Tag } from '@/types';
+import { Tag } from '@/types/tag';
 
 const TagSelector = () => {
     const {

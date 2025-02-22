@@ -4,7 +4,8 @@
   },
   "Errors": {
     "networkError": "Network error. Please check your connection and try again.",
-    "internalServerError": "Internal server error. Please, try later"
+    "internalServerError": "Internal server error. Please, try later",
+    "operationNotPermitted": "Operation is not permitted"
   },
   "AuthPage": {
     "register": "Register",
@@ -23,7 +24,8 @@
     "userExists": "User with this email already exists",
     "internalServerError": "Internal server error. Please, try later",
     "networkError": "Network error. Please check your connection and try again.",
-    "userIsBlocked": "Unable to login! User is blocked."
+    "userIsBlocked": "Unable to login! User is blocked.",
+    "error": "An error occured! Please, try later"
   },
   "AuthValidation": {
     "nameRequired": "Name is required field",
@@ -31,6 +33,23 @@
     "passwordRequired": "Password is required field",
     "invalidEmail": "Invalid email",
     "passwordMinLength": "Password must contain at least 6 characters"
+  },
+  "TemplateTable": {
+    "title": "Title",
+    "description": "Description",
+    "topic": "Topic",
+    "tags": "Tags",
+    "createdAt": "Created At",
+    "status": "Status",
+    "filledForms": "Filled Forms",
+    "public": "Public",
+    "private": "Private",
+    "errorDeletingTemplates": "Error while deleting templates",
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "open": "Open",
+    "createNewTemplate": "Create new template"
   },
   "Profile": {
     "profile": "Profile",
@@ -40,7 +59,11 @@
     "templates": "Templates",
     "forms": "Forms",
     "admin": "Admin",
-    "blocked": "User is blocked"
+    "blocked": "User is blocked",
+    "rowSelected": "row selected",
+    "rowSelectedPlural": "rows selected",
+    "sort": "Sort",
+    "rowsPerPage": "Rows per page"
   },
   "Admin": {
     "block": "Block",
@@ -55,8 +78,10 @@
     "status": "Status",
     "user": "User",
     "admin": "Admin",
+    "active": "Active",
     "blocked": "Blocked",
     "unblocked": "Active",
+    "noRows": "No data",
     "rowSelected": "selected",
     "rowSelectedPlural": "selected",
     "rowsPerPage": "Per page",
@@ -69,7 +94,8 @@
     "actionError": "Action failed",
     "selectAtLeastOneUser": "Select at least one user",
     "confirmForSelf": "yourself",
-    "and": "and"
+    "and": "and",
+    "of": "of"
   },
   "ConfirmationModal": {
     "confirm": "Confirm action"
@@ -119,7 +145,8 @@
     "email": "Email",
     "selectUsers": "Select users",
     "typeNameOrEmail": "Type name or email",
-    "errorCreatingTemplate": "Error while creating template! Please, try again later"
+    "errorCreatingTemplate": "Error while creating template! Please, try again later",
+    "templateCreated": "Template successfully created"
   },
   "Topics": {
     "quiz": "Quiz",

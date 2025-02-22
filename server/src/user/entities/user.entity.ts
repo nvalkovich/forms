@@ -36,7 +36,10 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => Template, (template) => template.author)
+  @OneToMany(() => Template, (template) => template.author, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   templates: Template[];
 
   @ManyToMany(() => Template, (template) => template.users)

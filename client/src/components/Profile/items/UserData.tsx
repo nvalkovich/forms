@@ -1,5 +1,5 @@
 import { Typography, Paper, Box, Tooltip } from '@mui/material';
-import { User } from '@/types';
+import { User } from '@/types/user';
 import { LuUserCog } from 'react-icons/lu';
 import { TbLock } from 'react-icons/tb';
 import { useTranslations } from 'next-intl';

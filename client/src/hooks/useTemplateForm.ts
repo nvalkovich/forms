@@ -2,7 +2,8 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useTranslations } from 'next-intl';
-import { TemplateFormData, QuestionTypes } from '@/types';
+import { TemplateFormData } from '@/types/template';
+import { QuestionTypes } from '@/types/question';
 
 export const useTemplateForm = () => {
     const t = useTranslations('TemplateValidation');
@@ -81,7 +82,6 @@ export const useTemplateForm = () => {
         control,
         name: 'questions',
     });
-
 
     return {
         methods,

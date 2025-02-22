@@ -15,3 +15,4 @@ export const styleConstants = {
 };
 
 export const MAX_QUESTIONS_OF_TYPE = 4;
+export const HASHTAG = '#';

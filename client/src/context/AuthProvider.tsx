@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect } from 'react';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { LocalStorageKeys } from '@/hooks/useLocalStorage';
-import { User } from '@/types';
+import { User } from '@/types/user';
 import { getUser } from '@/services/api';
 import { Routes, useNavigation } from '@/hooks/useNavigation';
 
@@ -49,7 +49,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
             const freshUser = await getUser(user.id);
             setUser(freshUser);
         } catch {
-            navigate(Routes.register);
+            navigate(Routes.login);
         }
     };
 

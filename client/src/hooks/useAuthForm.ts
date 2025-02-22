@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useTranslations } from 'next-intl';
-import { AuthType } from '@/types';
+import { AuthType } from '@/types/common';
 
 export const useAuthForm = (type: AuthType) => {
     const t = useTranslations('AuthValidation');

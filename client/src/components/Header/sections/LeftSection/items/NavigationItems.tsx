@@ -10,7 +10,7 @@ import {
 import { TemplatesIcon, PlusIcon, AdminPageIcon } from '../../../../icons';
 import { useTranslations } from 'next-intl';
 import { useNavigation, Routes } from '@/hooks/useNavigation';
-import { User } from '@/types';
+import { User } from '@/types/user';
 
 interface NavigationItemsProps {
     token: string | null;

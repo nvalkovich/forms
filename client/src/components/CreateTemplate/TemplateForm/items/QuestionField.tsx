@@ -17,12 +17,9 @@ import {
     FieldError,
     Path,
 } from 'react-hook-form';
-import {
-    TemplateFormData,
-    QuestionTypes,
-    TemplateQuestionFields,
-    TemplateFields,
-} from '@/types';
+import { TemplateFormData, TemplateFields } from '@/types/template';
+import { TemplateQuestionFields } from '@/types/question';
+import { QuestionTypes } from '@/types/question';
 import { getDefaultQuestionType } from '@/utils/templateUtils';
 import { TextFieldWithValidation } from '../../../base';
 import { StyledPaper } from '../../../base/StyledPaper/StyledPaper';

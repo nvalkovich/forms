@@ -8,11 +8,9 @@ import {
     Checkbox,
 } from '@mui/material';
 import {
-    QuestionTypes,
-    QuestionFieldValue,
-    Question,
     QuestionRendererTypes,
-} from '@/types';
+} from '@/types/common';
+import { QuestionTypes, QuestionFieldValue, Question } from '@/types/question';
 import { useTranslations } from 'next-intl';
 
 interface QuestionRendererProps {

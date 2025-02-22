@@ -6,7 +6,9 @@ import { AuthFormContainer, AuthForm, AuthLink } from '@/components/AuthForm';
 import { useAuthForm } from '@/hooks/useAuthForm';
 import { useAuthSubmit } from '@/hooks/useAuthSubmit';
 import { Title, TextFieldWithValidation, Button } from '@/components/base';
-import { TextFieldTypes, AuthType } from '@/types';
+import { TextFieldTypes } from '@/types/common';
+import { AuthType } from '@/types/common';
+import { Routes } from '@/hooks/useNavigation';
 
 export default function LoginPage() {
     const t = useTranslations('AuthPage');
@@ -40,7 +42,7 @@ export default function LoginPage() {
                 <AuthLink
                     text={t('noAccount')}
                     linkText={t('register')}
-                    href="/auth/register"
+                    href={Routes.register}
                 />
             </AuthForm>
         </AuthFormContainer>

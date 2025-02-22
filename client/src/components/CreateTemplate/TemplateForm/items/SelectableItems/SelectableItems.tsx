@@ -3,7 +3,7 @@ import { FormControl } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import { ChipsContainer } from './ChipsContainer';
 import { AutocompleteInput } from './AutoompleteInput';
-import { SelectableItemsChipPlacement } from '@/types';
+import { SelectableItemsChipPlacement } from '@/types/common';
 
 interface SelectableItemsProps<T> {
     name: string;
