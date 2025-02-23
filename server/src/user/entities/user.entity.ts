@@ -8,7 +8,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { Template } from 'src/template/entities/template.entity';
+import { Template } from '../../template/entities/template.entity';
 
 @Entity()
 export class User {
@@ -36,9 +36,21 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => Template, (template) => template.author)
+  @OneToMany(() => Template, (template) => template.author, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   templates: Template[];
 
   @ManyToMany(() => Template, (template) => template.users)
   usedTemplates: Template[];
+}
+
+export enum UserRelations {
+  templates = 'templates',
+  templatesTags = 'templates.tags',
+  templatesTopic = 'templates.topic',
+  templatesQuestions = 'templates.questions',
+  templatesUsers = 'templates.users',
+  usedTemplates = 'usedTemplates',
 }

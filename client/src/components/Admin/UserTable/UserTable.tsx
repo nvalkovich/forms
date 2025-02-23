@@ -1,8 +1,8 @@
-import React from 'react';
 import { Box } from '@mui/material';
-import { UserTableRows, UserTableActions, UserTableRow } from './items';
-import { User } from '@/types';
-import { AdminActionsTypes } from '@/types';
+import { UserTableActions } from './UserTableActions/UserTableActions';
+import { UserTableRows, UserTableRow } from './UserTableRows/UserTableRows';
+import { User } from '@/types/user';
+import { AdminActionsTypes } from '@/types/common';
 import { GridRowSelectionModel } from '@mui/x-data-grid';
 
 interface UserTableProps {
@@ -13,7 +13,7 @@ interface UserTableProps {
     handleAction: (actionType: AdminActionsTypes) => void;
 }
 
-const UserTable = ({
+export const UserTable = ({
     rows,
     selectedUsers,
     users,
@@ -21,7 +21,7 @@ const UserTable = ({
     handleAction,
 }: UserTableProps) => {
     return (
-        <Box sx={{ my: 4 }}>
+        <Box sx={{ mb: 1 }}>
             <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
                 <UserTableActions
                     selectedUsers={selectedUsers as string[]}
@@ -33,5 +33,3 @@ const UserTable = ({
         </Box>
     );
 };
-
-export default UserTable;

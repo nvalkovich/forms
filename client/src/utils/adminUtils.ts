@@ -1,6 +1,6 @@
-import { User, UserRoles, UserStatus } from '@/types';
+import { User, UserRoles, UserStatus } from '@/types/user';
 import { updateUserStatus, deleteUser } from '../services/api';
-import { AdminActionsTypes } from '@/types';
+import { AdminActionsTypes } from '@/types/common';
 
 const actionFilters = {
     [AdminActionsTypes.block]: (user: User) => !user.isBlocked,
@@ -64,18 +64,32 @@ export const updateUsersAfterAction = (
     );
 };
 
-export const prepareTableRows = (users: User[], currentUserId: string) => {
-    return users
-        .sort(
-            (a, b) =>
-                new Date(b.createdAt).getTime() -
-                new Date(a.createdAt).getTime(),
-        )
-        .map((user, index) => ({
-            ...user,
-            role: user.isAdmin ? UserRoles.admin : UserRoles.user,
-            status: user.isBlocked ? UserStatus.blocked : UserStatus.active,
-            rowNumber: index + 1,
-            isCurrentUser: user.id === currentUserId,
-        }));
+export const sortByCreatingDate = <T extends { createdAt: Date }>(
+    data: T[],
+): T[] => {
+    return data.sort(
+        (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
+};
+
+export const prepareUserTableRows = (
+    users: User[],
+    currentUserId: string,
+    t: (key: string) => string,
+) => {
+    return sortByCreatingDate(users).map((user, index) => ({
+        ...user,
+        role: t(
+            (user.isAdmin ? UserRoles.admin : UserRoles.user).toLowerCase(),
+        ),
+        status: t(
+            (user.isBlocked
+                ? UserStatus.blocked
+                : UserStatus.active
+            ).toLowerCase(),
+        ),
+        rowNumber: index + 1,
+        isCurrentUser: user.id === currentUserId,
+    }));
 };

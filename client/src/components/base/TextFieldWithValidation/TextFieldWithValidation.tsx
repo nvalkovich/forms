@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField, InputAdornment, IconButton } from '@mui/material';
 import { EyeIcon, EyeOffIcon } from '@/components/icons';
-import { TextFieldTypes } from '@/types';
+import { TextFieldTypes } from '@/types/common';
 
 interface TextFieldWithValidationProps {
     label: string;
@@ -29,6 +29,7 @@ export const TextFieldWithValidation = ({
     toggleShowPassword,
 }: TextFieldWithValidationProps) => {
     const isPasswordField = type === TextFieldTypes.password;
+    const passwordIconAriaLabel = 'toggle password visibility';
 
     return (
         <TextField
@@ -36,7 +37,7 @@ export const TextFieldWithValidation = ({
             required={required}
             fullWidth
             label={label}
-            type={isPasswordField && showPassword ? 'text' : type}
+            type={isPasswordField && showPassword ? TextFieldTypes.text : type}
             {...register}
             error={error}
             helperText={helperText}
@@ -44,10 +45,10 @@ export const TextFieldWithValidation = ({
             multiline={multiline}
             slotProps={{
                 input: {
-                    endAdornment: isPasswordField && (
+                    endAdornment: isPasswordField ? (
                         <InputAdornment position="end">
                             <IconButton
-                                aria-label="toggle password visibility"
+                                aria-label={passwordIconAriaLabel}
                                 onClick={toggleShowPassword}
                                 edge="end"
                                 size="small"
@@ -55,7 +56,7 @@ export const TextFieldWithValidation = ({
                                 {showPassword ? <EyeIcon /> : <EyeOffIcon />}
                             </IconButton>
                         </InputAdornment>
-                    ),
+                    ) : undefined,
                 },
             }}
             sx={{ mb: 2 }}

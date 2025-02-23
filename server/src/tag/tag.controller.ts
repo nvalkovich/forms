@@ -1,8 +1,9 @@
 import { Controller, Get, Query, Post, Body } from '@nestjs/common';
 import { TagService } from './tag.service';
 import { Tag } from './entities/tag.entity';
+import { Routes } from 'src/types/types';
 
-@Controller('tags')
+@Controller(Routes.tags)
 export class TagController {
   constructor(private readonly tagService: TagService) {}
 

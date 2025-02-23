@@ -8,12 +8,14 @@ import {
     Divider,
 } from '@mui/material';
 import { FiX } from 'react-icons/fi';
-import ThemeToggle from './sections/RightSection/items/ThemeToggle';
-import LanguageMenu from './sections/RightSection/items/LanguageMenu';
-import ProfileMenu from './sections/RightSection/items/ProfileButtons';
-import AuthButtons from './sections/RightSection/items/AuthButtons';
-import NavigationItems from './sections/LeftSection/items/NavigationItems';
-import { User } from '@/types';
+import {
+    ThemeToggle,
+    LanguageMenu,
+    AuthButtons,
+    ProfileButtons as ProfileMenu,
+    NavigationItems,
+} from '@/components/base';
+import { User } from '@/types/user';
 
 interface MobileMenuProps {
     mobileOpen: boolean;

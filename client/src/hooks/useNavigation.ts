@@ -24,4 +24,5 @@ export enum Routes {
     admin = '/admin',
     login = '/auth/login',
     register = '/auth/register',
+    edit = '/edit',
 }

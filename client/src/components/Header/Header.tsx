@@ -4,9 +4,11 @@ import React, { useState } from 'react';
 import { Toolbar, Container, useTheme, useMediaQuery } from '@mui/material';
 
 import { useAuth } from '@/context/AuthProvider';
-import { LeftSection, CentralSection, RightSection } from './sections';
+import { HeaderLeftSection } from './HeaderLeftSection/HeaderLeftSection';
+import { HeaderCentralSection } from './HeaderCentralSection/HeaderCentralSection';
+import { HeaderRightSection } from './HeaderRightSection/HeaderRightSection';
 import MobileMenu from './MobileMenu';
-import StyledAppBar from './sections/StyledAppBar';
+import StyledAppBar from './StyledAppBar';
 
 const Header = () => {
     const { token, user } = useAuth();
@@ -33,7 +35,7 @@ const Header = () => {
                         padding: isMobile ? '4px 0' : '8px 0',
                     }}
                 >
-                    <LeftSection
+                    <HeaderLeftSection
                         isMobile={isMobile}
                         isCompactMode={isCompactMode}
                         mobileOpen={mobileOpen}
@@ -41,8 +43,9 @@ const Header = () => {
                         token={token}
                         user={user}
                     />
-                    <CentralSection isMobile={isMobile} />
-                    <RightSection
+
+                    <HeaderCentralSection isMobile={isMobile} />
+                    <HeaderRightSection
                         isMobile={isMobile}
                         isCompactMode={isCompactMode}
                         token={token}

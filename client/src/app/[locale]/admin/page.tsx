@@ -5,7 +5,7 @@ import { useAuth } from '@/context/AuthProvider';
 import { useNavigation, Routes } from '@/hooks/useNavigation';
 import { getUsers } from '../../../services/api';
 import UserAdminPanel from '@/components/Admin/UserAdminPanel';
-import { User } from '@/types';
+import { User } from '@/types/user';
 
 export default function AdminPage() {
     const { token, user } = useAuth();

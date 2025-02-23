@@ -14,8 +14,9 @@ import { CreateTemplateDto } from './dto/create-template.dto';
 import { UpdateTemplateDto } from './dto/update-template.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { AuthenticatedRequest } from 'src/auth/guards/jwt-auth.guard';
+import { Routes } from 'src/types/types';
 
-@Controller('templates')
+@Controller(Routes.templates)
 export class TemplateController {
   constructor(private readonly templateService: TemplateService) {}
 

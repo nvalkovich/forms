@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthProvider';
 import { useNavigation, Routes } from '@/hooks/useNavigation';
 import UserProfile from '@/components/Profile/Profile';
+import { Loader } from '@/components/base';
 
 export default function ProfilePage() {
     const { token, user, refreshUser } = useAuth();
@@ -20,10 +21,18 @@ export default function ProfilePage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);
 
-    if (loading) return <p>Загрузка...</p>;
+    useEffect(() => {
+        if (!loading && !user) {
+            navigate(Routes.login);
+        }
+    }, [loading, user, navigate]);
+
+    if (loading) {
+        return <Loader />;
+    }
 
     if (!user) {
-        return;
+        return null;
     }
 
     return <UserProfile user={user} />;

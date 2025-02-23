@@ -4,7 +4,9 @@
   },
   "Errors": {
     "networkError": "Ошибка соединения. Пожалуйста, проверьте своё соединение и попробуйте позже",
-    "internalServerError": "Ошибка сервера. Пожалуйста, попробуйте позже"
+    "internalServerError": "Ошибка сервера. Пожалуйста, попробуйте позже",
+    "operationNotPermitted": "Операция не разрешена",
+    "accessDenied": "Доступ запррещен!"
   },
   "AuthPage": {
     "register": "Регистрация",
@@ -21,9 +23,11 @@
     "registerError": "Ошибка регистрации",
     "invalidCredentials": "Неправильные входные данные. Проверьте введенные данные!",
     "userExists": "Пользователь с такой электронной почтой уже существует",
+    "userNotFound": "Пользователь не найден",
     "internalServerError": "Ошибка сервера. Пожалуйста, попробуйте позже",
     "networkError": "Ошибка соединения. Пожалуйста, проверьте своё соединение и попробуйте позже",
-    "userIsBlocked": "Невозможно совершить вход в систему! Пользователь заблокирован"
+    "userIsBlocked": "Невозможно совершить вход в систему! Пользователь заблокирован",
+    "error": "Произошла ошибка! Пожалуйста, попробуйте позже"
   },
   "AuthValidation": {
     "nameRequired": "Имя - обязательное поле",
@@ -31,6 +35,27 @@
     "passwordRequired": "Пароль - обязательное поле",
     "invalidEmail": "Невалидная электронная почта",
     "passwordMinLength": "Пароль должен содержать как минимум 6 символов"
+  },
+  "TemplateTable": {
+    "title": "Название",
+    "description": "Описание",
+    "topic": "Тема",
+    "tags": "Теги",
+    "createdAt": "Дата создания",
+    "status": "Статус",
+    "filledForms": "Заполнено",
+    "public": "Публичный",
+    "private": "Приватный",
+    "errorDeletingTemplates": "",
+    "actions": "Действия",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "open": "Открыть",
+    "createNewTemplate": "Создать новый шаблон",
+    "confirmDeleteSingle": "Вы действительно хотите удалить этот шаблон? Все связанные данные будут удалены.",
+    "confirmDeleteMultiple": "Вы действительно хотите удалить {count} шаблонов? Все связанные данные будут удалены.",
+    "deleteSuccess": "Шаблон успешно удален.",
+    "deleteError": "Ошибка при удалении шаблона. Пожалуйста, повторите позже"
   },
   "Profile": {
     "profile": "Профиль",
@@ -40,7 +65,15 @@
     "templates": "Шаблоны",
     "forms": "Формы",
     "admin": "Администратор",
-    "blocked": "Пользователь заблокирован"
+    "blocked": "Пользователь заблокирован",
+    "actions": "Действия",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "view": "Просмотр",
+    "rowSelected": "строка выбрана",
+    "rowSelectedPlural": "строк выбрано",
+    "sort": "Сортировка",
+    "rowsPerPage": "Строк на странице"
   },
   "Admin": {
     "block": "Заблокировать",
@@ -50,6 +83,7 @@
     "revokeAdminRightsAction": "лишить прав администратора",
     "delete": "Удалить",
     "name": "Имя",
+    "active": "Активен",
     "email": "Электронная почта",
     "role": "Роль",
     "status": "Статус",
@@ -57,6 +91,7 @@
     "admin": "Администратор",
     "blocked": "Заблокирован",
     "unblocked": "Активен",
+    "noRows": "Нет данных",
     "rowSelected": "выбран",
     "rowSelectedPlural": "выбрано",
     "rowsPerPage": "На странице",
@@ -69,7 +104,8 @@
     "actionError": "Ошибка выполнения",
     "selectAtLeastOneUser": "Выберите хотя бы одного пользователя",
     "confirmForSelf": "себя",
-    "and": "и еще"
+    "and": "и еще",
+    "of": "из"
   },
   "ConfirmationModal": {
     "confirm": "Подтвердите действие"
@@ -119,7 +155,19 @@
     "email": "Электронная почта",
     "selectUsers": "Выберите пользователей",
     "typeNameOrEmail": "Введите имя или почту",
-    "errorCreatingTemplate": "Ошибка при создании шаблона! Пожалуйста, попробуйте позже"
+    "errorCreatingTemplate": "Ошибка при создании шаблона! Пожалуйста, попробуйте позже",
+    "templateCreated": "Шаблон успешно создан!"
+  },
+  "TemplatePage": {
+    "templateUpdatedSuccessfully": "Шаблон успешно обновлен",
+    "templateUpdateFailed": "Ошибка при обновлении шаблона",
+    "updateTemplate": "Обновить шаблон",
+    "template": "Шаблон",
+    "generalSettings": "Общие настройки",
+    "questions": "Вопросы",
+    "results": "Результаты",
+    "analytics": "Аналитика",
+    "errorFethcingTemplate": "Error while fetching template"
   },
   "Topics": {
     "quiz": "Квиз",

@@ -8,7 +8,7 @@ export enum NodeEnv {
   prod = 'production',
 }
 
-export enum envVariables {
+export enum EnvVariables {
   nodeEnv = 'NODE_ENV',
   databaseUrl = 'DATABASE_URL',
   jwtSecret = 'JWT_SECRET',
@@ -17,21 +17,26 @@ export enum envVariables {
 export enum Routes {
   auth = 'auth',
   users = 'users',
+  tags = 'tags',
+  questions = 'questions',
+  templates = 'templates',
+  topics = 'topics',
   profile = 'profile',
   login = 'login',
   register = 'register',
 }
 
-export enum errorMessageKeys {
+export enum ErrorMessageKeys {
   userExists = 'userExists',
+  userNotFound = 'userNotFound',
+  usersNotFound = 'usersNotFound',
+  accessDenied = 'Access denied',
+  templateNotFound = 'templateNotFound',
   invalidCredentials = 'invalidCredentials',
   internalServerError = 'internalServerError',
   jwtSecretNotDefined = 'jwtSecretIsNotDefined',
-}
-
-export enum UserMessages {
-  userNotFound = 'User not found',
-  userDeletedSuccesfully = 'User deleted successfully'
+  tagsNotFound = 'tagsNotFound',
+  topicNotFound = 'topicNotFound',
 }
 
 export enum validationErrors {

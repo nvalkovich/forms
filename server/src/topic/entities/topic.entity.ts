@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Template } from 'src/template/entities/template.entity';
+import { Template } from '../../template/entities/template.entity';
 
 @Entity()
 export class Topic {
@@ -13,4 +13,8 @@ export class Topic {
     cascade: ['remove'],
   })
   templates: Template[];
+}
+
+export enum TopicRelations {
+  templates = 'templates',
 }

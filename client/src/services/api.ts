@@ -1,5 +1,6 @@
 import API_URL from '@/utils/config';
-import { User, CreateTemplateData } from '@/types';
+import { CreateTemplateData, TemplateFormData } from '@/types/template';
+import { User } from '@/types/user';
 
 export enum ApiRoutes {
     users = '/users',
@@ -38,17 +39,23 @@ export const routes = {
     topics: ApiRoutes.topic,
     topicById: `${ApiRoutes.topic}/{id}`,
     tags: ApiRoutes.tags,
-    createTemplate: `${ApiRoutes.templates}/create`,
+    templates: ApiRoutes.templates,
 };
 
 const fetchRequest = async (
     endpoint: string,
     method: HttpMethod = HttpMethod.GET,
     body?: unknown,
+    token?: string,
 ) => {
+    const headers: HeadersInit = {
+        ...defaultHeaders,
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    };
+
     const options: RequestInit = {
         method,
-        headers: defaultHeaders,
+        headers,
         ...(body ? { body: JSON.stringify(body) } : {}),
     };
 
@@ -103,5 +110,30 @@ export const fetchTags = () => fetchRequest(routes.tags);
 export const addTag = (tag: string) =>
     fetchRequest(routes.tags, HttpMethod.POST, { name: tag });
 
-export const createTemplate = (data: CreateTemplateData) =>
-    fetchRequest(routes.createTemplate, HttpMethod.POST, data);
+export const createTemplate = (data: CreateTemplateData, token: string) =>
+    fetchRequest(routes.templates, HttpMethod.POST, data, token);
+
+export const getTemplates = () => fetchRequest(routes.templates);
+
+export const getTemplateById = (id: string) =>
+    fetchRequest(createRoute(`${ApiRoutes.templates}/{id}`, { id }));
+
+export const updateTemplate = (
+    id: string,
+    data: Partial<TemplateFormData>,
+    token: string,
+) =>
+    fetchRequest(
+        createRoute(`${ApiRoutes.templates}/{id}`, { id }),
+        HttpMethod.PATCH,
+        data,
+        token,
+    );
+
+export const deleteTemplate = (id: string, token: string) =>
+    fetchRequest(
+        createRoute(`${ApiRoutes.templates}/{id}`, { id }),
+        HttpMethod.DELETE,
+        undefined,
+        token,
+    );
