@@ -3,16 +3,16 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UserData } from 'src/types/types';
-import { errorMessageKeys } from 'src/types/types';
-import { envVariables } from 'src/types/types';
+import { ErrorMessageKeys } from 'src/types/types';
+import { EnvVariables } from 'src/types/types';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private configService: ConfigService) {
-    const jwtSecret = configService.get<string>(envVariables.jwtSecret);
+    const jwtSecret = configService.get<string>(EnvVariables.jwtSecret);
 
     if (!jwtSecret) {
-      throw new Error(errorMessageKeys.jwtSecretNotDefined);
+      throw new Error(ErrorMessageKeys.jwtSecretNotDefined);
     }
 
     super({

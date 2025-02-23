@@ -9,7 +9,7 @@ interface AuthFormProps {
 }
 
 export const AuthForm = ({ onSubmit, children, title }: AuthFormProps) => {
-   return (
+    return (
         <Container
             component="main"
             sx={{
@@ -29,10 +29,15 @@ export const AuthForm = ({ onSubmit, children, title }: AuthFormProps) => {
                         textAlign: 'center',
                     }}
                 >
-                  <Title title={title} />
-                    <Box component="form" onSubmit={onSubmit} sx={{ width: '100%' }}>
-                                {children}
-                            </Box>
+                    <Title title={title} />
+                    <Box
+                        component="form"
+                        onSubmit={onSubmit}
+                        sx={{ width: '100%' }}
+                        noValidate
+                    >
+                        {children}
+                    </Box>
                 </StyledPaper>
             </Box>
         </Container>

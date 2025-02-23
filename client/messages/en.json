@@ -5,7 +5,8 @@
   "Errors": {
     "networkError": "Network error. Please check your connection and try again.",
     "internalServerError": "Internal server error. Please, try later",
-    "operationNotPermitted": "Operation is not permitted"
+    "operationNotPermitted": "Operation is not permitted",
+    "accessDenied": "Access denied!"
   },
   "AuthPage": {
     "register": "Register",
@@ -22,6 +23,7 @@
     "registerError": "Registration failed",
     "invalidCredentials": "Invalid credentials. Check entered data!",
     "userExists": "User with this email already exists",
+    "userNotFound": "User not found",
     "internalServerError": "Internal server error. Please, try later",
     "networkError": "Network error. Please check your connection and try again.",
     "userIsBlocked": "Unable to login! User is blocked.",
@@ -160,7 +162,8 @@
     "generalSettings": "General settings",
     "questions": "Questions",
     "results": "Results",
-    "analytics": "Analytics"
+    "analytics": "Analytics",
+    "errorFethcingTemplate": "Error while fetching template"
   },
   "Topics": {
     "quiz": "Quiz",

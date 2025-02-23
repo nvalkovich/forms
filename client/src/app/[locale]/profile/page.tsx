@@ -21,10 +21,18 @@ export default function ProfilePage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [token]);
 
-    if (loading) return <p><Loader /></p>;
+    useEffect(() => {
+        if (!loading && !user) {
+            navigate(Routes.login);
+        }
+    }, [loading, user, navigate]);
+
+    if (loading) {
+        return <Loader />;
+    }
 
     if (!user) {
-        return;
+        return null;
     }
 
     return <UserProfile user={user} />;

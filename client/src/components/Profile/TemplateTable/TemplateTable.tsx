@@ -23,12 +23,28 @@ const TemplateTable = () => {
 
     return (
         <Box sx={{ my: 4 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                <PlusButton label={t('createNewTemplate')} onClick={() => navigate(Routes.createTemplate)} />
-                <TemplateTableActions selectedTemplates={selectedTemplates as string[]} handleAction={handleAction} />
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    mb: 2,
+                }}
+            >
+                <PlusButton
+                    label={t('createNewTemplate')}
+                    onClick={() => navigate(Routes.createTemplate)}
+                />
+                <TemplateTableActions
+                    selectedTemplates={selectedTemplates as string[]}
+                    handleAction={handleAction}
+                />
             </Box>
 
-            <TemplateTableRows selectedTemplates={selectedTemplates} setSelectedTemplates={setSelectedTemplates} />
+            <TemplateTableRows
+                selectedTemplates={selectedTemplates}
+                setSelectedTemplates={setSelectedTemplates}
+            />
 
             <ConfirmationModal
                 open={modalOpen}

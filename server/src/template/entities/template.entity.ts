@@ -12,7 +12,7 @@ import {
 import { User } from '../../user/entities/user.entity';
 import { Topic } from '../../topic/entities/topic.entity';
 import { Question } from '../../question/entities/question.entity';
-import { Tag } from '../../tag/entities/tag.entity'
+import { Tag } from '../../tag/entities/tag.entity';
 
 @Entity()
 export class Template {
@@ -53,4 +53,12 @@ export class Template {
 
   @OneToMany(() => Question, (question) => question.template, { cascade: true })
   questions: Question[];
+}
+
+export enum TempateRelations {
+  questions = 'questions',
+  author = 'author',
+  topic = 'topic',
+  tags = 'tags',
+  users = 'users',
 }

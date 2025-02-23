@@ -13,7 +13,7 @@ import {
     LanguageMenu,
     AuthButtons,
     ProfileButtons as ProfileMenu,
-    NavigationItems
+    NavigationItems,
 } from '@/components/base';
 import { User } from '@/types/user';
 

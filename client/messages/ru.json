@@ -5,7 +5,8 @@
   "Errors": {
     "networkError": "Ошибка соединения. Пожалуйста, проверьте своё соединение и попробуйте позже",
     "internalServerError": "Ошибка сервера. Пожалуйста, попробуйте позже",
-    "operationNotPermitted": "Операция не разрешена"
+    "operationNotPermitted": "Операция не разрешена",
+    "accessDenied": "Доступ запррещен!"
   },
   "AuthPage": {
     "register": "Регистрация",
@@ -22,6 +23,7 @@
     "registerError": "Ошибка регистрации",
     "invalidCredentials": "Неправильные входные данные. Проверьте введенные данные!",
     "userExists": "Пользователь с такой электронной почтой уже существует",
+    "userNotFound": "Пользователь не найден",
     "internalServerError": "Ошибка сервера. Пожалуйста, попробуйте позже",
     "networkError": "Ошибка соединения. Пожалуйста, проверьте своё соединение и попробуйте позже",
     "userIsBlocked": "Невозможно совершить вход в систему! Пользователь заблокирован",
@@ -164,7 +166,8 @@
     "generalSettings": "Общие настройки",
     "questions": "Вопросы",
     "results": "Результаты",
-    "analytics": "Аналитика"
+    "analytics": "Аналитика",
+    "errorFethcingTemplate": "Error while fetching template"
   },
   "Topics": {
     "quiz": "Квиз",

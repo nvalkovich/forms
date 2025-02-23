@@ -5,7 +5,6 @@ import { User } from '@/types/user';
 import { AdminActionsTypes } from '@/types/common';
 import { GridRowSelectionModel } from '@mui/x-data-grid';
 
-
 interface UserTableProps {
     rows: UserTableRow[];
     selectedUsers: GridRowSelectionModel;

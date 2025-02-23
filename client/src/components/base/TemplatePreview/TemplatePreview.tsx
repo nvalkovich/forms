@@ -49,24 +49,40 @@ export const TemplatePreview = ({
                 </Typography>
             )}
             <Box>
-                <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }} gap={1}>
+                <Stack
+                    direction="row"
+                    spacing={1}
+                    alignItems="center"
+                    sx={{ mb: 2 }}
+                    gap={1}
+                >
                     <TemplatesIcon />
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                    <Typography
+                        variant="body2"
+                        sx={{ color: 'text.secondary' }}
+                    >
                         {isLoading
                             ? 'Loading...'
                             : topic
-                            ? getTopicValueForView(topic, topicsTranslations)
-                            : commonTranslations('noTopicSelected')}
+                              ? getTopicValueForView(topic, topicsTranslations)
+                              : commonTranslations('noTopicSelected')}
                     </Typography>
                 </Stack>
                 <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
                     <HashtagIcon />
                     {tags.length > 0 ? (
                         tags.map((tag, index) => (
-                            <Chip key={index} label={tag.name} size={ChipTypes.small} />
+                            <Chip
+                                key={index}
+                                label={tag.name}
+                                size={ChipTypes.small}
+                            />
                         ))
                     ) : (
-                        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                        <Typography
+                            variant="body2"
+                            sx={{ color: 'text.secondary' }}
+                        >
                             {commonTranslations('noTagsSelected')}
                         </Typography>
                     )}
@@ -77,7 +93,11 @@ export const TemplatePreview = ({
 
             <Box>
                 {questions.map((question, index) => (
-                    <QuestionRenderer key={index} question={question} mode={QuestionRendererTypes.preview} />
+                    <QuestionRenderer
+                        key={index}
+                        question={question}
+                        mode={QuestionRendererTypes.preview}
+                    />
                 ))}
             </Box>
         </StyledPaper>

@@ -45,7 +45,7 @@ export const TextFieldWithValidation = ({
             multiline={multiline}
             slotProps={{
                 input: {
-                    endAdornment: isPasswordField && (
+                    endAdornment: isPasswordField ? (
                         <InputAdornment position="end">
                             <IconButton
                                 aria-label={passwordIconAriaLabel}
@@ -56,7 +56,7 @@ export const TextFieldWithValidation = ({
                                 {showPassword ? <EyeIcon /> : <EyeOffIcon />}
                             </IconButton>
                         </InputAdornment>
-                    ),
+                    ) : undefined,
                 },
             }}
             sx={{ mb: 2 }}

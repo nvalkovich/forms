@@ -7,7 +7,7 @@ interface QuestionPreviewProps {
 }
 
 export const QuestionPreview = ({ question }: QuestionPreviewProps) => {
-    const t = useTranslations('TemplateBuilder')
+    const t = useTranslations('TemplateBuilder');
     switch (question.type) {
         case QuestionTypes.singleLineString:
             return (

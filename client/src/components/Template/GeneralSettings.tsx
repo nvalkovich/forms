@@ -26,7 +26,10 @@ export const GeneralSettings = ({ onSubmit }: GeneralSettingsProps) => {
     const schema = getGeneralInfoSchema(templateValidationsTranslations);
 
     const methods = useForm<Omit<TemplateFormData, TemplateFields.questions>>({
-        resolver: yupResolver<Omit<TemplateFormData, TemplateFields.questions>>(schema),
+        resolver:
+            yupResolver<Omit<TemplateFormData, TemplateFields.questions>>(
+                schema,
+            ),
         defaultValues: {
             title: '',
             description: '',
@@ -69,7 +72,9 @@ export const GeneralSettings = ({ onSubmit }: GeneralSettingsProps) => {
                 <Typography variant="h6" sx={{ mb: 2 }}>
                     {templateTranslations('generalSettings')}
                 </Typography>
-                <TemplateBaseForm<Omit<TemplateFormData, TemplateFields.questions>>
+                <TemplateBaseForm<
+                    Omit<TemplateFormData, TemplateFields.questions>
+                >
                     methods={methods}
                     isPublic={isPublic}
                     errors={methods.formState.errors}

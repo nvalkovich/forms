@@ -14,3 +14,7 @@ export class Topic {
   })
   templates: Template[];
 }
+
+export enum TopicRelations {
+  templates = 'templates',
+}

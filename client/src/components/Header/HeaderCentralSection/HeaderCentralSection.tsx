@@ -6,7 +6,9 @@ interface HeaderCentralSectionProps {
     isMobile: boolean;
 }
 
-export const HeaderCentralSection = ({ isMobile }: HeaderCentralSectionProps) => {
+export const HeaderCentralSection = ({
+    isMobile,
+}: HeaderCentralSectionProps) => {
     return (
         <Box
             sx={{

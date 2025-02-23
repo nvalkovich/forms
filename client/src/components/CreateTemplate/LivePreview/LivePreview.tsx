@@ -22,7 +22,9 @@ export const LivePreview = ({ watch, fields }: LivePreviewProps) => {
         type: watch(`questions.${index}.${QuestionFields.type}`),
         options: watch(`questions.${index}.${QuestionFields.options}`),
         required: watch(`questions.${index}.${QuestionFields.required}`),
-        showInResults: watch(`questions.${index}.${QuestionFields.showInResults}`),
+        showInResults: watch(
+            `questions.${index}.${QuestionFields.showInResults}`,
+        ),
     }));
 
     return (

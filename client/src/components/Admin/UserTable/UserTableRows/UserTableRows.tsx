@@ -15,7 +15,10 @@ export interface UserTableRowsProps {
     onSelectionChange: (selectedIds: GridRowSelectionModel) => void;
 }
 
-export const UserTableRows = ({ rows, onSelectionChange }: UserTableRowsProps) => {
+export const UserTableRows = ({
+    rows,
+    onSelectionChange,
+}: UserTableRowsProps) => {
     const { user } = useAuth();
     const t = useTranslations('Admin');
 
@@ -36,4 +39,3 @@ export const UserTableRows = ({ rows, onSelectionChange }: UserTableRowsProps) =
         />
     );
 };
-;

@@ -7,8 +7,8 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { jwtExpiresValue } from 'src/constants';
-import { envVariables } from 'src/types/types';
+import { JWT_EXPIRES_VALUE } from 'src/constants';
+import { EnvVariables } from 'src/types/types';
 
 @Module({
   imports: [
@@ -17,8 +17,8 @@ import { envVariables } from 'src/types/types';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        secret: configService.get(envVariables.jwtSecret),
-        signOptions: { expiresIn: jwtExpiresValue },
+        secret: configService.get(EnvVariables.jwtSecret),
+        signOptions: { expiresIn: JWT_EXPIRES_VALUE },
       }),
       inject: [ConfigService],
     }),

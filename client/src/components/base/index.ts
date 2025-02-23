@@ -58,5 +58,5 @@ export {
     AuthButtons,
     NavigationItems,
     SearchBar,
-    TemplatePreview
+    TemplatePreview,
 };

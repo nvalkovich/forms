@@ -69,7 +69,7 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
         getFieldPath(index, TemplateQuestionFields.type),
     ) as QuestionTypes;
     const allQuestions = watch(
-        questionsField
+        questionsField,
     ) as TemplateFormData[typeof questionsField];
 
     const t = useTranslations('TemplateBuilder');

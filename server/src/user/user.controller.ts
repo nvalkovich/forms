@@ -1,8 +1,9 @@
 import { Controller, Get, Patch, Param, Body, Delete } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Routes } from '../types/types';
 
-@Controller('users')
+@Controller(Routes.users)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
