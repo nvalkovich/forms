@@ -1,11 +1,12 @@
 {
-  "HomePage": {
-    "title": "Main"
+  "NotFound": {
+    "pageNotFound": "Page not found"
   },
   "Errors": {
     "networkError": "Network error. Please check your connection and try again.",
     "internalServerError": "Internal server error. Please, try later",
-    "operationNotPermitted": "Operation is not permitted"
+    "operationNotPermitted": "Operation is not permitted",
+    "accessDenied": "Access denied!"
   },
   "AuthPage": {
     "register": "Register",
@@ -22,6 +23,7 @@
     "registerError": "Registration failed",
     "invalidCredentials": "Invalid credentials. Check entered data!",
     "userExists": "User with this email already exists",
+    "userNotFound": "User not found",
     "internalServerError": "Internal server error. Please, try later",
     "networkError": "Network error. Please check your connection and try again.",
     "userIsBlocked": "Unable to login! User is blocked.",
@@ -43,7 +45,7 @@
     "status": "Status",
     "filledForms": "Filled Forms",
     "public": "Public",
-    "private": "Private",
+    "accessRestricted": "Access is restricted",
     "errorDeletingTemplates": "",
     "actions": "Actions",
     "edit": "Edit",
@@ -53,7 +55,21 @@
     "confirmDeleteSingle": "Are you sure you want to delete this template? All associated data will be removed.",
     "confirmDeleteMultiple": "Are you sure you want to delete {count} templates? All associated data will be removed.",
     "deleteSuccess": "Template successfully deleted.",
-    "deleteError": "Error while deleting template"
+    "deleteError": "Error while deleting template",
+     "quiz": "Quiz",
+    "education": "Education",
+    "other": "Other"
+  },
+  "TemplateCard": {
+    "description": "Description",
+    "questionsNum": "Number of questions",
+    "public": "Public",
+    "accessRestricted": "Access is restricted",
+    "accessGranted": "Access granted",
+    "you": "you",
+    "created": "Created",
+    "updated": "Updated",
+    "byUser": "by user"
   },
   "Profile": {
     "profile": "Profile",
@@ -160,7 +176,13 @@
     "generalSettings": "General settings",
     "questions": "Questions",
     "results": "Results",
-    "analytics": "Analytics"
+    "analytics": "Analytics",
+    "errorFethcingTemplate": "Error while fetching template",
+    "fill": "Fill form",
+    "public": "Public",
+    "accessRestricted": "Access is restricted",
+    "accessGranted": "Access granted",
+    "myForm": "Моя форма"
   },
   "Topics": {
     "quiz": "Quiz",
@@ -187,6 +209,7 @@
     "showInResults": "Show in results",
     "notShowInResults": "Don't show in results",
     "requiredToFill": "Required",
-    "notRequiredToFill": "Not required"
+    "notRequiredToFill": "Not required",
+    "loading": "Loading..."
   }
 }

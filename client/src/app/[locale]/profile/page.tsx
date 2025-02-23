@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthProvider';
 import { useNavigation, Routes } from '@/hooks/useNavigation';
-import UserProfile from '@/components/Profile/Profile';
-import { Loader } from '@/components/base';
+import { Loader } from '@/components/common';
+import { Profile } from '@/components/pages/Profile';
 
 export default function ProfilePage() {
     const { token, user, refreshUser } = useAuth();
@@ -19,13 +19,21 @@ export default function ProfilePage() {
             refreshUser().finally(() => setLoading(false));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [token]);
+    }, []);
 
-    if (loading) return <p><Loader /></p>;
+    useEffect(() => {
+        if (!loading && !user) {
+            navigate(Routes.login);
+        }
+    }, [loading, user, navigate]);
 
-    if (!user) {
-        return;
+    if (loading) {
+        return <Loader />;
     }
 
-    return <UserProfile user={user} />;
+    if (!user) {
+        return null;
+    }
+
+    return <Profile />;
 }

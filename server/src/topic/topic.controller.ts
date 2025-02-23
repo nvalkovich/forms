@@ -1,8 +1,9 @@
 import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { TopicService } from './topic.service';
 import { Topic } from './entities/topic.entity';
+import { Routes } from 'src/types/types';
 
-@Controller('topics')
+@Controller(Routes.topics)
 export class TopicController {
   constructor(private readonly topicService: TopicService) {}
 

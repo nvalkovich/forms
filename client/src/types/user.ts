@@ -1,4 +1,4 @@
-import { Template } from "./template";
+import { Template } from './template';
 
 export interface User {
     id: string;
@@ -19,4 +19,12 @@ export enum UserRoles {
 export enum UserStatus {
     blocked = 'Blocked',
     active = 'Active',
+}
+
+export enum UserTableColumns {
+    rowNumber = 'rowNumber',
+    name = 'name',
+    email = 'email',
+    role = 'role',
+    status = 'status',
 }

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthProvider';
 import { useNavigation, Routes } from '@/hooks/useNavigation';
 import { getUsers } from '../../../services/api';
-import UserAdminPanel from '@/components/Admin/UserAdminPanel';
+import { UserAdminPanel } from '@/components/pages/UserAdminPanel';
 import { User } from '@/types/user';
 
 export default function AdminPage() {

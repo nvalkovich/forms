@@ -1,15 +1,16 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import '../globals.css';
-import 'react-toastify/dist/ReactToastify.css';
 import AuthProvider from '@/context/AuthProvider';
-import { ToastContainer } from 'react-toastify';
 import ThemeProvider from '@/context/ThemeProvider';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import Header from '@/components/Header/Header';
+import { Header } from '@/components/pages/Header';
 import { notFound } from 'next/navigation';
 import { Locales, routing } from '@/i18n/routing';
+
+import 'react-toastify/dist/ReactToastify.css';
+import '../globals.css';
+import { CustomToastContainer } from '@/components/common/CustomToastContainer/CustomToastContainer';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -54,8 +55,8 @@ export default async function RootLayout({
                             <Header />
 
                             {children}
+                           <CustomToastContainer  />
                         </NextIntlClientProvider>
-                        <ToastContainer position="top-right" autoClose={3000} />
                     </ThemeProvider>
                 </AuthProvider>
             </body>

@@ -1,43 +1,19 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  OnModuleInit,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Topic } from './entities/topic.entity';
 import { Template } from 'src/template/entities/template.entity';
+import { ErrorMessageKeys } from 'src/types/types';
+import { TopicRelations } from './entities/topic.entity';
 
 @Injectable()
-export class TopicService implements OnModuleInit {
+export class TopicService {
   constructor(
     @InjectRepository(Topic)
     private readonly topicRepository: Repository<Topic>,
     @InjectRepository(Template)
     private readonly templateRepository: Repository<Template>,
   ) {}
-
-  async onModuleInit() {
-    const tableExists = await this.checkTableExists('topic');
-    if (tableExists) {
-      await this.addInitialTopics();
-    } else {
-      console.warn('Table "topic" does not exist. Skipping initial data insertion.');
-    }
-  }
-
-  async checkTableExists(tableName: string): Promise<boolean> {
-    const query = `
-      SELECT EXISTS (
-        SELECT FROM information_schema.tables 
-        WHERE table_schema = 'public' 
-        AND table_name = $1
-      )
-    `;
-    const result = await this.topicRepository.query(query, [tableName]);
-    return result[0].exists; // Вернет true, если таблица существует
-  }
 
   async getAllTopics(): Promise<Topic[]> {
     return this.topicRepository.find();
@@ -55,11 +31,11 @@ export class TopicService implements OnModuleInit {
   async delete(id: string) {
     const topic = await this.topicRepository.findOne({
       where: { id },
-      relations: ['templates'],
+      relations: [TopicRelations.templates],
     });
 
     if (!topic) {
-      throw new HttpException('Topic not found', HttpStatus.NOT_FOUND);
+      throw new NotFoundException({ message: ErrorMessageKeys.topicNotFound });
     }
 
     if (topic.templates.length > 0) {
@@ -67,19 +43,5 @@ export class TopicService implements OnModuleInit {
     }
 
     return await this.topicRepository.remove(topic);
-  }
-
-  private async addInitialTopics(): Promise<void> {
-    const topics = ['education', 'test', 'other'];
-
-    for (const title of topics) {
-      const existingTopic = await this.topicRepository.findOne({
-        where: { title },
-      });
-      if (!existingTopic) {
-        const topic = this.topicRepository.create({ title });
-        await this.topicRepository.save(topic);
-      }
-    }
   }
 }

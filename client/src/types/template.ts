@@ -10,6 +10,7 @@ export interface Template {
     topic: { id: string; title: string };
     tags: Tag[];
     createdAt: string;
+    updatedAt: string;
     isPublic: boolean;
     questions: Question[];
     users?: [];
@@ -31,7 +32,7 @@ export interface CreateTemplateData
     users?: string[];
 }
 
-export enum TemplateFields {
+export enum TemplateFormFields {
     title = 'title',
     description = 'description',
     topicId = 'topicId',
@@ -42,6 +43,15 @@ export enum TemplateFields {
     users = 'users',
 }
 
+export type TemplateFormBase = Omit<
+    TemplateFormData,
+    TemplateFormFields.questions
+>;
+export type TemplateFormQuestions = Pick<
+    TemplateFormData,
+    TemplateFormFields.questions
+>;
+
 export interface TemplateTableRow
     extends Pick<Template, 'id' | 'title' | 'description'> {
     rowNumber: number;
@@ -49,7 +59,6 @@ export interface TemplateTableRow
     tags: string;
     createdAt: string;
     status: string;
-    filledForms: number;
 }
 
 export enum TemplateTableFields {
@@ -60,12 +69,11 @@ export enum TemplateTableFields {
     tags = 'tags',
     createdAt = 'createdAt',
     status = 'status',
-    filledForms = 'filledForms',
 }
 
-export enum templateAvailabilityTypes {
+export enum TemplateAvailabilityTypes {
     public = 'public',
-    private = 'private',
+    accessRestricted = 'accessRestricted',
 }
 
 export enum TemplateTableActionsTypes {
@@ -74,18 +82,14 @@ export enum TemplateTableActionsTypes {
     open = 'open',
 }
 
-export enum TemplateTabs {
+export enum TemplateTabsTypes {
     template = 'template',
     generalSettings = 'generalSettings',
     questions = 'questions',
-    results = 'results',
-    analytics = 'analytics',
 }
 
 export const TemplateTabsOrder = [
-    TemplateTabs.template,
-    TemplateTabs.generalSettings,
-    TemplateTabs.questions,
-    TemplateTabs.results,
-    TemplateTabs.analytics,
+    TemplateTabsTypes.template,
+    TemplateTabsTypes.generalSettings,
+    TemplateTabsTypes.questions,
 ];

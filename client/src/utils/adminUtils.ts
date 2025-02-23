@@ -1,6 +1,8 @@
-import { User, UserRoles, UserStatus } from '@/types/user';
+import { User, UserRoles, UserStatus, UserTableColumns } from '@/types/user';
 import { updateUserStatus, deleteUser } from '../services/api';
 import { AdminActionsTypes } from '@/types/common';
+import { useTranslationsHook } from '@/i18n/routing';
+import { HASHTAG } from '@/constants';
 
 const actionFilters = {
     [AdminActionsTypes.block]: (user: User) => !user.isBlocked,
@@ -76,7 +78,7 @@ export const sortByCreatingDate = <T extends { createdAt: Date }>(
 export const prepareUserTableRows = (
     users: User[],
     currentUserId: string,
-    t: (key: string) => string,
+    t: useTranslationsHook,
 ) => {
     return sortByCreatingDate(users).map((user, index) => ({
         ...user,
@@ -93,3 +95,29 @@ export const prepareUserTableRows = (
         isCurrentUser: user.id === currentUserId,
     }));
 };
+
+export const getUserTableColumns = (t: useTranslationsHook) => [
+    { field: UserTableColumns.rowNumber, headerName: HASHTAG, width: 50 },
+    {
+        field: UserTableColumns.name,
+        headerName: t(UserTableColumns.name),
+        minWidth: 150,
+        flex: 1,
+    },
+    {
+        field: UserTableColumns.email,
+        headerName: t(UserTableColumns.email),
+        minWidth: 200,
+        flex: 1,
+    },
+    {
+        field: UserTableColumns.role,
+        headerName: t(UserTableColumns.role),
+        width: 150,
+    },
+    {
+        field: UserTableColumns.status,
+        headerName: t(UserTableColumns.status),
+        width: 130,
+    },
+];

@@ -1,19 +1,19 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, QueryFailedError } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
-import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { errorMessageKeys } from 'src/types/types';
-import { pgSQLDuplicateKeyErrorCode, passwordSaltRounds } from 'src/constants';
+import { PG_SQL_DUPLICATE_KEY_ERROR_CODE } from 'src/constants';
 import { UpdateUserDto } from './dto/update-user.dto';
-
-const getUserWithoutPassword = (user: User) => {
-  return Object.fromEntries(
-    Object.entries(user).filter(([key]) => key !== 'password'),
-  );
-};
+import { hash } from 'src/utils/bcrypt';
+import { UserRelations } from './entities/user.entity';
+import {
+  Injectable,
+  InternalServerErrorException,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
+import { ErrorMessageKeys } from 'src/types/types';
 
 @Injectable()
 export class UserService {
@@ -24,8 +24,8 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     try {
-      const salt = await bcrypt.genSalt(passwordSaltRounds);
-      const password = await bcrypt.hash(createUserDto.password, salt);
+      const password = await hash(createUserDto.password);
+
       const user = this.userRepo.create({
         email: createUserDto.email,
         name: createUserDto.name,
@@ -39,60 +39,57 @@ export class UserService {
     } catch (error) {
       if (
         error instanceof QueryFailedError &&
-        error.driverError.code === pgSQLDuplicateKeyErrorCode
+        error.driverError.code === PG_SQL_DUPLICATE_KEY_ERROR_CODE
       ) {
-        throw new HttpException(
-          { message: errorMessageKeys.userExists },
-          HttpStatus.CONFLICT,
-        );
+        throw new ConflictException(ErrorMessageKeys.userExists);
       }
 
-      throw new HttpException(
-        { message: errorMessageKeys.internalServerError },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException({
+        message: ErrorMessageKeys.internalServerError,
+      });
     }
   }
 
-  async findOne(email: string) {
+  async findOneByEmail(email: string) {
     const user = await this.userRepo.findOne({
       where: { email: email },
-      relations: ['templates', 'usedTemplates'],
+      relations: [UserRelations.templates, UserRelations.usedTemplates],
     });
+
     return user;
   }
 
   async findAll() {
     const users = await this.userRepo.find({
-      relations: ['templates', 'usedTemplates'],
+      relations: [UserRelations.templates, UserRelations.usedTemplates],
     });
-    return users.map((user) => getUserWithoutPassword(user));
+
+    return users;
   }
 
   async findById(id: string) {
     const user = await this.userRepo.findOne({
       where: { id },
       relations: [
-        'templates',
-        'templates.tags',
-        'templates.topic',
-        'templates.questions',
-        'templates.users',
-        'usedTemplates',
+        UserRelations.templates,
+        UserRelations.templatesTags,
+        UserRelations.templatesTopic,
+        UserRelations.templatesQuestions,
+        UserRelations.templatesUsers,
+        UserRelations.usedTemplates,
       ],
     });
-    if (!user) {
-      return;
+
+    if (user) {
+      return user;
     }
-    return getUserWithoutPassword(user);
+
+    throw new NotFoundException({ message: ErrorMessageKeys.userNotFound });
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     try {
-      const user = await this.userRepo.findOne({ where: { id } });
-      if (!user) {
-        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-      }
+      const user = await this.findById(id);
 
       if (updateUserDto.isBlocked !== undefined) {
         user.isBlocked = updateUserDto.isBlocked;
@@ -104,28 +101,21 @@ export class UserService {
       await this.userRepo.save(user);
       return user;
     } catch {
-      throw new HttpException(
-        'Internal Server Error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException({
+        message: ErrorMessageKeys.internalServerError,
+      });
     }
   }
 
   async delete(id: string) {
     try {
-      const user = await this.userRepo.findOne({ where: { id } });
-      if (!user) {
-        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-      }
-
+      const user = await this.findById(id);
       await this.userRepo.remove(user);
-      return { message: 'User deleted successfully' };
-    } catch (error) {
-      console.error(error);
-      throw new HttpException(
-        'Internal Server Error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      return user;
+    } catch {
+      throw new InternalServerErrorException({
+        message: ErrorMessageKeys.internalServerError,
+      });
     }
   }
 }

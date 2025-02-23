@@ -10,10 +10,7 @@ import { Template, TemplateFormData } from '@/types/template';
 import { toast } from 'react-toastify';
 import { useTranslations } from 'next-intl';
 
-export const useTemplates = (
-    templateId?: string,
-    fetchAll: boolean = false,
-) => {
+export const useTemplates = (templateId?: string) => {
     const { token } = useAuth();
     const [template, setTemplate] = useState<Template | null>(null);
     const [templates, setTemplates] = useState<Template[]>([]);
@@ -26,14 +23,12 @@ export const useTemplates = (
     const fetchData = async () => {
         setLoading(true);
         try {
-            if (fetchAll) {
-                const data = await getTemplates();
+            if (!templateId) {
+                const data = await getTemplates(token || undefined);
                 setTemplates(data);
-            } else if (templateId) {
+            } else {
                 const templateData = await getTemplateById(templateId);
                 setTemplate(templateData);
-            } else {
-                setTemplate(null);
             }
         } catch (err) {
             setError(err as Error);
@@ -47,11 +42,11 @@ export const useTemplates = (
     useEffect(() => {
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [templateId, fetchAll]);
+    }, [templateId]);
 
     const handleDeleteTemplates = async (templateIds: string[]) => {
         if (!token) {
-            toasOperationPermiitedError();
+            toastOperationPermittedError();
             return;
         }
         try {
@@ -65,15 +60,19 @@ export const useTemplates = (
     };
 
     const handleUpdateTemplate = async (
-        templateId: string,
+        templateId: string | undefined,
         data: Partial<TemplateFormData>,
     ) => {
+
+        if (!templateId) {
+            return;
+        }
+
         if (!token) {
-            toasOperationPermiitedError();
+            toastOperationPermittedError();
             return;
         }
         try {
-            console.log(data);
             const updatedTemplate = await updateTemplate(
                 templateId,
                 data,
@@ -87,7 +86,7 @@ export const useTemplates = (
         }
     };
 
-    const toasOperationPermiitedError = () => {
+    const toastOperationPermittedError = () => {
         toast.error(errorTranslations('operationNotPermitted'));
     };
 

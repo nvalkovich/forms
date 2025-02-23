@@ -1,6 +1,7 @@
-import { FormTemplateBuilder } from '@/components/CreateTemplate/FormTemplateBuilder';
+import { FormTemplateBuilder } from "@/components/pages/FormTemplateBuilder";
 
 const CreateTemplatePage = () => {
+
     return <FormTemplateBuilder />;
 };
 

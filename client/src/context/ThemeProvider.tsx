@@ -7,7 +7,7 @@ import {
 } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import useLocalStorage from '@/hooks/useLocalStorage';
-import { Loader } from '@/components/base';
+import { Loader } from '@/components/common';
 
 export enum ThemeModes {
     light = 'light',

@@ -45,3 +45,7 @@ export class Question {
   @Column({ nullable: true })
   order: number;
 }
+
+export enum QustionRelations {
+  template = 'template',
+}

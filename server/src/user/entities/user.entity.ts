@@ -45,3 +45,12 @@ export class User {
   @ManyToMany(() => Template, (template) => template.users)
   usedTemplates: Template[];
 }
+
+export enum UserRelations {
+  templates = 'templates',
+  templatesTags = 'templates.tags',
+  templatesTopic = 'templates.topic',
+  templatesQuestions = 'templates.questions',
+  templatesUsers = 'templates.users',
+  usedTemplates = 'usedTemplates',
+}

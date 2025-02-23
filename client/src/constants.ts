@@ -1,4 +1,7 @@
-export const styleConstants = {
+import { Locales } from './i18n/routing';
+import { QuestionTypes } from './types/question';
+
+export const COLORS = {
     dark: {
         backgroundColor: '#121212',
         textColor: '#ffffff',
@@ -16,3 +19,29 @@ export const styleConstants = {
 
 export const MAX_QUESTIONS_OF_TYPE = 4;
 export const HASHTAG = '#';
+export const DASH = '-';
+
+export const LOCALE_CODES = {
+    [Locales.en]: 'en-US',
+    [Locales.ru]: 'ru-RU',
+};
+
+export const DEFAULT_TEMPLATE_FORM_VALUES = {
+    title: '',
+    description: '',
+    topicId: '',
+    tags: [],
+    questions: [],
+    isPublic: false,
+    users: [],
+};
+
+export const DEFAULT_TEMPLATE_FORM_QUESTIONS_VALUES = {
+    title: '',
+    description: '',
+    type: QuestionTypes.singleLineString,
+    required: false,
+    showInResults: true,
+    options: [],
+    users: [],
+};

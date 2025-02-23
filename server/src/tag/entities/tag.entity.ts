@@ -12,3 +12,7 @@ export class Tag {
   @ManyToMany(() => Template, (template) => template.tags)
   templates: Template[];
 }
+
+export enum TagRelations {
+  templates = 'templates',
+}

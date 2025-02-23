@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslations } from 'next-intl';
 import { TemplateFormData } from '@/types/template';
 import { getTemplateValidationSchema } from '@/utils/yup/templateValidationSchema';
+import { DEFAULT_TEMPLATE_FORM_VALUES } from '@/constants';
 
 export const useTemplateForm = () => {
     const t = useTranslations('TemplateValidation');
@@ -10,15 +11,7 @@ export const useTemplateForm = () => {
 
     const methods = useForm<TemplateFormData>({
         resolver: yupResolver<TemplateFormData>(schema),
-        defaultValues: {
-            title: '',
-            description: '',
-            topicId: '',
-            tags: [],
-            questions: [],
-            isPublic: false,
-            users: [],
-        },
+        defaultValues: DEFAULT_TEMPLATE_FORM_VALUES,
     });
 
     const {

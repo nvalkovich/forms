@@ -5,8 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtExpiresValue } from 'src/constants';
-import { envVariables } from 'src/types/types';
+import { JWT_EXPIRES_VALUE } from 'src/constants';
+import { EnvVariables } from 'src/types/types';
 
 @Module({
   imports: [
@@ -14,14 +14,14 @@ import { envVariables } from 'src/types/types';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        secret: configService.get(envVariables.jwtSecret),
-        signOptions: { expiresIn: jwtExpiresValue },
+        secret: configService.get(EnvVariables.jwtSecret),
+        signOptions: { expiresIn: JWT_EXPIRES_VALUE },
       }),
       inject: [ConfigService],
     }),
   ],
   controllers: [UserController],
   providers: [UserService],
-  exports: [UserService, JwtModule],
+  exports: [UserService, TypeOrmModule],
 })
 export class UserModule {}
