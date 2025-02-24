@@ -1,8 +1,9 @@
 import * as yup from 'yup';
 import { QuestionTypes } from '@/types/question';
-import { TemplateFields, TemplateFormData } from '@/types/template';
+import { TemplateFormBase, TemplateFormData } from '@/types/template';
+import { useTranslationsHook } from '@/i18n/routing';
 
-export const getQuestionSchema = (t: (key: string) => string) =>
+export const getQuestionSchema = (t: useTranslationsHook) =>
     yup.object({
         questions: yup
             .array()
@@ -37,18 +38,9 @@ export const getQuestionSchema = (t: (key: string) => string) =>
             .default([]),
     }) satisfies yup.ObjectSchema<Pick<TemplateFormData, 'questions'>>;
 
-export const getPrivacySchema = (t: (key: string) => string) =>
-    yup.object({
-        isPublic: yup.boolean().required(),
-        users: yup.array().when('isPublic', {
-            is: false,
-            then: (schema) => schema.min(1, t('atLeastOneUserRequired')),
-        }),
-    });
-
 export const getGeneralInfoSchema = (
-    t: (key: string) => string,
-): yup.ObjectSchema<Omit<TemplateFormData, TemplateFields.questions>> =>
+    t: useTranslationsHook,
+): yup.ObjectSchema<TemplateFormBase> =>
     yup.object({
         title: yup.string().required(t('titleRequired')),
         description: yup.string().optional(),
@@ -68,10 +60,10 @@ export const getGeneralInfoSchema = (
             is: false,
             then: (schema) => schema.min(1, t('atLeastOneUserRequired')),
         }),
-    }) as yup.ObjectSchema<Omit<TemplateFormData, TemplateFields.questions>>;
+    }) as yup.ObjectSchema<TemplateFormBase>;
 
 export const getTemplateValidationSchema = (
-    t: (key: string) => string,
+    t: useTranslationsHook,
 ): yup.ObjectSchema<TemplateFormData> => {
     return yup.object({
         ...getGeneralInfoSchema(t).fields,

@@ -6,6 +6,8 @@ export enum Locales {
     ru = 'ru',
 }
 
+export type useTranslationsHook = (value: string) => string;
+
 export const routing = defineRouting({
     locales: [Locales.en, Locales.ru],
     defaultLocale: Locales.en,

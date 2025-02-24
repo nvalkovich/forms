@@ -25,5 +25,6 @@ import { EnvVariables } from 'src/types/types';
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy],
+  exports: [JwtModule],
 })
 export class AuthModule {}

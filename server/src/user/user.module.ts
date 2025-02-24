@@ -22,6 +22,6 @@ import { EnvVariables } from 'src/types/types';
   ],
   controllers: [UserController],
   providers: [UserService],
-  exports: [UserService, JwtModule],
+  exports: [UserService, TypeOrmModule],
 })
 export class UserModule {}

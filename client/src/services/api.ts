@@ -113,7 +113,8 @@ export const addTag = (tag: string) =>
 export const createTemplate = (data: CreateTemplateData, token: string) =>
     fetchRequest(routes.templates, HttpMethod.POST, data, token);
 
-export const getTemplates = () => fetchRequest(routes.templates);
+export const getTemplates = (token?: string) =>
+    fetchRequest(routes.templates, HttpMethod.GET, undefined, token);
 
 export const getTemplateById = (id: string) =>
     fetchRequest(createRoute(`${ApiRoutes.templates}/{id}`, { id }));

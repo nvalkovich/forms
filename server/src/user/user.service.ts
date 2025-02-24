@@ -110,8 +110,8 @@ export class UserService {
   async delete(id: string) {
     try {
       const user = await this.findById(id);
-
       await this.userRepo.remove(user);
+      return user;
     } catch {
       throw new InternalServerErrorException({
         message: ErrorMessageKeys.internalServerError,

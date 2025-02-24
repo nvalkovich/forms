@@ -1,53 +1,21 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { useAuthForm } from '@/hooks/auth/useAuthForm';
-import { useAuthSubmit } from '@/hooks/auth/useAuthSubmit';
-import { TextFieldWithValidation, Button, TextLink } from '@/components/base';
+import React from 'react';
+import { AuthType, AuthLinksKeys } from '@/types/auth';
 import { Routes } from '@/hooks/useNavigation';
-import { AuthType, TextFieldTypes } from '@/types/common';
-import { AuthForm } from '@/components/base/AuthForm/AuthForm';
+import { AuthPage } from '@/components/pages/AuthPage';
 
-export default function RegisterPage() {
-    const t = useTranslations('AuthPage');
-    const [showPassword, setShowPassword] = useState(false);
-    const { register, handleSubmit, errors } = useAuthForm(AuthType.register);
-    const { onSubmit } = useAuthSubmit(AuthType.register);
-
+const RegisterPage = () => {
     return (
-        <AuthForm title={t('register')} onSubmit={handleSubmit(onSubmit)}>
-            <TextFieldWithValidation
-                label={t('name')}
-                register={register('name')}
-                error={Boolean(errors.name)}
-                helperText={errors.name?.message}
-                placeholder={t('name')}
-            />
-            <TextFieldWithValidation
-                label={t('email')}
-                type={TextFieldTypes.email}
-                register={register('email')}
-                error={Boolean(errors.email)}
-                helperText={errors.email?.message}
-                placeholder={t('email')}
-            />
-            <TextFieldWithValidation
-                label={t('password')}
-                type={TextFieldTypes.password}
-                register={register('password')}
-                error={Boolean(errors.password)}
-                helperText={errors.password?.message}
-                placeholder={t('password')}
-                showPassword={showPassword}
-                toggleShowPassword={() => setShowPassword((prev) => !prev)}
-            />
-            <Button label={t('register')} type={'submit'} />
-            <TextLink
-                text={t('haveAccount')}
-                linkText={t('login')}
-                href={Routes.login}
-            />
-        </AuthForm>
+        <AuthPage
+            authType={AuthType.register}
+            titleKey={AuthType.register}
+            buttonLabelKey={AuthType.register}
+            linkTextKey={AuthLinksKeys.haveAccount}
+            linkHref={Routes.login}
+            showNameField
+        />
     );
-}
+};
+
+export default RegisterPage;

@@ -47,5 +47,5 @@ export class Question {
 }
 
 export enum QustionRelations {
-  template = 'template'
+  template = 'template',
 }

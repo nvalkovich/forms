@@ -4,7 +4,8 @@ import { loginUser, registerUser } from '@/services/api';
 import { useTranslations } from 'next-intl';
 import { useNavigation, Routes } from '../useNavigation';
 import { User } from '@/types/user';
-import { AuthType } from '@/types/common';
+import { AuthType } from '@/types/auth';
+import { useTranslationsHook } from '@/i18n/routing';
 
 type AuthFormData = {
     name?: string;
@@ -17,7 +18,7 @@ type AuthResponse = {
     user: User;
 };
 
-const useAuthMessages = (type: AuthType, t: (key: string) => string) => {
+const useAuthMessages = (type: AuthType, t: useTranslationsHook) => {
     const blokedUserMessage = t('userIsBlocked');
 
     const authMessages =

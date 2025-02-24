@@ -105,7 +105,8 @@ export const useAdminPanel = (usersData: User[], currentUserId: string) => {
             await executeUserActions(usersToUpdate, modalAction);
             updateUsersAndSelection(usersToUpdate, modalAction);
             await updateCurrentUser();
-        } catch {
+        } catch (error) {
+            console.error(error);
             toast.error(t('actionError'));
         } finally {
             setModalOpen(false);

@@ -14,5 +14,5 @@ export class Tag {
 }
 
 export enum TagRelations {
-  templates = 'templates'
+  templates = 'templates',
 }

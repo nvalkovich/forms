@@ -1,8 +1,3 @@
-export enum AuthType {
-    login = 'login',
-    register = 'register',
-}
-
 export enum AdminActionsTypes {
     block = 'block',
     unblock = 'unblock',
@@ -26,4 +21,10 @@ export enum QuestionRendererTypes {
 export enum SelectableItemsChipPlacement {
     top = 'top',
     bottom = 'bottom',
+}
+
+export enum ButtonTypes {
+    button = 'button',
+    submit = 'submit',
+    reset = 'reset',
 }

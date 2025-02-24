@@ -20,3 +20,11 @@ export enum UserStatus {
     blocked = 'Blocked',
     active = 'Active',
 }
+
+export enum UserTableColumns {
+    rowNumber = 'rowNumber',
+    name = 'name',
+    email = 'email',
+    role = 'role',
+    status = 'status',
+}

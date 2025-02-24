@@ -4,7 +4,7 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, In } from 'typeorm';
+import { Repository, In, FindOptionsWhere } from 'typeorm';
 import { Template } from './entities/template.entity';
 import { CreateTemplateDto } from './dto/create-template.dto';
 import { UpdateTemplateDto } from './dto/update-template.dto';
@@ -119,8 +119,25 @@ export class TemplateService {
     return savedTemplate;
   }
 
-  async findAll(): Promise<Template[]> {
+  async findAll(user?: User): Promise<Template[]> {
+    let whereCondition: FindOptionsWhere<unknown>;
+
+    if (user) {
+      if (user.isAdmin) {
+        whereCondition = {};
+      } else {
+        whereCondition = [
+          { isPublic: true },
+          { users: { id: user.id } },
+          { author: { id: user.id } },
+        ];
+      }
+    } else {
+      whereCondition = { isPublic: true };
+    }
+
     return this.templateRepository.find({
+      where: whereCondition,
       relations: [
         TempateRelations.questions,
         TempateRelations.author,
@@ -137,7 +154,7 @@ export class TemplateService {
     }
   }
 
-  async findOne(id: string, user?: User): Promise<Template> {
+  async findOne(id: string): Promise<Template> {
     const template = await this.templateRepository.findOne({
       where: { id },
       relations: [
@@ -154,11 +171,6 @@ export class TemplateService {
         message: ErrorMessageKeys.templateNotFound,
       });
     }
-
-    if (!template.isPublic && user) {
-      this.checkAccess(user, template);
-    }
-
     return template;
   }
 
@@ -167,7 +179,7 @@ export class TemplateService {
     updateTemplateDto: UpdateTemplateDto,
     user: User,
   ): Promise<Template> {
-    const template = await this.findOne(id, user);
+    const template = await this.findOne(id);
 
     this.checkAccess(user, template);
 
@@ -177,7 +189,7 @@ export class TemplateService {
   }
 
   async remove(id: string, user: User): Promise<void> {
-    const template = await this.findOne(id, user);
+    const template = await this.findOne(id);
 
     this.checkAccess(user, template);
 

@@ -49,6 +49,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
             const freshUser = await getUser(user.id);
             setUser(freshUser);
         } catch {
+            logout();
             navigate(Routes.login);
         }
     };
