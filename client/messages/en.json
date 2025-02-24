@@ -7,8 +7,6 @@
     "internalServerError": "Internal server error. Please, try later",
     "operationNotPermitted": "Operation is not permitted",
     "accessDenied": "Access denied!"
-    "operationNotPermitted": "Operation is not permitted",
-    "accessDenied": "Access denied!"
   },
   "AuthPage": {
     "register": "Register",
@@ -25,7 +23,6 @@
     "registerError": "Registration failed",
     "invalidCredentials": "Invalid credentials. Check entered data!",
     "userExists": "User with this email already exists",
-    "userNotFound": "User not found",
     "userNotFound": "User not found",
     "internalServerError": "Internal server error. Please, try later",
     "networkError": "Network error. Please check your connection and try again.",
@@ -59,7 +56,7 @@
     "confirmDeleteMultiple": "Are you sure you want to delete {count} templates? All associated data will be removed.",
     "deleteSuccess": "Template successfully deleted.",
     "deleteError": "Error while deleting template",
-     "quiz": "Quiz",
+    "quiz": "Quiz",
     "education": "Education",
     "other": "Other"
   },
@@ -185,7 +182,7 @@
     "public": "Public",
     "accessRestricted": "Access is restricted",
     "accessGranted": "Access granted",
-    "myForm": "Моя форма"
+    "myForm": "My template"
   },
   "Topics": {
     "quiz": "Quiz",
