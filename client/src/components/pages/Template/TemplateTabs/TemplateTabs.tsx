@@ -12,8 +12,10 @@ import { TemplateView } from './TemplateView';
 import { TemplateFormData, TemplateTabsTypes } from '@/types/template';
 import { Loader } from '@/components/common';
 import { useTranslations } from 'next-intl';
-import { useNavigation, Routes } from '@/hooks/useNavigation';
+import { useNavigation } from '@/hooks/useNavigation';
 import { getTemplatePathWithTab } from '@/utils/templateUtils';
+import { INDEX_NOT_FOUND_VALUE } from '@/constants';
+import { TAB_PARAMS_VALUE } from '@/constants';
 
 const enum TemplateAccessTypes {
     all = 'all',
@@ -38,7 +40,7 @@ export const TemplateTabsConfig = [
         label: TemplateTabsTypes.questions,
         component: EditableQuestions,
         availableFor: TemplateAccessTypes.authorOrAdmin,
-    }
+    },
 ];
 
 export const TemplateTabs = () => {
@@ -52,7 +54,7 @@ export const TemplateTabs = () => {
     const t = useTranslations('TemplatePage');
 
     const currentTab =
-        (searchParams.get('tab') as TemplateTabsTypes) ||
+        (searchParams.get(TAB_PARAMS_VALUE) as TemplateTabsTypes) ||
         TemplateTabsTypes.template;
 
     const isAuthor = user?.id === template?.author.id;
@@ -71,10 +73,8 @@ export const TemplateTabs = () => {
     const activeTab = filteredTabs.findIndex((tab) => tab.key === currentTab);
 
     useEffect(() => {
-        if (activeTab === -1) {
-            navigate(
-                `${Routes.templates}/${id}?tab=${TemplateTabsTypes.template}`,
-            );
+        if (activeTab === INDEX_NOT_FOUND_VALUE) {
+            navigate(getTemplatePathWithTab(id, TemplateTabsTypes.template));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTab, navigate]);
@@ -102,7 +102,11 @@ export const TemplateTabs = () => {
                 }}
             >
                 <Tabs
-                    value={activeTab === -1 ? 0 : activeTab}
+                    value={
+                        activeTab === INDEX_NOT_FOUND_VALUE
+                            ? TemplateTabsTypes.template
+                            : activeTab
+                    }
                     onChange={handleTabChange}
                     variant="scrollable"
                     scrollButtons="auto"

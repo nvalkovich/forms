@@ -56,10 +56,7 @@ export const getGeneralInfoSchema = (
             .min(1, t('tagsRequired'))
             .default([]),
         isPublic: yup.boolean().required(),
-        users: yup.array().when('isPublic', {
-            is: false,
-            then: (schema) => schema.min(1, t('atLeastOneUserRequired')),
-        }),
+        users: yup.array().default([]),
     }) as yup.ObjectSchema<TemplateFormBase>;
 
 export const getTemplateValidationSchema = (

@@ -3,6 +3,11 @@ import { Box, Tabs, Tab } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { TemplateTable } from './TemplateTable';
 
+const ProfileTabsIds = {
+    templates: 'tab-0',
+    forms: 'tab-1',
+};
+
 export const ProfileTabs = () => {
     const [tabValue, setTabValue] = useState(0);
     const t = useTranslations('Profile');
@@ -15,8 +20,8 @@ export const ProfileTabs = () => {
                     onChange={(e, newValue) => setTabValue(newValue)}
                     aria-label="profile tabs"
                 >
-                    <Tab label={t('templates')} id="tab-0" />
-                    <Tab label={t('forms')} id="tab-1" />
+                    <Tab label={t('templates')} id={ProfileTabsIds.templates} />
+                    <Tab label={t('forms')} id={ProfileTabsIds.forms} />
                 </Tabs>
             </Box>
 

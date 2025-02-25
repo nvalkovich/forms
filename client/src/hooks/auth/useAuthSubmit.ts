@@ -1,4 +1,3 @@
-import { toast } from 'react-toastify';
 import { useAuth } from '@/context/AuthProvider';
 import { loginUser, registerUser } from '@/services/api';
 import { useTranslations } from 'next-intl';
@@ -6,6 +5,7 @@ import { useNavigation, Routes } from '../useNavigation';
 import { User } from '@/types/user';
 import { AuthType } from '@/types/auth';
 import { useTranslationsHook } from '@/i18n/routing';
+import { toastSuccess, toastError } from '@/utils/toastify/utils';
 
 type AuthFormData = {
     name?: string;
@@ -35,12 +35,12 @@ const handleAuthResponse = (
     navigate: (route: Routes) => void,
 ) => {
     if (response.user && response.user.isBlocked) {
-        toast.error(messages.blokedUserMessage);
+        toastError(messages.blokedUserMessage);
         return;
     }
     if (response.token && response.user) {
         login(response.token, response.user);
-        toast.success(messages.successMessage);
+        toastSuccess(messages.successMessage);
         navigate(Routes.profile);
     }
 };
@@ -74,12 +74,12 @@ export const useAuthSubmit = (type: AuthType) => {
         } catch (err) {
             if (err instanceof Error) {
                 if (err.message.includes('Failed to fetch')) {
-                    toast.error(getErrorMessage('networkError'));
+                    toastError(getErrorMessage('networkError'));
                 } else {
-                    toast.error(getErrorMessage(err.message));
+                    toastError(getErrorMessage(err.message));
                 }
             } else {
-                toast.error(getErrorMessage('internalServerError'));
+                toastError(getErrorMessage('internalServerError'));
             }
         }
     };

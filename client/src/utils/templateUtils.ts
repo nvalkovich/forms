@@ -9,15 +9,14 @@ import {
 import { MAX_QUESTIONS_OF_TYPE } from '@/constants';
 import { Topics } from '@/types/topic';
 import { QuestionTypes } from '@/types/question';
-import { Locales } from '@/i18n/routing';
 import {
-    LOCALE_CODES,
     DEFAULT_TEMPLATE_FORM_QUESTIONS_VALUES,
     HASHTAG,
     DASH,
 } from '@/constants';
 import { useTranslationsHook } from '@/i18n/routing';
 import { Routes } from '@/hooks/useNavigation';
+import { TAB_PARAMS_VALUE } from '@/constants';
 
 export const getDefaultQuestionType = (
     questions: TemplateFormData[TemplateFormFields.questions] = [],
@@ -70,21 +69,6 @@ export const getStatusLabel = (
     return isPublic
         ? statusLabelsTranslations.public
         : statusLabelsTranslations.accessGranted;
-};
-
-export const formatDate = (date: string, locale: Locales) => {
-    const dateObj = new Date(date);
-    const localeCode = LOCALE_CODES[locale];
-
-    if (dateObj instanceof Date && !isNaN(dateObj.getTime())) {
-        return dateObj.toLocaleDateString(localeCode, {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-        });
-    }
 };
 
 export const getTemplateTableColumns = (t: useTranslationsHook) => {
@@ -155,6 +139,5 @@ export const transformTemplateTableRows = (
     });
 };
 
-export const getTemplatePathWithTab = (templateId: string, newTab: string) => `${Routes.templates}/${templateId}?tab=${newTab}`
-
-
+export const getTemplatePathWithTab = (templateId: string, newTab: string) =>
+    `${Routes.templates}/${templateId}?${TAB_PARAMS_VALUE}=${newTab}`;

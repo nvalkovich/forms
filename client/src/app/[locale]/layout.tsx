@@ -55,7 +55,7 @@ export default async function RootLayout({
                             <Header />
 
                             {children}
-                           <CustomToastContainer  />
+                            <CustomToastContainer />
                         </NextIntlClientProvider>
                     </ThemeProvider>
                 </AuthProvider>

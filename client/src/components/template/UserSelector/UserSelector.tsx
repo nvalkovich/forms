@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { FormControl, MenuItem, Select, Typography, Box } from '@mui/material';
+import React, { useEffect } from 'react';
+import { FormControl } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
-import { toast } from 'react-toastify';
 import { useUsers } from '@/hooks/template/useUsers';
 import { useTranslations } from 'next-intl';
 import { SelectableItems } from '@/components/common';
 import { SelectableItemsChipPlacement } from '@/types/common';
 import { User } from '@/types/user';
 import { TemplateFormFields } from '@/types/template';
-
-enum SortBy {
-    Name = 'name',
-    Email = 'email',
-}
+import { useAuth } from '@/context/AuthProvider';
+import { useUserSelector } from '@/hooks/template/useUserSelector';
+import { SortSelector } from '../SortSelector.tsx/SortSelector';
+import { getUserLabel, getHelperText } from '@/utils/userSelectorUtils';
+import { toastError } from '@/utils/toastify/utils';
 
 export const UserSelector = () => {
     const {
@@ -22,19 +21,27 @@ export const UserSelector = () => {
     } = useFormContext();
 
     const { users, loading, fetchUsers } = useUsers();
-    const [sortBy, setSortBy] = useState<SortBy>(SortBy.Name);
+    const { user: currentUser } = useAuth();
     const selectedUsers = watch(TemplateFormFields.users) || [];
 
     const t = useTranslations('TemplateBuilder');
     const validationTranslations = useTranslations('TemplateValidation');
 
+    const {
+        sortBy,
+        setSortBy,
+        availableUsers,
+        handleAddUser,
+        handleDeleteUser,
+    } = useUserSelector(users, currentUser?.id);
+
     useEffect(() => {
         fetchUsers();
     }, [fetchUsers]);
 
-    const handleAddUser = (user: User) => {
-        if (selectedUsers.some((u: User) => u.id === user.id)) {
-            toast.error(validationTranslations('thisUserSelected'));
+    const onAddUser = (user: User) => {
+        if (!handleAddUser(user)) {
+            toastError(validationTranslations('thisUserSelected'));
             return;
         }
         setValue(TemplateFormFields.users, [...selectedUsers, user], {
@@ -42,7 +49,8 @@ export const UserSelector = () => {
         });
     };
 
-    const handleDeleteUser = (userToDelete: User) => {
+    const onDeleteUser = (userToDelete: User) => {
+        handleDeleteUser(userToDelete);
         setValue(
             TemplateFormFields.users,
             selectedUsers.filter((user: User) => user.id !== userToDelete.id),
@@ -50,64 +58,26 @@ export const UserSelector = () => {
         );
     };
 
-    const sortedUsers = [...users].sort((a, b) =>
-        sortBy === SortBy.Name
-            ? a.name.localeCompare(b.name)
-            : a.email.localeCompare(b.email),
-    );
+    const getOptionLabel = (item: string | User) => getUserLabel(item, sortBy);
+
+    const helperText = getHelperText(errors, validationTranslations);
 
     return (
         <FormControl fullWidth>
-            <Box
-                sx={{
-                    mb: 3,
-                    mt: 2,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 2,
-                }}
-            >
-                <Typography>{t('sortBy')}:</Typography>
-                <Select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value as SortBy)}
-                    size="small"
-                    sx={{
-                        minWidth: 120,
-                        backgroundColor: 'background.paper',
-                        borderRadius: 1,
-                        height: '36px',
-                    }}
-                >
-                    <MenuItem value={SortBy.Name}>{t('name')}</MenuItem>
-                    <MenuItem value={SortBy.Email}>{t('email')}</MenuItem>
-                </Select>
-            </Box>
+            <SortSelector sortBy={sortBy} onSortChange={setSortBy} t={t} />
 
             <SelectableItems<User>
                 name={TemplateFormFields.users}
-                items={sortedUsers.filter(
-                    (user) =>
-                        !selectedUsers.some((u: User) => u.id === user.id),
-                )}
+                items={availableUsers}
                 selectedItems={selectedUsers}
-                onAdd={handleAddUser}
-                onDelete={handleDeleteUser}
-                getOptionLabel={(item: string | User) => {
-                    if (typeof item === 'string') {
-                        return item;
-                    }
-                    return sortBy === SortBy.Name ? item.name : item.email;
-                }}
+                onAdd={onAddUser}
+                onDelete={onDeleteUser}
+                getOptionLabel={getOptionLabel}
                 getKey={(user) => user.id}
                 placeholder={t('typeNameOrEmail')}
                 label={t('selectUsers')}
                 error={!!errors.users}
-                helperText={
-                    errors.tags
-                        ? validationTranslations('atLeastOneUserRequired')
-                        : ''
-                }
+                helperText={helperText}
                 loading={loading}
                 chipPlacement={SelectableItemsChipPlacement.bottom}
             />

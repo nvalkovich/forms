@@ -7,8 +7,9 @@ import {
 } from '@/services/api';
 import { useAuth } from '@/context/AuthProvider';
 import { Template, TemplateFormData } from '@/types/template';
-import { toast } from 'react-toastify';
 import { useTranslations } from 'next-intl';
+import { toastError } from '@/utils/toastify/utils';
+import { toastSuccess } from '@/utils/toastify/utils';
 
 export const useTemplates = (templateId?: string) => {
     const { token } = useAuth();
@@ -63,7 +64,6 @@ export const useTemplates = (templateId?: string) => {
         templateId: string | undefined,
         data: Partial<TemplateFormData>,
     ) => {
-
         if (!templateId) {
             return;
         }
@@ -79,15 +79,15 @@ export const useTemplates = (templateId?: string) => {
                 token,
             );
             setTemplate(updatedTemplate);
-            toast.success(templateTranslations('templateUpdatedSuccessfully'));
+            toastSuccess(templateTranslations('templateUpdatedSuccessfully'));
         } catch (err) {
             setError(err as Error);
-            toast.error(templateTranslations('templateUpdateFailed'));
+            toastError(templateTranslations('templateUpdateFailed'));
         }
     };
 
     const toastOperationPermittedError = () => {
-        toast.error(errorTranslations('operationNotPermitted'));
+        toastError(errorTranslations('operationNotPermitted'));
     };
 
     const refreshTemplate = async () => {

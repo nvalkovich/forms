@@ -79,7 +79,6 @@ export enum TemplateAvailabilityTypes {
 export enum TemplateTableActionsTypes {
     edit = 'edit',
     delete = 'delete',
-    open = 'open',
 }
 
 export enum TemplateTabsTypes {

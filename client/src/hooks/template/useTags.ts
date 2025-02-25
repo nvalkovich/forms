@@ -1,46 +1,48 @@
 import { useState, useCallback } from 'react';
-import { fetchTags, addTag } from '../../services/api';
+import { fetchTags, addTag } from '@/services/api';
 import { Tag } from '@/types/tag';
+import { toastError } from '@/utils/toastify/utils';
+import { useTranslations } from 'next-intl';
 
-enum useTagsErrors {
-    failFetch = 'errorFetchingTags',
-    failAdd = 'errorAddingTags',
-}
 const useTags = () => {
     const [tags, setTags] = useState<Tag[]>([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+
+    const t = useTranslations('LivePreview');
 
     const fetchTagsData = useCallback(async () => {
         setIsLoading(true);
-        setError(null);
         try {
             const data = await fetchTags();
             setTags(data);
         } catch {
-            setError(useTagsErrors.failFetch);
+            toastError(t('errorFetchingTags'));
         } finally {
             setIsLoading(false);
         }
-    }, []);
+    }, [t]);
 
-    const addTagData = useCallback(async (tagName: string) => {
-        const trimmedTag = tagName.trim();
-        if (!trimmedTag) return;
+    const addTagData = useCallback(
+        async (tagName: string) => {
+            const trimmedTag = tagName.trim();
+            if (!trimmedTag) return null;
 
-        setIsLoading(true);
-        setError(null);
-        try {
-            const newTag = await addTag(trimmedTag);
-            setTags((prevTags) => [...prevTags, newTag]);
-            return newTag;
-        } catch {
-            setError(useTagsErrors.failAdd);
-        } finally {
-            setIsLoading(false);
-        }
-    }, []);
+            setIsLoading(true);
+            try {
+                const newTag = await addTag(trimmedTag);
+                setTags((prevTags) => [...prevTags, newTag]);
+                return newTag;
+            } catch {
+                toastError(t('errorAddingTags'));
+                return null;
+            } finally {
+                setIsLoading(false);
+            }
+        },
+        [t],
+    );
 
-    return { tags, isLoading, error, fetchTagsData, addTagData };
+    return { tags, isLoading, fetchTagsData, addTagData };
 };
+
 export default useTags;

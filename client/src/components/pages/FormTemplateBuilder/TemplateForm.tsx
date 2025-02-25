@@ -5,11 +5,7 @@ import { TemplateFormData } from '@/types/template';
 import { useDragAndDrop } from '@/hooks/template/useDragAndDrop';
 import { useQuestion } from '@/hooks/template/useQuestion';
 import { Question } from '@/types/question';
-import {
-    Title,
-    StyledPaper,
-    Button,
-} from '@/components/common';
+import { Title, StyledPaper, Button } from '@/components/common';
 import { QuestionsList } from '@/components/form';
 import { TemplateBaseForm } from '@/components/template';
 import { TemplateFormFields as FormFields } from '@/types/template';
@@ -41,8 +37,11 @@ const TemplateForm = ({
     const t = useTranslations('TemplateBuilder');
 
     const { onDragEnd } = useDragAndDrop(move);
-    const { addQuestion, onQuestionDelete, availableType } =
-        useQuestion(questions, append, remove);
+    const { addQuestion, onQuestionDelete, availableType } = useQuestion(
+        questions,
+        append,
+        remove,
+    );
 
     return (
         <StyledPaper className="w-50%">

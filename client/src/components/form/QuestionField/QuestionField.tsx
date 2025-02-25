@@ -20,7 +20,11 @@ import { TemplateFormData, TemplateFormFields } from '@/types/template';
 import { TemplateQuestionFields } from '@/types/question';
 import { QuestionTypes } from '@/types/question';
 import { getDefaultQuestionType } from '@/utils/templateUtils';
-import { TextFieldWithValidation, StyledPaper, PlusButton } from '@/components/common';
+import {
+    TextFieldWithValidation,
+    StyledPaper,
+    PlusButton,
+} from '@/components/common';
 import { TrashIcon } from '@/components/icons';
 import { useTranslations } from 'next-intl';
 import { MAX_QUESTIONS_OF_TYPE } from '@/constants';
@@ -211,7 +215,10 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
                             </Box>
                         ))}
                     </Stack>
-                    <PlusButton label={t('addOption')} onClick={() => appendOption({ value: '' })}/>
+                    <PlusButton
+                        label={t('addOption')}
+                        onClick={() => appendOption({ value: '' })}
+                    />
                 </Box>
             )}
 

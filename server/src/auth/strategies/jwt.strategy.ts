@@ -13,7 +13,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     private configService: ConfigService,
     @InjectRepository(User)
-    private userRepository: Repository<User>, 
+    private userRepository: Repository<User>,
   ) {
     const jwtSecret = configService.get<string>(EnvVariables.jwtSecret);
 
