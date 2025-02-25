@@ -6,7 +6,6 @@ export const Loader = () => {
         <Container
             maxWidth="lg"
             sx={{
-                mt: 4,
                 height: '100vh',
                 display: 'flex',
                 justifyContent: 'center',

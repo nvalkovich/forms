@@ -1,10 +1,11 @@
 import { UseFormReturn, FieldErrors } from 'react-hook-form';
 import { TemplateFormData } from '@/types/template';
-import { toast } from 'react-toastify';
 import { useTranslations } from 'next-intl';
 import { createTemplate } from '@/services/api';
 import { useAuth } from '@/context/AuthProvider';
 import { useNavigation, Routes } from '../useNavigation';
+import { toastError } from '@/utils/toastify/utils';
+import { toastSuccess } from '@/utils/toastify/utils';
 
 const networkErrorStirng = 'Failed to fetch';
 
@@ -37,22 +38,22 @@ export const useTemplateFormSubmit = (
 
         try {
             const response = await createTemplate(dataToSend, token);
-            toast.success(templateBuilderTranslations('templateCreated'));
+            toastSuccess(templateBuilderTranslations('templateCreated'));
 
             methods.reset();
             navigate(`${Routes.templates}/${response.id}`);
         } catch (err) {
             if (err instanceof Error) {
                 if (err.message.includes(networkErrorStirng)) {
-                    toast.error(errorsTranslations('networkError'));
+                    toastError(errorsTranslations('networkError'));
                 } else {
                     console.error(err);
-                    toast.error(
+                    toastError(
                         templateBuilderTranslations('errorCreatingTemplate'),
                     );
                 }
             } else {
-                toast.error(errorsTranslations('internalServerError'));
+                toastError(errorsTranslations('internalServerError'));
             }
         }
     };
@@ -62,7 +63,7 @@ export const useTemplateFormSubmit = (
             Object.values(errors).length === 1 &&
             errors.questions?.type === 'min'
         ) {
-            toast.error(templateValidationTranslations('atLeastOneQuestion'));
+            toastError(templateValidationTranslations('atLeastOneQuestion'));
         }
     };
 

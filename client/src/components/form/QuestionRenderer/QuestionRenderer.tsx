@@ -10,18 +10,16 @@ interface QuestionRendererProps {
     mode: QuestionRendererTypes;
 }
 
-export const QuestionRenderer = ({
-    question,
-    mode
-}: QuestionRendererProps) => {
+export const QuestionRenderer = ({ question, mode }: QuestionRendererProps) => {
     return (
         <Stack spacing={1} sx={{ mb: 3 }}>
             <Typography variant="h6">{question.title}</Typography>
             {question.description && (
                 <SecondaryText content={question.description} />
             )}
-            {mode === QuestionRendererTypes.preview &&
-                <QuestionPreview question={question} />}
+            {mode === QuestionRendererTypes.preview && (
+                <QuestionPreview question={question} />
+            )}
         </Stack>
     );
 };

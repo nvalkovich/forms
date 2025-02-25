@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, IconButton, Tooltip } from '@mui/material';
-import { FiTrash2, FiEdit, FiEye } from 'react-icons/fi';
+import { FiTrash2, FiEdit } from 'react-icons/fi';
 import { useTranslations } from 'next-intl';
 import { TemplateTableActionsTypes as ActionTypes } from '@/types/template';
 
@@ -27,12 +27,6 @@ export const TemplateTableActions = ({
             title: t(ActionTypes.delete),
             icon: <FiTrash2 />,
             disabled: !selectedTemplates.length,
-        },
-        {
-            type: ActionTypes.open,
-            title: t(ActionTypes.open),
-            icon: <FiEye />,
-            disabled: selectedTemplates.length !== 1,
         },
     ];
 

@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react';
-import { toast } from 'react-toastify';
 import { GridRowSelectionModel } from '@mui/x-data-grid';
 import { useAuth } from '@/context/AuthProvider';
 import { useTranslations } from 'next-intl';
@@ -8,6 +7,7 @@ import { TemplateTableActionsTypes as ActionTypes } from '@/types/template';
 import { useNavigation } from '../useNavigation';
 import { TemplateTabsTypes } from '@/types/template';
 import { getTemplatePathWithTab } from '@/utils/templateUtils';
+import { toastError, toastSuccess } from '@/utils/toastify/utils';
 
 export const useTemplateTable = () => {
     const { refreshUser } = useAuth();
@@ -15,7 +15,8 @@ export const useTemplateTable = () => {
     const t = useTranslations('TemplateTable');
     const { navigate } = useNavigation();
 
-    const [selectedTemplates, setSelectedTemplates] = useState<GridRowSelectionModel>([]);
+    const [selectedTemplates, setSelectedTemplates] =
+        useState<GridRowSelectionModel>([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [confirmationMessage, setConfirmationMessage] = useState('');
 
@@ -35,34 +36,39 @@ export const useTemplateTable = () => {
         setModalOpen(true);
     }, [hasSelectedTemplates, getDeleteConfirmationMessage]);
 
-    const handleNavigationAction = useCallback((actionType: ActionTypes, id?: string) => {
-        const tab = actionType === ActionTypes.edit
-            ? TemplateTabsTypes.generalSettings
-            : actionType === ActionTypes.open
-                ? TemplateTabsTypes.template
-                : '';
+    const handleNavigationAction = useCallback(
+        (actionType: ActionTypes, id?: string) => {
+            if (actionType === ActionTypes.edit && id) {
+                navigate(
+                    getTemplatePathWithTab(
+                        id,
+                        TemplateTabsTypes.generalSettings,
+                    ),
+                );
+            }
+        },
+        [navigate],
+    );
 
-        if (id && tab) {
-            navigate(getTemplatePathWithTab(id, tab));
-        }
-    }, [navigate]);
-
-    const handleAction = useCallback(async (actionType: ActionTypes, id?: string) => {
-        if (actionType === ActionTypes.delete) {
-            handleDeleteAction();
-        } else {
-            handleNavigationAction(actionType, id);
-        }
-    }, [handleDeleteAction, handleNavigationAction]);
+    const handleAction = useCallback(
+        async (actionType: ActionTypes, id?: string) => {
+            if (actionType === ActionTypes.delete) {
+                handleDeleteAction();
+            } else {
+                handleNavigationAction(actionType, id);
+            }
+        },
+        [handleDeleteAction, handleNavigationAction],
+    );
 
     const handleConfirmDelete = useCallback(async () => {
         try {
             await handleDeleteTemplates(selectedTemplates as string[]);
-            toast.success(t('deleteSuccess'));
+            toastSuccess(t('deleteSuccess'));
             await refreshUser();
             setSelectedTemplates([]);
         } catch {
-            toast.error(t('deleteError'));
+            toastError(t('deleteError'));
         } finally {
             setModalOpen(false);
         }

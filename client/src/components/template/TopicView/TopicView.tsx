@@ -12,15 +12,17 @@ export const TopicView = ({ topic, isLoading }: TopicViewProps) => {
     const topicsTranslations = useTranslations('Topics');
     const commonTranslations = useTranslations('LivePreview');
 
+    const topicText = isLoading
+        ? commonTranslations('loading')
+        : topic
+          ? getTopicValueForView(topic, topicsTranslations)
+          : commonTranslations('noTopicSelected');
+
     return (
         <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
             <TemplatesIcon />
             <Typography sx={{ color: 'text.secondary' }}>
-                {isLoading
-                    ? 'Loading...'
-                    : topic
-                      ? getTopicValueForView(topic, topicsTranslations)
-                      : commonTranslations('noTopicSelected')}
+                {topicText}
             </Typography>
         </Stack>
     );

@@ -36,6 +36,7 @@ export const TemplateTable = () => {
             >
                 <PlusButton
                     label={t('createNewTemplate')}
+                    shortLabel={t('create')}
                     onClick={() => navigate(Routes.createTemplate)}
                 />
                 <TemplateTableActions

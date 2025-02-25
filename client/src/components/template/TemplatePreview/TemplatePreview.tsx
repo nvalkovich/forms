@@ -35,10 +35,11 @@ export const TemplatePreview = ({
                 wordBreak: 'break-word',
             }}
         >
-            <Title title={title || commonTranslations('untitled')} />
-            {description && (
-                <SecondaryText content={description} />
-            )}
+            <Title
+                title={title || commonTranslations('untitled')}
+                sx={{ mb: 2 }}
+            />
+            {description && <SecondaryText content={description} />}
 
             <Box>
                 <TopicView topic={topic} isLoading={isLoading} />

@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
-import { toast } from 'react-toastify';
+import { toastError } from '@/utils/toastify/utils';
 import { useTopic } from '@/hooks/template/useTopic';
 import { getTopicValueForView } from '@/utils/templateUtils';
 
@@ -29,7 +29,7 @@ export const TopicSelector = () => {
 
     useEffect(() => {
         if (error) {
-            toast.error(commonTranslations('errorFetchingTopics'));
+            toastError(commonTranslations('errorFetchingTopics'));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [error]);

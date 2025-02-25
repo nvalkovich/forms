@@ -12,10 +12,12 @@ import {
 import { getAdminConfirmationMessage } from '@/utils/confirmationMessageUtils';
 import { AdminActionsTypes } from '@/types/common';
 import { GridRowSelectionModel } from '@mui/x-data-grid';
+import { toastSuccess } from '@/utils/toastify/utils';
+import { toastError } from '@/utils/toastify/utils';
 
 export const useAdminPanel = (usersData: User[], currentUserId: string) => {
     const t = useTranslations('Admin');
-    const { user, refreshUser, logout } = useAuth();
+    const { user, refreshUser } = useAuth();
     const [users, setUsers] = useState<User[]>(usersData);
     const [selectedUsers, setSelectedUsers] = useState<GridRowSelectionModel>(
         [],
@@ -38,9 +40,6 @@ export const useAdminPanel = (usersData: User[], currentUserId: string) => {
 
     const handleAction = useCallback(
         (actionType: AdminActionsTypes) => {
-            if (user?.isBlocked) {
-                logout();
-            }
             if (!selectedUsers.length) {
                 toast.warning(t('selectAtLeastOneUser'));
                 return;
@@ -57,7 +56,7 @@ export const useAdminPanel = (usersData: User[], currentUserId: string) => {
             );
             setModalOpen(true);
         },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
         [selectedUsers, users, currentUserId, t],
     );
 
@@ -83,7 +82,7 @@ export const useAdminPanel = (usersData: User[], currentUserId: string) => {
             await Promise.all(
                 createRequestsForAction(actionType, usersToUpdate),
             );
-            toast.success(t('actionSuccess'));
+            toastSuccess(t('actionSuccess'));
         },
         [t],
     );
@@ -107,7 +106,7 @@ export const useAdminPanel = (usersData: User[], currentUserId: string) => {
             await updateCurrentUser();
         } catch (error) {
             console.error(error);
-            toast.error(t('actionError'));
+            toastError(t('actionError'));
         } finally {
             setModalOpen(false);
             setConfirmationMessage('');

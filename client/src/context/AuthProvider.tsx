@@ -1,6 +1,12 @@
 'use client';
 
-import { createContext, useContext, useEffect } from 'react';
+import {
+    createContext,
+    useContext,
+    useEffect,
+    useCallback,
+    useState,
+} from 'react';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { LocalStorageKeys } from '@/hooks/useLocalStorage';
 import { User } from '@/types/user';
@@ -18,6 +24,7 @@ interface AuthContextType {
     login: (newToken: string, newUser: User) => void;
     logout: () => void;
     refreshUser: () => Promise<void>;
+    loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -32,30 +39,36 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         LocalStorageKeys.user,
         null,
     );
+    const [loading, setLoading] = useState(false);
 
-    const login = (newToken: string, newUser: User) => {
-        setToken(newToken);
-        setUser(newUser);
-    };
+    const login = useCallback(
+        (newToken: string, newUser: User) => {
+            setToken(newToken);
+            setUser(newUser);
+        },
+        [setToken, setUser],
+    );
 
-    const logout = () => {
+    const logout = useCallback(() => {
         setToken(null);
         setUser(null);
-    };
+    }, [setToken, setUser]);
 
-    const refreshUser = async () => {
+    const refreshUser = useCallback(async () => {
         if (!token || !user?.id) return;
+        setLoading(true);
         try {
             const freshUser = await getUser(user.id);
             setUser(freshUser);
         } catch {
-            logout();
             navigate(Routes.login);
+        } finally {
+            setLoading(false);
         }
-    };
+    }, [token, user?.id, setUser, navigate]);
 
     useEffect(() => {
-        if (token && !user) {
+        if (token) {
             refreshUser();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,7 +76,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
     return (
         <AuthContext.Provider
-            value={{ token, user, login, logout, refreshUser }}
+            value={{ token, user, login, logout, refreshUser, loading }}
         >
             {children}
         </AuthContext.Provider>

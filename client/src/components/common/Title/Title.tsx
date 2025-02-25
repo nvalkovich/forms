@@ -8,9 +8,9 @@ interface TitleProps {
 
 const baseStyles = { mb: 3 };
 
-export const Title = ({ title, sx = baseStyles }: TitleProps) => {
+export const Title = ({ title, sx }: TitleProps) => {
     return (
-        <Typography component="h1" variant="h5" sx={sx}>
+        <Typography component="h1" variant="h5" sx={{ ...baseStyles, ...sx }}>
             {title}
         </Typography>
     );

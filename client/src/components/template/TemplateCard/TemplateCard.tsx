@@ -10,6 +10,9 @@ import { SecondaryText, Title } from '@/components/common';
 import { getStatusLabel } from '@/utils/templateUtils';
 import { DASH } from '@/constants';
 import { useAuth } from '@/context/AuthProvider';
+import { formatDateToLocaleString } from '@/utils/dateUtils';
+import { useLocale } from 'next-intl';
+import { Locales } from '@/i18n/routing';
 
 interface TemplateCardProps {
     template: Template;
@@ -19,6 +22,7 @@ export const TemplateCard = ({ template }: TemplateCardProps) => {
     const t = useTranslations('TemplateCard');
     const { Link } = useNavigation();
     const { user } = useAuth();
+    const locale = useLocale();
 
     const {
         id,
@@ -34,12 +38,16 @@ export const TemplateCard = ({ template }: TemplateCardProps) => {
 
     const isAuthor = user?.id === author?.id;
     const statusLabel = getStatusLabel(isAuthor, isPublic, t);
-    const createdDate = new Date(createdAt).toLocaleDateString();
+    const createdDate = formatDateToLocaleString(
+        createdAt,
+        locale as Locales,
+        true,
+    );
 
     const paperStyles = {
         cursor: 'pointer',
         transition: 'box-shadow 0.3s',
-        padding: 2,
+        padding: 3,
         '&:hover': { boxShadow: 4 },
         width: '100%',
     };
@@ -51,19 +59,24 @@ export const TemplateCard = ({ template }: TemplateCardProps) => {
                     <Title
                         title={title}
                         sx={{
-                            mb: 2,
+                            mb: 3,
                             whiteSpace: 'normal',
                             wordBreak: 'break-word',
                         }}
                     />
                     <SecondaryText
                         content={`${t('description')}: ${description}`}
-                        sx={{ whiteSpace: 'normal', wordBreak: 'break-word' }}
+                        sx={{
+                            whiteSpace: 'normal',
+                            wordBreak: 'break-word',
+                            mb: 2,
+                        }}
                     />
                     <TopicView topic={topic.title} />
                     <TagsView tags={tags} viewWithIcon={false} />
                     <SecondaryText
                         content={`${t('questionsNum')}: ${questions.length}`}
+                        sx={{ mt: 2 }}
                     />
                 </Box>
 
@@ -75,7 +88,7 @@ export const TemplateCard = ({ template }: TemplateCardProps) => {
                         />
                     </Stack>
 
-                    <Divider sx={{ my: 2 }} />
+                    <Divider sx={{ my: 3 }} />
 
                     <Stack
                         direction="row"

@@ -4,7 +4,11 @@ import React, { useState } from 'react';
 import { Toolbar, Container, useTheme, useMediaQuery } from '@mui/material';
 
 import { useAuth } from '@/context/AuthProvider';
-import { HeaderLeftSection, HeaderCentralSection, HeaderRightSection } from './components';
+import {
+    HeaderLeftSection,
+    HeaderCentralSection,
+    HeaderRightSection,
+} from './components';
 import { MobileMenu } from './MobileMenu';
 import { StyledHeader } from './StyledHeader';
 
@@ -58,4 +62,3 @@ export const Header = () => {
         </StyledHeader>
     );
 };
-

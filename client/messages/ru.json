@@ -52,6 +52,7 @@
     "delete": "Удалить",
     "open": "Открыть",
     "createNewTemplate": "Создать новый шаблон",
+    "create": "Создать",
     "confirmDeleteSingle": "Вы действительно хотите удалить этот шаблон? Все связанные данные будут удалены.",
     "confirmDeleteMultiple": "Вы действительно хотите удалить {count} шаблонов? Все связанные данные будут удалены.",
     "deleteSuccess": "Шаблон успешно удален.",
@@ -62,14 +63,16 @@
   },
   "TemplateCard": {
     "description": "Описание",
-    "questionsNum": "Количество вопросов:",
+    "questionsNum": "Количество вопросов",
     "public": "Публичный",
     "accessRestricted": "Ограниченный доступ",
     "accessGranted": "Предоставлен доступ",
     "you": "вы",
     "created": "Создан",
     "updated": "Обновлен",
-    "byUser": "пользователем"
+    "byUser": "пользователем",
+    "noAvialabeTemplates": "Нет доступных шаблонов",
+    "avialableTemplates": "Доступные шаблоны"
   },
   "Profile": {
     "profile": "Профиль",
@@ -119,7 +122,8 @@
     "selectAtLeastOneUser": "Выберите хотя бы одного пользователя",
     "confirmForSelf": "себя",
     "and": "и еще",
-    "of": "из"
+    "of": "из",
+    "errorFetchingUsers": "Ошибка при получении пользователей"
   },
   "ConfirmationModal": {
     "confirm": "Подтвердите действие"
@@ -127,7 +131,7 @@
   "Header": {
     "templates": "Шаблоны",
     "create": "Создать шаблон",
-    "admin": "Админ",
+    "admin": "Страница администратора",
     "search": "Поиск",
     "toggleTheme": "Сменить тему",
     "changeLanguage": "Выбрать язык",
@@ -209,11 +213,13 @@
   "LivePreview": {
     "untitled": "Без названия",
     "noTagsSelected": "Теги не выбраны",
+    "errorAddingTags": "Ошибка при добавлении тегов",
+    "errorFetchingTags": "Ошибка при загрузке тегов",
     "noTopicSelected": "Тема не выбрана",
     "showInResults": "Показывать в результатах",
     "notShowInResults": "Не показывать в результатах",
     "requiredToFill": "Обязательно к заполнению",
     "notRequiredToFill": "Не обязательно к заполнению",
-        "loading": "Загрузка"
+    "loading": "Загрузка"
   }
 }

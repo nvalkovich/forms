@@ -26,6 +26,9 @@ export const LOCALE_CODES = {
     [Locales.ru]: 'ru-RU',
 };
 
+export const INDEX_NOT_FOUND_VALUE = -1;
+export const TAB_PARAMS_VALUE = 'tab';
+
 export const DEFAULT_TEMPLATE_FORM_VALUES = {
     title: '',
     description: '',

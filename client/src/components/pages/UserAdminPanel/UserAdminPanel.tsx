@@ -7,6 +7,7 @@ import { StyledContainer, ConfirmationModal } from '@/components/common';
 interface UserManagementProps {
     usersData: User[];
     currentUserId: string;
+    onActionSuccess?: () => void;
 }
 
 export const UserAdminPanel = ({

@@ -3,10 +3,11 @@ import { useSearchParams } from 'next/navigation';
 import { useParams } from 'next/navigation';
 import { useTemplates } from '@/hooks/template/useTemplates';
 import { useAuth } from '@/context/AuthProvider';
-import { useNavigation, Routes } from '@/hooks/useNavigation';
+import { useNavigation } from '@/hooks/useNavigation';
 import { TemplateTabsTypes, TemplateTabsOrder } from '@/types/template';
 import { TemplateFormData } from '@/types/template';
 import { getTemplatePathWithTab } from '@/utils/templateUtils';
+import { INDEX_NOT_FOUND_VALUE, TAB_PARAMS_VALUE } from '@/constants';
 
 export enum TemplateAccessTypes {
     all = 'all',
@@ -21,9 +22,8 @@ export const useTemplateTabs = () => {
     const { navigate } = useNavigation();
     const searchParams = useSearchParams();
 
-
     const currentTab =
-        (searchParams.get('tab') as TemplateTabsTypes) ||
+        (searchParams.get(TAB_PARAMS_VALUE) as TemplateTabsTypes) ||
         TemplateTabsTypes.template;
 
     const isAuthor = user?.id === template?.author.id;
@@ -33,16 +33,16 @@ export const useTemplateTabs = () => {
         () =>
             TemplateTabsOrder.filter((tab) => {
                 if (tab === TemplateTabsTypes.template) return true;
-                return (isAuthor || isAdmin);
+                return isAuthor || isAdmin;
             }),
-        [isAuthor, isAdmin]
+        [isAuthor, isAdmin],
     );
 
     const activeTab = filteredTabs.indexOf(currentTab);
 
     useEffect(() => {
-        if (activeTab === -1) {
-            navigate(`${Routes.templates}/${id}?tab=${TemplateTabsTypes.template}`);
+        if (activeTab === INDEX_NOT_FOUND_VALUE) {
+            navigate(getTemplatePathWithTab(id, TemplateTabsTypes.template));
         }
     }, [activeTab, navigate, id]);
 

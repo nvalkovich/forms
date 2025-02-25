@@ -41,7 +41,7 @@ export const Button = ({
             disabled={disabled}
             sx={{
                 ...defaultStyles,
-                ...sx, 
+                ...sx,
             }}
         >
             {label}
