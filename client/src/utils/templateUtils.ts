@@ -17,6 +17,8 @@ import {
 import { useTranslationsHook } from '@/i18n/routing';
 import { Routes } from '@/hooks/useNavigation';
 import { TAB_PARAMS_VALUE } from '@/constants';
+import { TemplateAccessTypes } from '@/types/template';
+import { TemplateConfigTab } from '@/components/pages/Template/TemplateTabs/TemplateTabs';
 
 export const getDefaultQuestionType = (
     questions: TemplateFormData[TemplateFormFields.questions] = [],
@@ -141,3 +143,18 @@ export const transformTemplateTableRows = (
 
 export const getTemplatePathWithTab = (templateId: string, newTab: string) =>
     `${Routes.templates}/${templateId}?${TAB_PARAMS_VALUE}=${newTab}`;
+
+export const getTemplateAvailableTabs = (isAuthor: boolean, isAdmin: boolean, tabsConfig: TemplateConfigTab[]) => {
+    return tabsConfig.filter((tab) => {
+    if (tab.availableFor === TemplateAccessTypes.all) return true;
+    if (tab.availableFor === TemplateAccessTypes.authorOrAdmin && (isAuthor || isAdmin)) {
+        return true;
+    }
+    return false;
+});
+}
+
+export const findTemplateTabIndex = (tabs: TemplateConfigTab[], key: string) => {
+    return tabs.findIndex((tab) => tab.key === key);
+};
+

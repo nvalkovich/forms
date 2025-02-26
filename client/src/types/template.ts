@@ -87,8 +87,7 @@ export enum TemplateTabsTypes {
     questions = 'questions',
 }
 
-export const TemplateTabsOrder = [
-    TemplateTabsTypes.template,
-    TemplateTabsTypes.generalSettings,
-    TemplateTabsTypes.questions,
-];
+export const enum TemplateAccessTypes {
+    all = 'all',
+    authorOrAdmin = 'authorOrAdmin',
+}

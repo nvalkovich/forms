@@ -1,9 +1,6 @@
-'use client';
-
-import React, { useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useSearchParams, useParams } from 'next/navigation';
 import { Box, Tabs, Tab } from '@mui/material';
-import { useParams } from 'next/navigation';
 import { useTemplates } from '@/hooks/template/useTemplates';
 import { useAuth } from '@/context/AuthProvider';
 import { GeneralSettings } from './GeneralSettings';
@@ -14,15 +11,21 @@ import { Loader } from '@/components/common';
 import { useTranslations } from 'next-intl';
 import { useNavigation } from '@/hooks/useNavigation';
 import { getTemplatePathWithTab } from '@/utils/templateUtils';
-import { INDEX_NOT_FOUND_VALUE } from '@/constants';
-import { TAB_PARAMS_VALUE } from '@/constants';
+import { INDEX_NOT_FOUND_VALUE, TAB_PARAMS_VALUE } from '@/constants';
+import { TemplateAccessTypes } from '@/types/template';
+import { getTemplateAvailableTabs, findTemplateTabIndex } from '@/utils/templateUtils';
 
-const enum TemplateAccessTypes {
-    all = 'all',
-    authorOrAdmin = 'authorOrAdmin',
+const DEFAULT_TEMPLATE_TAB = TemplateTabsTypes.template;
+const DEFAULT_TEMPLATE_TAB_INDEX = 0;
+
+export interface TemplateConfigTab {
+    key: TemplateTabsTypes;
+    label: string;
+    component: React.ComponentType<{ isAuthor: boolean; onSubmit: (data: Partial<TemplateFormData>) => Promise<void> }>;
+    availableFor: TemplateAccessTypes;
 }
 
-export const TemplateTabsConfig = [
+export const TemplateTabsConfig: TemplateConfigTab[] = [
     {
         key: TemplateTabsTypes.template,
         label: TemplateTabsTypes.template,
@@ -49,86 +52,75 @@ export const TemplateTabs = () => {
     const { template, loading, handleUpdateTemplate } = useTemplates(id);
     const { user } = useAuth();
     const { navigate } = useNavigation();
-
     const searchParams = useSearchParams();
     const t = useTranslations('TemplatePage');
 
     const currentTab =
         (searchParams.get(TAB_PARAMS_VALUE) as TemplateTabsTypes) ||
-        TemplateTabsTypes.template;
+        DEFAULT_TEMPLATE_TAB;
 
-    const isAuthor = user?.id === template?.author.id;
-    const isAdmin = user?.isAdmin;
-
-    const filteredTabs = TemplateTabsConfig.filter((tab) => {
-        if (tab.availableFor === TemplateAccessTypes.all) return true;
-        if (
-            tab.availableFor === TemplateAccessTypes.authorOrAdmin &&
-            (isAuthor || isAdmin)
-        )
-            return true;
-        return false;
-    });
-
-    const activeTab = filteredTabs.findIndex((tab) => tab.key === currentTab);
+    const [isAuthor, setIsAuthor] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
-        if (activeTab === INDEX_NOT_FOUND_VALUE) {
-            navigate(getTemplatePathWithTab(id, TemplateTabsTypes.template));
+        if (template && user) {
+            setIsAuthor(user.id === template.author?.id);
+            setIsAdmin(user.isAdmin || false);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activeTab, navigate]);
+    }, [template, user]);
 
-    if (!template) return null;
-    if (loading) return <Loader />;
+    const availableTabs = getTemplateAvailableTabs(isAuthor, isAdmin, TemplateTabsConfig);
+
+    const activeTab = Math.max(
+        findTemplateTabIndex(availableTabs, currentTab),
+        DEFAULT_TEMPLATE_TAB_INDEX
+    );
+
+    useEffect(() => {
+        if (!loading && template && activeTab === INDEX_NOT_FOUND_VALUE) {
+            navigate(getTemplatePathWithTab(id, DEFAULT_TEMPLATE_TAB));
+        }
+    }, [activeTab, navigate, id, loading, template]);
+
+    if (loading || !template) {
+        return <Loader />;
+    }
 
     const handleUpdate = async (data: Partial<TemplateFormData>) => {
         await handleUpdateTemplate(template.id, data);
     };
 
     const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
-        const newTab = filteredTabs[newValue].key;
+        const newTab = availableTabs[newValue].key;
         navigate(getTemplatePathWithTab(id, newTab));
     };
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    mb: 2,
-                }}
-            >
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                 <Tabs
-                    value={
-                        activeTab === INDEX_NOT_FOUND_VALUE
-                            ? TemplateTabsTypes.template
-                            : activeTab
-                    }
+                    value={activeTab}
                     onChange={handleTabChange}
                     variant="scrollable"
                     scrollButtons="auto"
                     allowScrollButtonsMobile
                 >
-                    {filteredTabs.map((tab, index) => (
+                    {availableTabs.map((tab, index) => (
                         <Tab key={index} label={t(tab.label)} />
                     ))}
                 </Tabs>
             </Box>
 
             <Box sx={{ mt: 3, height: 'auto', minHeight: 400 }}>
-                {filteredTabs.map((tab, index) => {
+                {availableTabs.map((tab, index) => {
                     if (activeTab === index) {
                         const Component = tab.component;
                         return (
-                            <React.Fragment key={index}>
-                                <Component
-                                    isAuthor={isAuthor}
-                                    onSubmit={handleUpdate}
-                                />
-                            </React.Fragment>
+                            <Component
+                                key={index}
+                                isAuthor={isAuthor}
+                                onSubmit={handleUpdate}
+                            />
                         );
                     }
                     return null;
@@ -137,3 +129,4 @@ export const TemplateTabs = () => {
         </Box>
     );
 };
+
