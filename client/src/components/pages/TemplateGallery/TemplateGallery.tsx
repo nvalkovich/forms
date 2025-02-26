@@ -16,7 +16,7 @@ export const TemplateGallery = () => {
         <StyledContainer>
             <Title
                 title={
-                    templates
+                    templates.length
                         ? t('avialableTemplates')
                         : t('noAvialabeTemplates')
                 }
