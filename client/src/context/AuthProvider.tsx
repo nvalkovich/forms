@@ -52,20 +52,25 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     const logout = useCallback(() => {
         setToken(null);
         setUser(null);
-    }, [setToken, setUser]);
+        navigate(Routes.login);
+    }, [setToken, setUser, navigate]);
 
     const refreshUser = useCallback(async () => {
         if (!token || !user?.id) return;
         setLoading(true);
         try {
             const freshUser = await getUser(user.id);
+            if (freshUser.isBlocked) {
+                logout();
+                return;
+            }
             setUser(freshUser);
         } catch {
-            navigate(Routes.login);
+            logout();
         } finally {
             setLoading(false);
         }
-    }, [token, user?.id, setUser, navigate]);
+    }, [token, user?.id, setUser, logout]);
 
     useEffect(() => {
         if (token) {

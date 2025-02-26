@@ -65,6 +65,7 @@
     "description": "Описание",
     "questionsNum": "Количество вопросов",
     "public": "Публичный",
+    "private": "Приватный",
     "accessRestricted": "Ограниченный доступ",
     "accessGranted": "Предоставлен доступ",
     "you": "вы",

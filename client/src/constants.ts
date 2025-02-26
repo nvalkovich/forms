@@ -1,5 +1,6 @@
 import { Locales } from './i18n/routing';
 import { QuestionTypes } from './types/question';
+import { TemplateTabsTypes } from './types/template';
 
 export const COLORS = {
     dark: {
@@ -48,3 +49,6 @@ export const DEFAULT_TEMPLATE_FORM_QUESTIONS_VALUES = {
     options: [],
     users: [],
 };
+
+export const DEFAULT_TEMPLATE_TAB = TemplateTabsTypes.template;
+export const DEFAULT_TEMPLATE_TAB_INDEX = 0;

@@ -1,8 +1,12 @@
-import { FormTemplateBuilder } from "@/components/pages/FormTemplateBuilder";
+import { FormTemplateBuilder } from '@/components/pages/FormTemplateBuilder';
+import { PrivateRoute } from '@/components/routes';
 
 const CreateTemplatePage = () => {
-
-    return <FormTemplateBuilder />;
+    return (
+        <PrivateRoute>
+            <FormTemplateBuilder />;
+        </PrivateRoute>
+    );
 };
 
 export default CreateTemplatePage;

@@ -33,11 +33,11 @@ export const TemplateCard = ({ template }: TemplateCardProps) => {
         questions = [],
         createdAt,
         author,
-        isPublic,
     } = template;
 
-    const isAuthor = user?.id === author?.id;
-    const statusLabel = getStatusLabel(isAuthor, isPublic, t);
+    const isAuthor = user?.id === author.id;
+
+    const statusLabel = getStatusLabel(template, user, t);
     const createdDate = formatDateToLocaleString(
         createdAt,
         locale as Locales,

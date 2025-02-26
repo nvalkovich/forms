@@ -15,10 +15,14 @@ import { GridRowSelectionModel } from '@mui/x-data-grid';
 import { toastSuccess } from '@/utils/toastify/utils';
 import { toastError } from '@/utils/toastify/utils';
 
-export const useAdminPanel = (usersData: User[], currentUserId: string) => {
+export const useAdminPanel = (
+    usersData: User[],
+    currentUserId: string,
+    setUsers: (users: User[]) => void,
+) => {
     const t = useTranslations('Admin');
     const { user, refreshUser } = useAuth();
-    const [users, setUsers] = useState<User[]>(usersData);
+    const [users, setLocalUsers] = useState<User[]>(usersData);
     const [selectedUsers, setSelectedUsers] = useState<GridRowSelectionModel>(
         [],
     );
@@ -29,7 +33,7 @@ export const useAdminPanel = (usersData: User[], currentUserId: string) => {
     const [confirmationMessage, setConfirmationMessage] = useState('');
 
     useEffect(() => {
-        setUsers(usersData);
+        setLocalUsers(usersData);
     }, [usersData]);
 
     const rows = prepareUserTableRows(users, currentUserId, t);
@@ -56,7 +60,6 @@ export const useAdminPanel = (usersData: User[], currentUserId: string) => {
             );
             setModalOpen(true);
         },
-
         [selectedUsers, users, currentUserId, t],
     );
 
@@ -67,6 +70,7 @@ export const useAdminPanel = (usersData: User[], currentUserId: string) => {
                 usersToUpdate,
                 actionType,
             );
+            setLocalUsers(updatedUsers);
             setUsers(updatedUsers);
             setSelectedUsers((prevSelected) =>
                 prevSelected.filter((id) =>
@@ -74,7 +78,7 @@ export const useAdminPanel = (usersData: User[], currentUserId: string) => {
                 ),
             );
         },
-        [users],
+        [users, setUsers],
     );
 
     const executeUserActions = useCallback(

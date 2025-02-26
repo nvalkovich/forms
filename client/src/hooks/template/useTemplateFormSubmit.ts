@@ -12,7 +12,7 @@ const networkErrorStirng = 'Failed to fetch';
 export const useTemplateFormSubmit = (
     methods: UseFormReturn<TemplateFormData>,
 ) => {
-    const { token } = useAuth();
+    const { token, refreshUser } = useAuth();
     const templateValidationTranslations =
         useTranslations('TemplateValidation');
     const templateBuilderTranslations = useTranslations('TemplateBuilder');
@@ -39,7 +39,7 @@ export const useTemplateFormSubmit = (
         try {
             const response = await createTemplate(dataToSend, token);
             toastSuccess(templateBuilderTranslations('templateCreated'));
-
+            refreshUser();
             methods.reset();
             navigate(`${Routes.templates}/${response.id}`);
         } catch (err) {

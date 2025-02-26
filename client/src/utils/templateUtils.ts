@@ -19,6 +19,7 @@ import { Routes } from '@/hooks/useNavigation';
 import { TAB_PARAMS_VALUE } from '@/constants';
 import { TemplateAccessTypes } from '@/types/template';
 import { TemplateConfigTab } from '@/components/pages/Template/TemplateTabs/TemplateTabs';
+import { User } from '@/types/user';
 
 export const getDefaultQuestionType = (
     questions: TemplateFormData[TemplateFormFields.questions] = [],
@@ -53,24 +54,41 @@ export const getDefaultQuestionValues = (defaultType: QuestionTypes) => {
 export const getTopicValueForView = (value: string, t: useTranslationsHook) =>
     Object.values(Topics).includes(value as Topics) ? t(value) : value;
 
+export const checkGrantedAccess = (user: User | null, template: Template) =>
+    template.users && template.users.some((u: User) => u.id === user?.id);
+
 export const getStatusLabel = (
-    isAuthor: boolean,
-    isPublic: boolean,
+    template: Template,
+    user: User | null,
     t: useTranslationsHook,
 ) => {
+    const isPublic = template.isPublic;
+    const isAuthor = user?.id === template.author?.id;
+    const grantedAccess = checkGrantedAccess(user, template);
+    const hasUsers = template.users && template.users.length;
+
     const statusLabelsTranslations = {
         public: t(TemplateAvailabilityTypes.public),
-        private: t(TemplateAvailabilityTypes.accessRestricted),
+        private: t('private'),
+        accessRestricted: t(TemplateAvailabilityTypes.accessRestricted),
         accessGranted: t('accessGranted'),
     };
 
-    if (isAuthor)
-        return isPublic
-            ? statusLabelsTranslations.public
+    if (isPublic) {
+        return statusLabelsTranslations.public;
+    }
+
+    if (isAuthor) {
+        return hasUsers
+            ? statusLabelsTranslations.accessRestricted
             : statusLabelsTranslations.private;
-    return isPublic
-        ? statusLabelsTranslations.public
-        : statusLabelsTranslations.accessGranted;
+    }
+
+    if (grantedAccess) {
+        return statusLabelsTranslations.accessGranted;
+    }
+
+    return statusLabelsTranslations.private;
 };
 
 export const getTemplateTableColumns = (t: useTranslationsHook) => {
@@ -144,17 +162,26 @@ export const transformTemplateTableRows = (
 export const getTemplatePathWithTab = (templateId: string, newTab: string) =>
     `${Routes.templates}/${templateId}?${TAB_PARAMS_VALUE}=${newTab}`;
 
-export const getTemplateAvailableTabs = (isAuthor: boolean, isAdmin: boolean, tabsConfig: TemplateConfigTab[]) => {
+export const getTemplateAvailableTabs = (
+    isAuthor: boolean,
+    isAdmin: boolean,
+    tabsConfig: TemplateConfigTab[],
+) => {
     return tabsConfig.filter((tab) => {
-    if (tab.availableFor === TemplateAccessTypes.all) return true;
-    if (tab.availableFor === TemplateAccessTypes.authorOrAdmin && (isAuthor || isAdmin)) {
-        return true;
-    }
-    return false;
-});
-}
-
-export const findTemplateTabIndex = (tabs: TemplateConfigTab[], key: string) => {
-    return tabs.findIndex((tab) => tab.key === key);
+        if (tab.availableFor === TemplateAccessTypes.all) return true;
+        if (
+            tab.availableFor === TemplateAccessTypes.authorOrAdmin &&
+            (isAuthor || isAdmin)
+        ) {
+            return true;
+        }
+        return false;
+    });
 };
 
+export const findTemplateTabIndex = (
+    tabs: TemplateConfigTab[],
+    key: string,
+) => {
+    return tabs.findIndex((tab) => tab.key === key);
+};

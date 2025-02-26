@@ -65,6 +65,7 @@
     "description": "Description",
     "questionsNum": "Number of questions",
     "public": "Public",
+    "private": "Private",
     "accessRestricted": "Access is restricted",
     "accessGranted": "Access granted",
     "you": "you",

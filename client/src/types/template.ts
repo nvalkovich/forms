@@ -87,7 +87,17 @@ export enum TemplateTabsTypes {
     questions = 'questions',
 }
 
-export const enum TemplateAccessTypes {
+export enum TemplateAccessTypes {
     all = 'all',
     authorOrAdmin = 'authorOrAdmin',
+}
+
+export interface TemplateConfigTab {
+    key: TemplateTabsTypes;
+    label: string;
+    component: React.ComponentType<{
+        isAuthor: boolean;
+        onSubmit: (data: Partial<TemplateFormData>) => Promise<void>;
+    }>;
+    availableFor: TemplateAccessTypes;
 }
