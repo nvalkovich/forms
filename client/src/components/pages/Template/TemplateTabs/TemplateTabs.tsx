@@ -25,6 +25,7 @@ export interface TemplateConfigTab {
     label: string;
     component: React.ComponentType<{
         isAuthor: boolean;
+        isAdmin: boolean;
         onSubmit: (data: Partial<TemplateFormData>) => Promise<void>;
     }>;
     availableFor: TemplateAccessTypes;
@@ -157,6 +158,7 @@ export const TemplateTabs = () => {
                             <Component
                                 key={index}
                                 isAuthor={isAuthor}
+                                isAdmin={isAdmin}
                                 onSubmit={handleUpdate}
                             />
                         );

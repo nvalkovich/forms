@@ -17,11 +17,13 @@ import { ButtonTypes } from '@/types/common';
 
 interface EditableQuestionsProps {
     isAuthor: boolean;
+    isAdmin: boolean;
     onSubmit: (data: TemplateFormQuestions) => void;
 }
 
 export const EditableQuestions = ({
     isAuthor,
+    isAdmin,
     onSubmit,
 }: EditableQuestionsProps) => {
     const templateBuilderTranslations = useTranslations('TemplateBuilder');
@@ -92,7 +94,7 @@ export const EditableQuestions = ({
                     onDragEnd={onDragEnd}
                     onQuestionDelete={onQuestionDelete}
                 />
-                {isAuthor && (
+                {(isAuthor || isAdmin) &&  (
                     <>
                         <Button
                             label={templateBuilderTranslations('addQuestion')}
