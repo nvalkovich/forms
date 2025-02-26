@@ -8,8 +8,7 @@ import {
 import { useAuth } from '@/context/AuthProvider';
 import { Template, TemplateFormData } from '@/types/template';
 import { useTranslations } from 'next-intl';
-import { toastError } from '@/utils/toastify/utils';
-import { toastSuccess } from '@/utils/toastify/utils';
+import { toastError, toastSuccess } from '@/utils/toastify/utils';
 
 export const useTemplates = (templateId?: string) => {
     const { token } = useAuth();

@@ -61,11 +61,14 @@ export const updateUsersAfterAction = (
     usersToUpdate: string[],
     actionType: AdminActionsTypes,
 ): User[] => {
+    if (actionType === AdminActionsTypes.delete) {
+        return users.filter((user) => !usersToUpdate.includes(user.id));
+    }
+
     return users.map((user) =>
         usersToUpdate.includes(user.id) ? userUpdates[actionType](user) : user,
     );
 };
-
 export const sortByCreatingDate = <T extends { createdAt: Date }>(
     data: T[],
 ): T[] => {

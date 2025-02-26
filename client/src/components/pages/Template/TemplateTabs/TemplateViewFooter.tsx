@@ -22,9 +22,11 @@ export const TemplateViewFooter = ({ template }: TemplateViewFooterProps) => {
         locale as Locales,
     );
 
-    const isAuthor = user?.id === template.author?.id;
+    if (!user) {
+        return null;
+    }
 
-    const statusLabel = getStatusLabel(isAuthor, template.isPublic, t);
+    const statusLabel = getStatusLabel(template, user, t);
 
     const createdAtString = `${t('created')}: ${createdAt} ${t('byUser')} ${template.author.name}`;
 

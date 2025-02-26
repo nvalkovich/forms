@@ -9,23 +9,28 @@ import { TemplateView } from './TemplateView';
 import { TemplateFormData, TemplateTabsTypes } from '@/types/template';
 import { Loader } from '@/components/common';
 import { useTranslations } from 'next-intl';
-import { useNavigation } from '@/hooks/useNavigation';
+import { useNavigation, Routes } from '@/hooks/useNavigation';
 import { getTemplatePathWithTab } from '@/utils/templateUtils';
 import { INDEX_NOT_FOUND_VALUE, TAB_PARAMS_VALUE } from '@/constants';
 import { TemplateAccessTypes } from '@/types/template';
-import { getTemplateAvailableTabs, findTemplateTabIndex } from '@/utils/templateUtils';
-
-const DEFAULT_TEMPLATE_TAB = TemplateTabsTypes.template;
-const DEFAULT_TEMPLATE_TAB_INDEX = 0;
+import {
+    getTemplateAvailableTabs,
+    findTemplateTabIndex,
+} from '@/utils/templateUtils';
+import { DEFAULT_TEMPLATE_TAB_INDEX, DEFAULT_TEMPLATE_TAB } from '@/constants';
+import { checkGrantedAccess } from '@/utils/templateUtils';
 
 export interface TemplateConfigTab {
     key: TemplateTabsTypes;
     label: string;
-    component: React.ComponentType<{ isAuthor: boolean; onSubmit: (data: Partial<TemplateFormData>) => Promise<void> }>;
+    component: React.ComponentType<{
+        isAuthor: boolean;
+        onSubmit: (data: Partial<TemplateFormData>) => Promise<void>;
+    }>;
     availableFor: TemplateAccessTypes;
 }
 
-export const TemplateTabsConfig: TemplateConfigTab[] = [
+const TemplateTabsConfig: TemplateConfigTab[] = [
     {
         key: TemplateTabsTypes.template,
         label: TemplateTabsTypes.template,
@@ -55,25 +60,47 @@ export const TemplateTabs = () => {
     const searchParams = useSearchParams();
     const t = useTranslations('TemplatePage');
 
+    const [isAuthor, setIsAuthor] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [accessChecked, setAccessChecked] = useState(false);
+
     const currentTab =
         (searchParams.get(TAB_PARAMS_VALUE) as TemplateTabsTypes) ||
         DEFAULT_TEMPLATE_TAB;
 
-    const [isAuthor, setIsAuthor] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(false);
-
     useEffect(() => {
-        if (template && user) {
-            setIsAuthor(user.id === template.author?.id);
-            setIsAdmin(user.isAdmin || false);
-        }
-    }, [template, user]);
+        if (!loading && template) {
+            const authorStatus = user?.id === template.author?.id;
+            const adminStatus = user?.isAdmin || false;
+            setIsAuthor(authorStatus);
+            setIsAdmin(adminStatus);
 
-    const availableTabs = getTemplateAvailableTabs(isAuthor, isAdmin, TemplateTabsConfig);
+            const hasAccess =
+                authorStatus ||
+                adminStatus ||
+                template.isPublic ||
+                checkGrantedAccess(user, template);
+            if (!hasAccess) {
+                if (!user) {
+                    navigate(Routes.login);
+                } else {
+                    navigate(Routes.templates);
+                }
+            } else {
+                setAccessChecked(true);
+            }
+        }
+    }, [template, user, loading, navigate]);
+
+    const availableTabs = getTemplateAvailableTabs(
+        isAuthor,
+        isAdmin,
+        TemplateTabsConfig,
+    );
 
     const activeTab = Math.max(
         findTemplateTabIndex(availableTabs, currentTab),
-        DEFAULT_TEMPLATE_TAB_INDEX
+        DEFAULT_TEMPLATE_TAB_INDEX,
     );
 
     useEffect(() => {
@@ -82,12 +109,16 @@ export const TemplateTabs = () => {
         }
     }, [activeTab, navigate, id, loading, template]);
 
-    if (loading || !template) {
+    if (loading || !accessChecked) {
         return <Loader />;
     }
 
+    if (!loading && !template) {
+        return null;
+    }
+
     const handleUpdate = async (data: Partial<TemplateFormData>) => {
-        await handleUpdateTemplate(template.id, data);
+        await handleUpdateTemplate(template?.id, data);
     };
 
     const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
@@ -97,7 +128,14 @@ export const TemplateTabs = () => {
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    mb: 2,
+                }}
+            >
                 <Tabs
                     value={activeTab}
                     onChange={handleTabChange}
@@ -129,4 +167,3 @@ export const TemplateTabs = () => {
         </Box>
     );
 };
-
