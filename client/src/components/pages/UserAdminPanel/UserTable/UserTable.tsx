@@ -7,7 +7,7 @@ import { GridRowSelectionModel } from '@mui/x-data-grid';
 
 interface UserTableProps {
     rows: UserTableRow[];
-    selectedUsers: GridRowSelectionModel;
+    selectedUsersIds: GridRowSelectionModel;
     users: User[];
     onSelectionChange: (selectedIds: GridRowSelectionModel) => void;
     handleAction: (actionType: AdminActionsTypes) => void;
@@ -15,7 +15,7 @@ interface UserTableProps {
 
 export const UserTable = ({
     rows,
-    selectedUsers,
+    selectedUsersIds,
     users,
     onSelectionChange,
     handleAction,
@@ -24,7 +24,7 @@ export const UserTable = ({
         <Box sx={{ mb: 1 }}>
             <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
                 <UserTableActions
-                    selectedUsers={selectedUsers as string[]}
+                    selectedUsersIds={selectedUsersIds as string[]}
                     users={users}
                     handleAction={handleAction}
                 />

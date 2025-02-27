@@ -1,7 +1,7 @@
 import { useForm, useFieldArray } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslations } from 'next-intl';
-import { TemplateFormData } from '@/types/template';
+import { TemplateFormData, TemplateFormFields } from '@/types/template';
 import { getTemplateValidationSchema } from '@/utils/yup/templateValidationSchema';
 import { DEFAULT_TEMPLATE_FORM_VALUES } from '@/constants';
 
@@ -22,7 +22,7 @@ export const useTemplateForm = () => {
 
     const { fields, append, remove, move } = useFieldArray({
         control,
-        name: 'questions',
+        name: TemplateFormFields.questions,
     });
 
     return {

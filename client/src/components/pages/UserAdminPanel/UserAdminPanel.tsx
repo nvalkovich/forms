@@ -38,10 +38,10 @@ export const UserAdminPanel = () => {
     const {
         users,
         rows,
-        selectedUsers,
+        selectedUsersIds,
         modalOpen,
         confirmationMessage,
-        setSelectedUsers,
+        setSelectedUsersIds,
         handleAction,
         handleConfirm,
         setModalOpen,
@@ -55,9 +55,9 @@ export const UserAdminPanel = () => {
         <StyledContainer>
             <UserTable
                 rows={rows}
-                selectedUsers={selectedUsers}
+                selectedUsersIds={selectedUsersIds}
                 users={users}
-                onSelectionChange={setSelectedUsers}
+                onSelectionChange={setSelectedUsersIds}
                 handleAction={handleAction}
             />
             <ConfirmationModal

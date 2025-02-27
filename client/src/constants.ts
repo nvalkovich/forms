@@ -52,3 +52,5 @@ export const DEFAULT_TEMPLATE_FORM_QUESTIONS_VALUES = {
 
 export const DEFAULT_TEMPLATE_TAB = TemplateTabsTypes.template;
 export const DEFAULT_TEMPLATE_TAB_INDEX = 0;
+
+export const fetchErrorMessage = 'Failed to fetch';

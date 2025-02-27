@@ -55,10 +55,12 @@ const TemplateTabsConfig: TemplateConfigTab[] = [
 export const TemplateTabs = () => {
     const params = useParams();
     const id = params.id as string;
+
     const { template, loading, handleUpdateTemplate } = useTemplates(id);
     const { user } = useAuth();
     const { navigate } = useNavigation();
     const searchParams = useSearchParams();
+    
     const t = useTranslations('TemplatePage');
 
     const [isAuthor, setIsAuthor] = useState(false);

@@ -45,8 +45,8 @@ export const SortSelector = ({
                     height: '36px',
                 }}
             >
-                <MenuItem value={UserSortBy.Name}>{t('name')}</MenuItem>
-                <MenuItem value={UserSortBy.Email}>{t('email')}</MenuItem>
+                <MenuItem value={UserSortBy.Name}>{t(UserSortBy.Name)}</MenuItem>
+                <MenuItem value={UserSortBy.Email}>{t(UserSortBy.Email)}</MenuItem>
             </Select>
         </Box>
     );

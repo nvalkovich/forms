@@ -13,7 +13,7 @@ import {
 import { useTranslationsHook } from '@/i18n/routing';
 
 interface UserTableActionsProps {
-    selectedUsers: string[];
+    selectedUsersIds: string[];
     users: User[];
     handleAction: (actionType: ActionTypes) => void;
 }
@@ -61,7 +61,7 @@ const getActionsConfig = (
 };
 
 export const UserTableActions = ({
-    selectedUsers,
+    selectedUsersIds,
     users,
     handleAction,
 }: UserTableActionsProps) => {
@@ -78,16 +78,16 @@ export const UserTableActions = ({
         hasUnblockedUsers,
         hasAdmins,
         hasNonAdmins,
-        selectedUsers,
+        selectedUsersIds,
         t,
     );
 
     useEffect(() => {
         const filteredUsers = users.filter((user) =>
-            selectedUsers.includes(user.id),
+            selectedUsersIds.includes(user.id),
         );
         setSelectedUserData(filteredUsers);
-    }, [selectedUsers, users]);
+    }, [selectedUsersIds, users]);
 
     return (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>

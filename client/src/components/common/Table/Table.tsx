@@ -17,13 +17,8 @@ import { ThemeModes } from '@/context/ThemeProvider';
 interface TableProps {
     rows: GridValidRowModel[];
     columns: GridColDef[];
-    selectedRows?: GridRowSelectionModel;
     onSelectionChange?: (selectedIds: GridRowSelectionModel) => void;
     currentUserId?: string;
-    rowIdField?: string;
-    pageSizeOptions?: number[];
-    defaultPageSize?: number;
-    maxHeight?: number | string;
     onRowClick?: (rowId: string) => void;
 }
 
@@ -42,26 +37,54 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     },
 }));
 
+const TableStyles = {
+                    height: '100%',
+                    width: '100%',
+                    mx: 'auto',
+                    '& .MuiDataGrid-cell': {
+                        whiteSpace: 'normal',
+                        wordWrap: 'break-word',
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '5px',
+                        outline: 'none !important',
+                    },
+    
+                    '& .MuiDataGrid-cell:focus': {
+                        outline: 'none !important',
+                    },
+                    '& .MuiDataGrid-cell:focus-within': {
+                        outline: 'none !important',
+                    },
+                }
+
+const defaultTableConfig = {
+    rowIdField: 'id',
+    firstPage: 0,
+    pageSizeOptions: [5, 10, 15],
+    pageSize: 10,
+    maxHeight: '100%',
+    currentUserClassName: 'current-user',
+}
+
 export const Table = ({
     rows,
     columns,
     onSelectionChange = () => {},
     currentUserId,
-    rowIdField = 'id',
-    pageSizeOptions = [5, 10, 15],
-    defaultPageSize = 10,
-    maxHeight = '100%',
     onRowClick,
 }: TableProps) => {
+    
+const {rowIdField, firstPage, pageSizeOptions, pageSize, maxHeight, currentUserClassName } = defaultTableConfig;
     const t = useTranslations('Admin');
     const theme = useTheme();
     const [paginationModel, setPaginationModel] = useState({
-        page: 0,
-        pageSize: defaultPageSize,
+        page: firstPage,
+        pageSize: pageSize,
     });
 
     const getRowClassName = (params: GridRowClassNameParams) =>
-        currentUserId && params.row.id === currentUserId ? 'current-user' : '';
+        currentUserId && params.row.id === currentUserId ? currentUserClassName : '';
 
     const handleRowClick = (params: GridRowParams) => {
         if (onRowClick) {
@@ -97,33 +120,15 @@ export const Table = ({
                     columnHeaderSortIconLabel: t('sort'),
                     noRowsLabel: t('noRows'),
                 }}
-                sx={{
-                    height: '100%',
-                    width: '100%',
-                    mx: 'auto',
-                    '& .MuiDataGrid-cell': {
-                        whiteSpace: 'normal',
-                        wordWrap: 'break-word',
-                        display: 'flex',
-                        alignItems: 'center',
-                        padding: '5px',
-                        outline: 'none !important',
-                    },
-                    '& .MuiDataGrid-row': {
+                sx={{...TableStyles,         
+                     '& .MuiDataGrid-row': {
                         cursor: onRowClick ? 'pointer' : 'default',
                         '&:hover': {
                             backgroundColor: onRowClick
                                 ? theme.palette.action.hover
                                 : 'transparent',
                         },
-                    },
-                    '& .MuiDataGrid-cell:focus': {
-                        outline: 'none !important',
-                    },
-                    '& .MuiDataGrid-cell:focus-within': {
-                        outline: 'none !important',
-                    },
-                }}
+                    },}}
                 pagination
                 onRowClick={onRowClick ? handleRowClick : undefined}
             />

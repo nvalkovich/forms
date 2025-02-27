@@ -28,8 +28,6 @@ import {
 import { TrashIcon } from '@/components/icons';
 import { useTranslations } from 'next-intl';
 import { MAX_QUESTIONS_OF_TYPE } from '@/constants';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
 
 interface QuestionFieldProps {
     index: number;
@@ -92,20 +90,8 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
         }
     }, [questionType, options.length, appendOption]);
 
-    const { attributes, listeners, setNodeRef, transform, transition } =
-        useSortable({ id: `question-${index}` });
-
-    const style = {
-        transform: CSS.Transform.toString(transform),
-        transition,
-    };
-
     return (
         <StyledPaper
-            ref={setNodeRef}
-            style={style}
-            {...attributes}
-            {...listeners}
             sx={{ mt: 4, mb: 4 }}
         >
             <Box display="flex" alignItems="center" mb={2}>
