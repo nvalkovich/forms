@@ -45,7 +45,7 @@ export const TopicSelector = () => {
     const selectConfig = {
         topicLabel: 'topic',
         id: 'topic-select',
-    }
+    };
 
     return (
         <FormControl fullWidth variant="outlined" error={!!errors.topicId}>

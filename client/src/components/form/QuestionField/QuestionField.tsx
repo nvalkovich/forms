@@ -91,9 +91,7 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
     }, [questionType, options.length, appendOption]);
 
     return (
-        <StyledPaper
-            sx={{ mt: 4, mb: 4 }}
-        >
+        <StyledPaper sx={{ mt: 4, mb: 4 }}>
             <Box display="flex" alignItems="center" mb={2}>
                 <Typography variant="subtitle1">
                     {`${t('question')} ${index + 1}`}

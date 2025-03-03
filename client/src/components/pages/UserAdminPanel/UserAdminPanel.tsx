@@ -30,7 +30,7 @@ export const UserAdminPanel = () => {
         };
 
         fetchUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
 
     const currentUserId = user?.id;

@@ -118,4 +118,20 @@ export class UserService {
       });
     }
   }
+
+  async updateSalesforceAccountId(
+    userId: string,
+    salesforceAccountId: string | null,
+  ) {
+    try {
+      const user = await this.findById(userId);
+      user.salesforceAccountId = salesforceAccountId;
+      await this.userRepo.save(user);
+      return user;
+    } catch {
+      throw new InternalServerErrorException({
+        message: ErrorMessageKeys.internalServerError,
+      });
+    }
+  }
 }

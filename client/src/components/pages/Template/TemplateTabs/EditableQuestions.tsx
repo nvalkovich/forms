@@ -94,7 +94,7 @@ export const EditableQuestions = ({
                     onDragEnd={onDragEnd}
                     onQuestionDelete={onQuestionDelete}
                 />
-                {(isAuthor || isAdmin) &&  (
+                {(isAuthor || isAdmin) && (
                     <>
                         <Button
                             label={templateBuilderTranslations('addQuestion')}

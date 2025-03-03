@@ -6,7 +6,26 @@
     "networkError": "Network error. Please check your connection and try again.",
     "internalServerError": "Internal server error. Please, try later",
     "operationNotPermitted": "Operation is not permitted",
-    "accessDenied": "Access denied!"
+    "accessDenied": "Access denied!",
+    "salesforceAccountDeleted": "Error updating account. This account has been deleted!"
+  },
+  "SalesforceForm": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "createAccount": "Create account",
+    "accountCreated": "Account successfully created!",
+    "errorWhileFormSubmit": "Error submitting form! Please try again later",
+    "updateAccount": "Update account",
+    "accountUpdated": "Account successfully updated!"
+  },
+  "SalesforceFormValidationErrors": {
+    "firstNameRequired": "First Name is required",
+    "lastNameRequired": "Last Name is required",
+    "invalidEmail": "Invalid email",
+    "emailRequired": "Email is required",
+    "invalidPhone": "Invalid phone number"
   },
   "AuthPage": {
     "register": "Register",
@@ -87,7 +106,8 @@
     "rowSelected": "row selected",
     "rowSelectedPlural": "rows selected",
     "sort": "Sort",
-    "rowsPerPage": "Rows per page"
+    "rowsPerPage": "Rows per page",
+    "salesforceAccount": "Salesforce account"
   },
   "Admin": {
     "block": "Block",

@@ -8,7 +8,6 @@ import { toastError } from '@/utils/toastify/utils';
 import { toastSuccess } from '@/utils/toastify/utils';
 import { fetchErrorMessage } from '@/constants';
 
-
 export const useTemplateFormSubmit = (
     methods: UseFormReturn<TemplateFormData>,
 ) => {

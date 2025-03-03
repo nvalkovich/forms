@@ -38,25 +38,25 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 }));
 
 const TableStyles = {
-                    height: '100%',
-                    width: '100%',
-                    mx: 'auto',
-                    '& .MuiDataGrid-cell': {
-                        whiteSpace: 'normal',
-                        wordWrap: 'break-word',
-                        display: 'flex',
-                        alignItems: 'center',
-                        padding: '5px',
-                        outline: 'none !important',
-                    },
-    
-                    '& .MuiDataGrid-cell:focus': {
-                        outline: 'none !important',
-                    },
-                    '& .MuiDataGrid-cell:focus-within': {
-                        outline: 'none !important',
-                    },
-                }
+    height: '100%',
+    width: '100%',
+    mx: 'auto',
+    '& .MuiDataGrid-cell': {
+        whiteSpace: 'normal',
+        wordWrap: 'break-word',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '5px',
+        outline: 'none !important',
+    },
+
+    '& .MuiDataGrid-cell:focus': {
+        outline: 'none !important',
+    },
+    '& .MuiDataGrid-cell:focus-within': {
+        outline: 'none !important',
+    },
+};
 
 const defaultTableConfig = {
     rowIdField: 'id',
@@ -65,7 +65,7 @@ const defaultTableConfig = {
     pageSize: 10,
     maxHeight: '100%',
     currentUserClassName: 'current-user',
-}
+};
 
 export const Table = ({
     rows,
@@ -74,8 +74,14 @@ export const Table = ({
     currentUserId,
     onRowClick,
 }: TableProps) => {
-    
-const {rowIdField, firstPage, pageSizeOptions, pageSize, maxHeight, currentUserClassName } = defaultTableConfig;
+    const {
+        rowIdField,
+        firstPage,
+        pageSizeOptions,
+        pageSize,
+        maxHeight,
+        currentUserClassName,
+    } = defaultTableConfig;
     const t = useTranslations('Admin');
     const theme = useTheme();
     const [paginationModel, setPaginationModel] = useState({
@@ -84,7 +90,9 @@ const {rowIdField, firstPage, pageSizeOptions, pageSize, maxHeight, currentUserC
     });
 
     const getRowClassName = (params: GridRowClassNameParams) =>
-        currentUserId && params.row.id === currentUserId ? currentUserClassName : '';
+        currentUserId && params.row.id === currentUserId
+            ? currentUserClassName
+            : '';
 
     const handleRowClick = (params: GridRowParams) => {
         if (onRowClick) {
@@ -120,15 +128,17 @@ const {rowIdField, firstPage, pageSizeOptions, pageSize, maxHeight, currentUserC
                     columnHeaderSortIconLabel: t('sort'),
                     noRowsLabel: t('noRows'),
                 }}
-                sx={{...TableStyles,         
-                     '& .MuiDataGrid-row': {
+                sx={{
+                    ...TableStyles,
+                    '& .MuiDataGrid-row': {
                         cursor: onRowClick ? 'pointer' : 'default',
                         '&:hover': {
                             backgroundColor: onRowClick
                                 ? theme.palette.action.hover
                                 : 'transparent',
                         },
-                    },}}
+                    },
+                }}
                 pagination
                 onRowClick={onRowClick ? handleRowClick : undefined}
             />

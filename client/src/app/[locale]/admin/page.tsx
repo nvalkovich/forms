@@ -6,9 +6,9 @@ import { PrivateRoute } from '@/components/routes';
 const AdminPage = () => {
     return (
         <PrivateRoute adminOnly>
-                <UserAdminPanel />
+            <UserAdminPanel />
         </PrivateRoute>
     );
-}
+};
 
 export default AdminPage;

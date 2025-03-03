@@ -60,7 +60,7 @@ export const TemplateTabs = () => {
     const { user } = useAuth();
     const { navigate } = useNavigation();
     const searchParams = useSearchParams();
-    
+
     const t = useTranslations('TemplatePage');
 
     const [isAuthor, setIsAuthor] = useState(false);

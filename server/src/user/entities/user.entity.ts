@@ -42,6 +42,9 @@ export class User {
   })
   templates: Template[];
 
+  @Column({ nullable: true, type: 'varchar' })
+  salesforceAccountId: string | null;
+
   @ManyToMany(() => Template, (template) => template.users)
   usedTemplates: Template[];
 }

@@ -6,7 +6,26 @@
     "networkError": "Ошибка соединения. Пожалуйста, проверьте своё соединение и попробуйте позже",
     "internalServerError": "Ошибка сервера. Пожалуйста, попробуйте позже",
     "operationNotPermitted": "Операция не разрешена",
-    "accessDenied": "Доступ запррещен!"
+    "accessDenied": "Доступ запрещен!",
+    "salesforceAccountDeleted": "Ошибка при обновлении аккаунта. Аккаунт был удален!"
+  },
+  "SalesforceForm": {
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "email": "Электронная почта",
+    "phone": "Телефон",
+    "createAccount": "Создать аккаунт",
+    "accountCreated": "Аккаунт успешно создан!",
+    "errorWhileFormSubmit": "Ошибка при отправке формы! Пожалуйста, повторите позже",
+    "updateAccount": "Обновить аккаунт",
+    "accountUpdated": "Аккаунт успешно обновлен!"
+  },
+  "SalesforceFormValidationErrors": {
+    "firstNameRequired": "Имя - обязательное поле",
+    "lastNameRequired": "Фамилия - обязательное поле",
+    "invalidEmail": "Невалидная электронная почта",
+    "emailRequired": "Электронная почта - обязательное поле",
+    "invalidPhone": "Невалидный номер телефона"
   },
   "AuthPage": {
     "register": "Регистрация",
@@ -91,7 +110,8 @@
     "rowSelected": "строка выбрана",
     "rowSelectedPlural": "строк выбрано",
     "sort": "Сортировка",
-    "rowsPerPage": "Строк на странице"
+    "rowsPerPage": "Строк на странице",
+    "salesforceAccount": "Salesforce аккаунт"
   },
   "Admin": {
     "block": "Заблокировать",

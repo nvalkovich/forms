@@ -37,15 +37,20 @@ export const useAuthSubmit = (type: AuthType) => {
         return await loginUser(email, password);
     };
 
-    const handleRegister = async (name: string, email: string, password: string) => {
+    const handleRegister = async (
+        name: string,
+        email: string,
+        password: string,
+    ) => {
         return await registerUser(name, email, password);
     };
 
     const onSubmit = async (data: AuthFormData) => {
         try {
-            const response = type === AuthType.register && data.name
-                ? await handleRegister(data.name, data.email, data.password)
-                : await handleLogin(data.email, data.password);
+            const response =
+                type === AuthType.register && data.name
+                    ? await handleRegister(data.name, data.email, data.password)
+                    : await handleLogin(data.email, data.password);
             handleAuthResponse(response);
         } catch (err) {
             if (err instanceof Error) {

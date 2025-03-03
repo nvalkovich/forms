@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { User } from './user';
 
 export enum AuthType {
     login = 'login',
@@ -11,12 +11,12 @@ export enum AuthLinksKeys {
 }
 
 export interface AuthFormData {
-    name?: string; 
+    name?: string;
     email: string;
     password: string;
-};
+}
 
 export interface AuthResponse {
     token: string;
     user: User;
-};
+}

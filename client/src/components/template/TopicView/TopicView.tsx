@@ -22,7 +22,7 @@ export const TopicView = ({ topic, isLoading }: TopicViewProps) => {
     return (
         <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
             <TemplatesIcon />
-          <SecondaryText content={topicText} />
+            <SecondaryText content={topicText} />
         </Stack>
     );
 };

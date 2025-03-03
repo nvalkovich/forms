@@ -1,6 +1,7 @@
 import API_URL from '@/utils/config';
 import { CreateTemplateData, TemplateFormData } from '@/types/template';
 import { User } from '@/types/user';
+import { SalesforceFormData } from '@/types/salesforce';
 
 export enum ApiRoutes {
     users = '/users',
@@ -8,11 +9,13 @@ export enum ApiRoutes {
     tags = '/tags',
     templates = '/templates',
     auth = '/auth',
+    salesforce = '/salesforce',
 }
 
 export enum HttpMethod {
     GET = 'GET',
     POST = 'POST',
+    PUT = 'PUT',
     PATCH = 'PATCH',
     DELETE = 'DELETE',
 }
@@ -40,6 +43,7 @@ export const routes = {
     topicById: `${ApiRoutes.topic}/{id}`,
     tags: ApiRoutes.tags,
     templates: ApiRoutes.templates,
+    createSalesforceAccount: `${ApiRoutes.salesforce}/create-account`,
 };
 
 const fetchRequest = async (
@@ -60,13 +64,19 @@ const fetchRequest = async (
     };
 
     const res = await fetch(`${API_URL}${endpoint}`, options);
-    const data = await res.json();
+
+    const text = await res.text();
+    let data = null;
+
+    if (text) {
+        data = JSON.parse(text);
+    }
 
     if (!res.ok) {
         throw new Error(
-            Array.isArray(data.message)
+            Array.isArray(data?.message)
                 ? data.message.join('\n')
-                : data.message,
+                : data?.message,
         );
     }
 
@@ -136,5 +146,37 @@ export const deleteTemplate = (id: string, token: string) =>
         createRoute(`${ApiRoutes.templates}/{id}`, { id }),
         HttpMethod.DELETE,
         undefined,
+        token,
+    );
+export const createSalesForceAccountWithContact = (
+    data: SalesforceFormData,
+    token: string,
+) => {
+    console.log('Токен:', token);
+    return fetchRequest(
+        routes.createSalesforceAccount,
+        HttpMethod.POST,
+        data,
+        token,
+    );
+};
+
+export const getAccountById = (accountId: string, token: string) =>
+    fetchRequest(
+        createRoute(`${ApiRoutes.salesforce}/account/{id}`, { id: accountId }),
+        HttpMethod.GET,
+        undefined,
+        token,
+    );
+
+export const updateAccount = (
+    accountId: string,
+    data: SalesforceFormData,
+    token: string,
+) =>
+    fetchRequest(
+        createRoute(`${ApiRoutes.salesforce}/account/{id}`, { id: accountId }),
+        HttpMethod.PUT,
+        data,
         token,
     );

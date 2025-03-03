@@ -24,9 +24,9 @@ export const TagsView = ({ tags = [], viewWithIcon = true }: TagsViewProps) => {
                 tags.map((tag, index) => (
                     <Chip key={index} label={tag.name} size={ChipSizes.small} />
                 ))
-            ) : 
+            ) : (
                 <SecondaryText content={commonTranslations('noTagsSelected')} />
-        }
+            )}
         </Stack>
     );
 };

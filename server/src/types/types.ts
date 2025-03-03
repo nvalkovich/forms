@@ -37,6 +37,8 @@ export enum ErrorMessageKeys {
   jwtSecretNotDefined = 'jwtSecretIsNotDefined',
   tagsNotFound = 'tagsNotFound',
   topicNotFound = 'topicNotFound',
+  salesforceAccountDeleted = 'salesforceAccountDeleted',
+  salesforceAccountNotExist = 'salesforceAccountNotExist',
 }
 
 export enum validationErrors {
@@ -45,4 +47,12 @@ export enum validationErrors {
   nameRequired = 'Name is required field',
   passwordRequired = 'Password is required field',
   passwordTooShort = 'Password must be more than 6 symbols',
+}
+
+export interface SalesforceFormData {
+  FirstName: string;
+  LastName: string;
+  Email: string;
+  Phone: string;
+  PersonBirthDate: Date | null;
 }

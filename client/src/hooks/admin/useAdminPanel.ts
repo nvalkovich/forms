@@ -23,9 +23,8 @@ export const useAdminPanel = (
     const t = useTranslations('Admin');
     const { user, refreshUser } = useAuth();
     const [users, setLocalUsers] = useState<User[]>(usersData);
-    const [selectedUsersIds, setSelectedUsersIds] = useState<GridRowSelectionModel>(
-        [],
-    );
+    const [selectedUsersIds, setSelectedUsersIds] =
+        useState<GridRowSelectionModel>([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalAction, setModalAction] = useState<AdminActionsTypes>(
         AdminActionsTypes.block,
