@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { getJiraIssuesByReporter } from '@/services/api';
 import { JiraTicket } from '@/types/jira';
 
@@ -11,11 +11,15 @@ export const useTickets = (accountId: string, token?: string | null) => {
     const [tickets, setTickets] = useState<JiraTicket[]>([]);
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(defaultPaginationValues.page);
-    const [pageSize] = useState(5);
+    const [pageSize] = useState(defaultPaginationValues.pageSize);
     const [totalCount, setTotalCount] = useState(0);
 
-    const fetchTickets = async () => {
-        if (!accountId || !token) return;
+    const fetchTickets = useCallback(async () => {
+        if (!accountId || !token) {
+            setTickets([]);
+            setTotalCount(0);
+            return;
+        }
 
         try {
             setLoading(true);
@@ -44,12 +48,12 @@ export const useTickets = (accountId: string, token?: string | null) => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [ accountId, token, page, pageSize]);
+
 
     useEffect(() => {
         fetchTickets();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [accountId, token, page]);
+    }, [fetchTickets]);
 
     return {
         tickets,

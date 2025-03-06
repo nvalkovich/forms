@@ -3,6 +3,10 @@ export const PG_SQL_DUPLICATE_KEY_ERROR_CODE = '23505';
 export const PASSWORD_SALT_ROUNDS = 10;
 export const DATABASE_TYPE = 'postgres';
 
+export const SALESFORCE_LOGIN_URL = 'https://login.salesforce.com';
+export const SALESFORCE_DELETED_ENTITY_ERROR_CODE = 'ENTITY_IS_DELETED';
+export const NOT_EXIST_MESSAGE_PART = 'does not exist';
+
 export const JIRA_CONSTANTS = {
   PROJECT_KEY: 'TC',
 

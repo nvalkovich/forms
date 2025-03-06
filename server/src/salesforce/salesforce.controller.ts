@@ -62,8 +62,8 @@ export class SalesforceController {
   }
 
   @Get(`${SalesforceRoutes.contact}/:id`)
-  async getContact(@Param('id') contactId: string) {
-    return this.salesforceService.getContactById(contactId);
+  async getContact(@Param('id') accountId: string) {
+    return this.salesforceService.getContactByAccountId(accountId);
   }
 
   @Put(`${SalesforceRoutes.contact}/:id`)

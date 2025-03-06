@@ -8,6 +8,7 @@ import {
     createSalesForceAccountWithContact,
     getAccountById,
     updateAccount,
+    getContactByAccountId,
 } from '@/services/api';
 import { toastError, toastSuccess } from '@/utils/toastify/utils';
 import { useTranslations } from 'next-intl';
@@ -82,9 +83,11 @@ export const useSalesforceForm = () => {
                 return;
             }
 
+            const contact = await getContactByAccountId(account.Id);
+
             setFormValues({
                 ...splitName(account?.Name ?? ''),
-                email: account.Email ?? user?.email ?? '',
+                email: contact.Email ?? user?.email ?? '',
                 phone: account.Phone ?? '',
             });
             setIsEditing(true);

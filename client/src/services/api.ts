@@ -169,6 +169,12 @@ export const getAccountById = (accountId: string, token: string) =>
         token,
     );
 
+export const getContactByAccountId = (accountId: string) =>
+    fetchRequest(
+        createRoute(`${ApiRoutes.salesforce}/contact/{id}`, { id: accountId }),
+        HttpMethod.GET,
+    );
+
 export const updateAccount = (
     accountId: string,
     data: SalesforceFormData,

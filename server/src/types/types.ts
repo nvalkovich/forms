@@ -12,6 +12,12 @@ export enum EnvVariables {
   nodeEnv = 'NODE_ENV',
   databaseUrl = 'DATABASE_URL',
   jwtSecret = 'JWT_SECRET',
+  salesforceUsername = 'SALESFORCE_USERNAME',
+  salesforcePassword = 'SALESFORCE_PASSWORD',
+  salesforceSecurityToken = 'SALESFORCE_SECURITY_TOKEN',
+  jiraBaseUrl = 'JIRA_BASE_URL',
+  jiraEmail = 'JIRA_EMAIL',
+  jiraApiToken = 'JIRA_API_TOKEN',
 }
 
 export enum Routes {
