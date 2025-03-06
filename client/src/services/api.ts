@@ -10,6 +10,7 @@ export enum ApiRoutes {
     templates = '/templates',
     auth = '/auth',
     salesforce = '/salesforce',
+    jira = '/jira',
 }
 
 export enum HttpMethod {
@@ -152,7 +153,6 @@ export const createSalesForceAccountWithContact = (
     data: SalesforceFormData,
     token: string,
 ) => {
-    console.log('Токен:', token);
     return fetchRequest(
         routes.createSalesforceAccount,
         HttpMethod.POST,
@@ -178,5 +178,42 @@ export const updateAccount = (
         createRoute(`${ApiRoutes.salesforce}/account/{id}`, { id: accountId }),
         HttpMethod.PUT,
         data,
+        token,
+    );
+
+export const createJiraUser = (
+    data: {
+        emailAddress: string;
+    },
+    token?: string,
+) =>
+    fetchRequest(`${ApiRoutes.jira}/create-user`, HttpMethod.POST, data, token);
+
+export const createJiraIssue = (issueData: {
+    summary: string;
+    accountId: string;
+    link: string;
+    priority: string;
+}) =>
+    fetchRequest(`${ApiRoutes.jira}/create-issue`, HttpMethod.POST, issueData);
+
+export const getJiraIssuesByReporter = (
+    token: string,
+    accountId: string,
+    page: number,
+    pageSize: number,
+) =>
+    fetchRequest(
+        `${ApiRoutes.jira}/issues?accountId=${accountId}&page=${page}&pageSize=${pageSize}`,
+        HttpMethod.GET,
+        null,
+        token,
+    );
+
+export const searchJiraUserByEmail = (token: string, email: string) =>
+    fetchRequest(
+        `${ApiRoutes.jira}/search-user-by-email?email=${email}`,
+        HttpMethod.GET,
+        null,
         token,
     );

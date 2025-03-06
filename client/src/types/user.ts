@@ -9,6 +9,7 @@ export interface User {
     createdAt: Date;
     updatedAt: Date;
     salesforceAccountId: string | null;
+    jiraAccountId: string | null;
     templates: Template[];
 }
 

@@ -6,7 +6,7 @@ import { useAuth } from '@/context/AuthProvider';
 import { useNavigation, Routes } from '../useNavigation';
 import { toastError } from '@/utils/toastify/utils';
 import { toastSuccess } from '@/utils/toastify/utils';
-import { fetchErrorMessage } from '@/constants';
+import { FETCH_ERROR } from '@/constants';
 
 export const useTemplateFormSubmit = (
     methods: UseFormReturn<TemplateFormData>,
@@ -43,7 +43,7 @@ export const useTemplateFormSubmit = (
             navigate(`${Routes.templates}/${response.id}`);
         } catch (err) {
             if (err instanceof Error) {
-                if (err.message.includes(fetchErrorMessage)) {
+                if (err.message.includes(FETCH_ERROR)) {
                     toastError(errorsTranslations('networkError'));
                 } else {
                     toastError(

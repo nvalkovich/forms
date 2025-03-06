@@ -3,24 +3,17 @@ import { Box, Tabs, Tab } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { TemplateTable } from './TemplateTable';
 import SalesforceForm from './SalesforceAccountForm/SalesforceAccountForm';
+import { JiraTicketsTable } from './JiraTicketsTable/JiraTicketsTable';
 
 export const ProfileTabs = () => {
     const [tabValue, setTabValue] = useState(0);
     const t = useTranslations('Profile');
 
     const tabs = [
-        {
-            label: t('templates'),
-            content: <TemplateTable />,
-        },
-        {
-            label: t('forms'),
-            content: <></>,
-        },
-        {
-            label: t('salesforceAccount'),
-            content: <SalesforceForm />,
-        },
+        { label: t('templates'), content: <TemplateTable /> },
+        { label: t('forms'), content: <></> },
+        { label: t('salesforceAccount'), content: <SalesforceForm /> },
+        { label: t('jiraTickets'), content: <JiraTicketsTable /> },
     ];
 
     return (
@@ -28,7 +21,7 @@ export const ProfileTabs = () => {
             <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
                 <Tabs
                     value={tabValue}
-                    onChange={(e, newValue) => setTabValue(newValue)}
+                    onChange={(_, newValue) => setTabValue(newValue)}
                     aria-label="profile tabs"
                 >
                     {tabs.map((tab, index) => (

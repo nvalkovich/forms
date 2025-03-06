@@ -45,6 +45,9 @@ export class User {
   @Column({ nullable: true, type: 'varchar' })
   salesforceAccountId: string | null;
 
+  @Column({ nullable: true, type: 'varchar' })
+  jiraAccountId: string | null;
+
   @ManyToMany(() => Template, (template) => template.users)
   usedTemplates: Template[];
 }

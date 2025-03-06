@@ -21,6 +21,7 @@ import { Tag } from './tag/entities/tag.entity';
 import { Question } from './question/entities/question.entity';
 import { SalesforceService } from './salesforce/salesforce.service';
 import { SalesforceController } from './salesforce/salesforce.controller';
+import { JiraModule } from './jira/jira.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { SalesforceController } from './salesforce/salesforce.controller';
     TopicModule,
     QuestionModule,
     TagModule,
+    JiraModule,
   ],
   controllers: [
     HealthController,

@@ -2,22 +2,6 @@ import { Locales } from './i18n/routing';
 import { QuestionTypes } from './types/question';
 import { TemplateTabsTypes } from './types/template';
 
-export const COLORS = {
-    dark: {
-        backgroundColor: '#121212',
-        textColor: '#ffffff',
-        borderColor: '#444',
-    },
-    light: {
-        backgroundColor: '#ffffff',
-        textColor: '#333',
-        borderColor: '#ddd',
-    },
-    greyLight: '#f0f0f0',
-    greyDark: '#e0e0e0',
-    whiteTransparent: 'rgba(255, 255, 255, 0.1)',
-};
-
 export const MAX_QUESTIONS_OF_TYPE = 4;
 export const HASHTAG = '#';
 export const DASH = '-';
@@ -53,4 +37,44 @@ export const DEFAULT_TEMPLATE_FORM_QUESTIONS_VALUES = {
 export const DEFAULT_TEMPLATE_TAB = TemplateTabsTypes.template;
 export const DEFAULT_TEMPLATE_TAB_INDEX = 0;
 
-export const fetchErrorMessage = 'Failed to fetch';
+export const FETCH_ERROR = 'Failed to fetch';
+
+export const JIRA_BASE_URL = 'https://forms-app.atlassian.net';
+
+export const COLORS = {
+    dark: {
+        backgroundColor: '#121212',
+        textColor: '#ffffff',
+        borderColor: '#444',
+    },
+    light: {
+        backgroundColor: '#ffffff',
+        textColor: '#333',
+        borderColor: '#ddd',
+    },
+    greyLight: '#f0f0f0',
+    greyDark: '#e0e0e0',
+    whiteTransparent: 'rgba(255, 255, 255, 0.1)',
+    whiteSmoke: '#f5f5f5',
+    black: '#000000',
+};
+
+export const TABLE_STYLES = {
+    cell: {
+        whiteSpace: 'normal',
+        wordWrap: 'break-word',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '8px',
+        outline: 'none !important',
+    },
+    row: {
+        cursor: 'pointer',
+        '&:hover': {
+            backgroundColor: COLORS.whiteSmoke,
+        },
+    },
+    header: {
+        backgroundColor: COLORS.whiteSmoke,
+    },
+};

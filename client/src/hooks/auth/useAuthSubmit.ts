@@ -6,7 +6,7 @@ import { AuthType } from '@/types/auth';
 import { useTranslationsHook } from '@/i18n/routing';
 import { toastSuccess, toastError } from '@/utils/toastify/utils';
 import { AuthResponse, AuthFormData } from '@/types/auth';
-import { fetchErrorMessage } from '@/constants';
+import { FETCH_ERROR } from '@/constants';
 
 const getAuthMessages = (type: AuthType, t: useTranslationsHook) => {
     return type === AuthType.login
@@ -54,7 +54,7 @@ export const useAuthSubmit = (type: AuthType) => {
             handleAuthResponse(response);
         } catch (err) {
             if (err instanceof Error) {
-                if (err.message.includes(fetchErrorMessage)) {
+                if (err.message.includes(FETCH_ERROR)) {
                     toastError(t('networkError'));
                 } else {
                     toastError(t(err.message));

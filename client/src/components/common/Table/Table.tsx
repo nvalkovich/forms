@@ -13,6 +13,7 @@ import { useTranslations } from 'next-intl';
 import { COLORS } from '@/constants';
 import { useTheme } from '@mui/material/styles';
 import { ThemeModes } from '@/context/ThemeProvider';
+import { TABLE_STYLES } from '@/constants';
 
 interface TableProps {
     rows: GridValidRowModel[];
@@ -41,14 +42,7 @@ const TableStyles = {
     height: '100%',
     width: '100%',
     mx: 'auto',
-    '& .MuiDataGrid-cell': {
-        whiteSpace: 'normal',
-        wordWrap: 'break-word',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '5px',
-        outline: 'none !important',
-    },
+    '& .MuiDataGrid-cell': { ...TABLE_STYLES.cell, padding: '5px' },
 
     '& .MuiDataGrid-cell:focus': {
         outline: 'none !important',
@@ -96,7 +90,7 @@ export const Table = ({
 
     const handleRowClick = (params: GridRowParams) => {
         if (onRowClick) {
-            onRowClick(params.row[rowIdField]);
+            onRowClick(params.row.issueKey);
         }
     };
 

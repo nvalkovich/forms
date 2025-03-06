@@ -56,3 +56,66 @@ export interface SalesforceFormData {
   Phone: string;
   PersonBirthDate: Date | null;
 }
+
+export interface CreateIssueData {
+  link: string;
+  summary: string;
+  priority: string;
+  accountId: string;
+}
+
+export enum JiraProducts {
+  software = 'jira-software',
+}
+
+export enum StatusValuesIds {
+  opened = '10039',
+  inProgress = '10040',
+  rejected = '10041',
+  fixed = '10045',
+}
+
+export enum PriorityValuesIds {
+  high = '10042',
+  average = '10043',
+  low = '10044',
+}
+
+export enum IssueCustomFields {
+  template = 'customfield_10058',
+  link = 'customfield_10059',
+  status = 'customfield_10060',
+  priority = 'customfield_10061',
+}
+
+export interface JiraUser {
+  self: string;
+  accountId: string;
+  accountType: string;
+  emailAddress: string;
+  displayName: string;
+  active: boolean;
+  timeZone: string;
+  locale: string;
+}
+
+export interface IssueFields {
+  summary: string;
+  priority: { id: string; name?: string };
+  status: { id: string; name?: string };
+  template: string;
+  link: string;
+}
+
+interface Issue {
+  id: string;
+  key: string;
+  fields: IssueFields;
+}
+
+export interface IssueDataResponse {
+  issues: Issue[];
+  total: number;
+  startAt: number;
+  maxResults: number;
+}

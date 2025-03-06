@@ -10,6 +10,7 @@ import { Initial1740274162586 } from 'src/migrations/1740274162586-Initial';
 import { AddSalesforceAccountIdColumnToUserEntity1741031903219 } from 'src/migrations/1741031903219-AddSalesforceAccountIdColumnToUserEntity';
 import { EnvVariables, NodeEnv } from 'src/types/types';
 import { DATABASE_TYPE } from 'src/constants';
+import { AddJiraAccountToUserEntity1741259165260 } from 'src/migrations/1741259165260-AddJiraAccountToUserEntity';
 
 config();
 
@@ -24,10 +25,11 @@ export const getTypeOrmConfig = (
   return {
     type: DATABASE_TYPE,
     url: configService.get<string>(EnvVariables.databaseUrl),
-    synchronize: true,
+    synchronize: false,
     migrations: [
       Initial1740274162586,
       AddSalesforceAccountIdColumnToUserEntity1741031903219,
+      AddJiraAccountToUserEntity1741259165260,
     ],
     migrationsRun: isProd,
     entities: [User, Template, Question, Tag, Topic],

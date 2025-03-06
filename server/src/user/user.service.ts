@@ -134,4 +134,20 @@ export class UserService {
       });
     }
   }
+
+  async updateJiraAccountId(userId: string, jiraAccountId: string) {
+    try {
+      const user = await this.userRepo.findOne({ where: { id: userId } });
+      if (!user) {
+        throw new NotFoundException();
+      }
+
+      user.jiraAccountId = jiraAccountId;
+      await this.userRepo.save(user);
+
+      return user;
+    } catch (e) {
+      console.error(e.message);
+    }
+  }
 }

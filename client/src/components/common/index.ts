@@ -3,7 +3,7 @@ import { Button } from './Button/Button';
 import { PlusButton } from './PlusButton/PlusButton';
 import { TextFieldWithValidation } from './TextFieldWithValidation/TextFieldWithValidation';
 import { StyledPaper } from './StyledPaper/StyledPaper';
-import { ConfirmationModal } from './ConfirmationalModal/ConfirmationModal';
+import { Modal } from './Modal/Modal';
 import { Chip, ChipSizes } from './Chip/Chip';
 import { Table } from './Table/Table';
 import { Loader } from './Loader/Loader';
@@ -20,7 +20,7 @@ export {
     PlusButton,
     TextFieldWithValidation,
     StyledPaper,
-    ConfirmationModal,
+    Modal,
     Chip,
     ChipSizes,
     Table,

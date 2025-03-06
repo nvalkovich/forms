@@ -9,6 +9,17 @@
     "accessDenied": "Access denied!",
     "salesforceAccountDeleted": "Error updating account. This account has been deleted!"
   },
+  "JiraTickets": {
+    "fetchError": "Error fetching tickets",
+    "summary": "Summary",
+    "priority": "Priority",
+    "status": "Status",
+    "template": "Template",
+    "link": "Link",
+    "page": "Page",
+    "of": "of",
+    "noRows": "No data"
+  },
   "SalesforceForm": {
     "firstName": "First Name",
     "lastName": "Last Name",
@@ -26,6 +37,22 @@
     "invalidEmail": "Invalid email",
     "emailRequired": "Email is required",
     "invalidPhone": "Invalid phone number"
+  },
+  "JiraTicketModal": {
+    "createTicket": "Create Ticket",
+    "ticketCreatedSuccesfully": "Ticket created successfully!",
+    "viewTicket": "View Ticket",
+    "email": "Email",
+    "invalidEmail": "Invalid email",
+    "emailRequired": "Email is required",
+    "summary": "Summary",
+    "summaryRequired": "Summary is required",
+    "priority": "Priority",
+    "high": "High",
+    "average": "Average",
+    "low": "Low",
+    "next": "Next",
+    "failedCreateTicket": "Failed to create ticket. Please try again later"
   },
   "AuthPage": {
     "register": "Register",
@@ -107,7 +134,8 @@
     "rowSelectedPlural": "rows selected",
     "sort": "Sort",
     "rowsPerPage": "Rows per page",
-    "salesforceAccount": "Salesforce account"
+    "salesforceAccount": "Salesforce account",
+    "jiraTickets": "JIRA tickets"
   },
   "Admin": {
     "block": "Block",

@@ -7,6 +7,7 @@ import { getMessages } from 'next-intl/server';
 import { Header } from '@/components/pages/Header';
 import { notFound } from 'next/navigation';
 import { Locales, routing } from '@/i18n/routing';
+import { Footer } from '@/components/footer';
 
 import 'react-toastify/dist/ReactToastify.css';
 import '../globals.css';
@@ -53,8 +54,8 @@ export default async function RootLayout({
                             messages={messages}
                         >
                             <Header />
-
                             {children}
+                            <Footer />
                             <CustomToastContainer />
                         </NextIntlClientProvider>
                     </ThemeProvider>
