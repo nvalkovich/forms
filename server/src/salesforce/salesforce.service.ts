@@ -4,9 +4,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import * as jsforce from 'jsforce';
-import * as dotenv from 'dotenv';
+import { SALESFORCE_LOGIN_URL, SALESFORCE_DELETED_ENTITY_ERROR_CODE, NOT_EXIST_MESSAGE_PART } from 'src/constants';
 import { UserService } from '../user/user.service';
 import { ErrorMessageKeys } from 'src/types/types';
+import { ConfigService } from '@nestjs/config';
+import { EnvVariables } from 'src/types/types';
 
 enum SalesforceObjectType {
   account = 'Account',
@@ -23,12 +25,7 @@ enum SalesforceErrors {
   errorUpdatingContact = 'Error while updating contact',
 }
 
-const SALESFORCE_LOGIN_URL = 'https://login.salesforce.com';
 
-const DELETED_ENTITY_ERROR_CODE = 'ENTITY_IS_DELETED';
-const NOT_EXIST_MESSAGE_PART = 'does not exist';
-
-dotenv.config();
 
 interface UserData {
   firstName: string;
@@ -48,7 +45,10 @@ interface UpdateData {
 export class SalesforceService {
   private connection: jsforce.Connection;
 
-  constructor(private readonly userService: UserService) {
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly userService: UserService,
+  ) {
     this.connection = new jsforce.Connection({
       loginUrl: SALESFORCE_LOGIN_URL,
     });
@@ -56,9 +56,9 @@ export class SalesforceService {
 
   private validateEnvVariables(): void {
     if (
-      !process.env.SALESFORCE_USERNAME ||
-      !process.env.SALESFORCE_PASSWORD ||
-      !process.env.SALESFORCE_SECURITY_TOKEN
+      !this.configService.get<string>(EnvVariables.salesforceUsername) ||
+      !this.configService.get<string>(EnvVariables.salesforcePassword)||
+      !this.configService.get<string>(EnvVariables.salesforceSecurityToken)
     ) {
       throw new InternalServerErrorException(
         SalesforceErrors.failedToGetAuthData,
@@ -69,9 +69,9 @@ export class SalesforceService {
   async authenticate(): Promise<jsforce.Connection> {
     this.validateEnvVariables();
 
-    const username = process.env.SALESFORCE_USERNAME;
-    const password = process.env.SALESFORCE_PASSWORD;
-    const securityToken = process.env.SALESFORCE_SECURITY_TOKEN;
+    const username = this.configService.get<string>(EnvVariables.salesforceUsername)
+    const password = this.configService.get<string>(EnvVariables.salesforcePassword)
+    const securityToken = this.configService.get<string>(EnvVariables.salesforceSecurityToken)
 
     if (!username || !password || !securityToken) {
       throw new InternalServerErrorException(
@@ -221,7 +221,7 @@ export class SalesforceService {
       if (
         error instanceof Error &&
         'errorCode' in error &&
-        error.errorCode === DELETED_ENTITY_ERROR_CODE
+        error.errorCode === SALESFORCE_DELETED_ENTITY_ERROR_CODE
       ) {
         await this.userService.updateSalesforceAccountId(userId, null);
         throw new NotFoundException(ErrorMessageKeys.salesforceAccountDeleted);
