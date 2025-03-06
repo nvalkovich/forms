@@ -11,7 +11,7 @@ import {
   IssueCustomFields,
   JiraUser,
   JiraProducts,
-  EnvVariables
+  EnvVariables,
 } from 'src/types/types';
 import { JIRA_CONSTANTS } from 'src/constants';
 import { handleJiraExistError, extractTemplateIdFromUrl } from 'src/utils/jira';
@@ -31,7 +31,9 @@ export class JiraService {
   ) {
     this.jiraBaseUrl = this.configService.get<string>(EnvVariables.jiraBaseUrl);
     this.jiraEmail = this.configService.get<string>(EnvVariables.jiraEmail);
-    this.jiraApiToken = this.configService.get<string>(EnvVariables.jiraApiToken);
+    this.jiraApiToken = this.configService.get<string>(
+      EnvVariables.jiraApiToken,
+    );
   }
 
   private getAuthHeader() {

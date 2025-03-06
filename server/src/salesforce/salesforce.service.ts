@@ -4,7 +4,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import * as jsforce from 'jsforce';
-import { SALESFORCE_LOGIN_URL, SALESFORCE_DELETED_ENTITY_ERROR_CODE, NOT_EXIST_MESSAGE_PART } from 'src/constants';
+import {
+  SALESFORCE_LOGIN_URL,
+  SALESFORCE_DELETED_ENTITY_ERROR_CODE,
+  NOT_EXIST_MESSAGE_PART,
+} from 'src/constants';
 import { UserService } from '../user/user.service';
 import { ErrorMessageKeys } from 'src/types/types';
 import { ConfigService } from '@nestjs/config';
@@ -24,8 +28,6 @@ enum SalesforceErrors {
   contactNotFound = 'Contact not found',
   errorUpdatingContact = 'Error while updating contact',
 }
-
-
 
 interface UserData {
   firstName: string;
@@ -57,7 +59,7 @@ export class SalesforceService {
   private validateEnvVariables(): void {
     if (
       !this.configService.get<string>(EnvVariables.salesforceUsername) ||
-      !this.configService.get<string>(EnvVariables.salesforcePassword)||
+      !this.configService.get<string>(EnvVariables.salesforcePassword) ||
       !this.configService.get<string>(EnvVariables.salesforceSecurityToken)
     ) {
       throw new InternalServerErrorException(
@@ -69,9 +71,15 @@ export class SalesforceService {
   async authenticate(): Promise<jsforce.Connection> {
     this.validateEnvVariables();
 
-    const username = this.configService.get<string>(EnvVariables.salesforceUsername)
-    const password = this.configService.get<string>(EnvVariables.salesforcePassword)
-    const securityToken = this.configService.get<string>(EnvVariables.salesforceSecurityToken)
+    const username = this.configService.get<string>(
+      EnvVariables.salesforceUsername,
+    );
+    const password = this.configService.get<string>(
+      EnvVariables.salesforcePassword,
+    );
+    const securityToken = this.configService.get<string>(
+      EnvVariables.salesforceSecurityToken,
+    );
 
     if (!username || !password || !securityToken) {
       throw new InternalServerErrorException(
@@ -242,6 +250,18 @@ export class SalesforceService {
     } catch {
       throw new NotFoundException(SalesforceErrors.contactNotFound);
     }
+  }
+
+  async getContactByAccountId(accountId: string) {
+    const contact = await this.findOneObject(SalesforceObjectType.contact, {
+      AccountId: accountId,
+    });
+
+    if (contact) {
+      return contact;
+    }
+
+    return null;
   }
 
   async updateContact(contactId: string, updateData: UpdateData) {

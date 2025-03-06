@@ -5,7 +5,7 @@ import {
   Req,
   Get,
   Query,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { JiraService } from './jira.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';

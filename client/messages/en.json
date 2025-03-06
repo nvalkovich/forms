@@ -52,7 +52,7 @@
     "average": "Average",
     "low": "Low",
     "next": "Next",
-    "failedCreateTicket": "Failed to create ticket. Please try again later"
+    "failedCreateTicket": "Failed to create ticket! Please try again"
   },
   "AuthPage": {
     "register": "Register",

@@ -48,7 +48,7 @@ export const useTicket = (user: User | null, token: string | null) => {
             setTicketLink(generateTicketLink(ticketResponse.issueKey));
             toast.success(t('ticketCreatedSuccesfully'));
 
-            fetchTickets();
+            await fetchTickets();
         } catch (e) {
             console.error(e);
             toast.error(t('failedCreateTicket'));

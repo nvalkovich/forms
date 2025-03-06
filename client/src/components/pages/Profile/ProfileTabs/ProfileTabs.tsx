@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Tabs, Tab } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { TemplateTable } from './TemplateTable';
 import SalesforceForm from './SalesforceAccountForm/SalesforceAccountForm';
 import { JiraTicketsTable } from './JiraTicketsTable/JiraTicketsTable';
+import { useTickets } from '@/hooks/useTickets';
+import { useAuth } from '@/context/AuthProvider'; 
 
 export const ProfileTabs = () => {
     const [tabValue, setTabValue] = useState(0);
     const t = useTranslations('Profile');
+    const { user, token } = useAuth(); 
+
+    const JIRA_TICKETS_TAB_INDEX = 3;
+
+    const { fetchTickets } = useTickets(user?.jiraAccountId || '', token);
+
+    useEffect(() => {
+        if (tabValue === JIRA_TICKETS_TAB_INDEX) {
+            fetchTickets();
+        }
+    }, [tabValue, fetchTickets]);
 
     const tabs = [
         { label: t('templates'), content: <TemplateTable /> },

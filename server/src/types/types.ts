@@ -17,7 +17,7 @@ export enum EnvVariables {
   salesforceSecurityToken = 'SALESFORCE_SECURITY_TOKEN',
   jiraBaseUrl = 'JIRA_BASE_URL',
   jiraEmail = 'JIRA_EMAIL',
-  jiraApiToken = 'JIRA_API_TOKEN'
+  jiraApiToken = 'JIRA_API_TOKEN',
 }
 
 export enum Routes {

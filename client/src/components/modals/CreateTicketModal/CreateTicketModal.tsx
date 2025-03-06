@@ -105,8 +105,10 @@ export const CreateTicketModal = ({
         <Modal
             open={open}
             onClose={handleClose}
-            sx={{ width: '50%', maxWidth: '600px' }}
-        >
+            sx={{
+                width: { xs: '90%', sm: '70%', md: '50%' },
+                maxWidth: '500px',
+            }} >
             {ticketLink ? (
                 <Box sx={{ mt: 1 }}>
                     <Typography variant="body1" gutterBottom sx={{ mb: 3 }}>
