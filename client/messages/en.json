@@ -6,7 +6,53 @@
     "networkError": "Network error. Please check your connection and try again.",
     "internalServerError": "Internal server error. Please, try later",
     "operationNotPermitted": "Operation is not permitted",
-    "accessDenied": "Access denied!"
+    "accessDenied": "Access denied!",
+    "salesforceAccountDeleted": "Error updating account. This account has been deleted!"
+  },
+  "JiraTickets": {
+    "fetchError": "Error fetching tickets",
+    "summary": "Summary",
+    "priority": "Priority",
+    "status": "Status",
+    "template": "Template",
+    "link": "Link",
+    "page": "Page",
+    "of": "of",
+    "noRows": "No data"
+  },
+  "SalesforceForm": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "createAccount": "Create account",
+    "accountCreated": "Account successfully created!",
+    "errorWhileFormSubmit": "Error submitting form! Please try again later",
+    "updateAccount": "Update account",
+    "accountUpdated": "Account successfully updated!"
+  },
+  "SalesforceFormValidationErrors": {
+    "firstNameRequired": "First Name is required",
+    "lastNameRequired": "Last Name is required",
+    "invalidEmail": "Invalid email",
+    "emailRequired": "Email is required",
+    "invalidPhone": "Invalid phone number"
+  },
+  "JiraTicketModal": {
+    "createTicket": "Create Ticket",
+    "ticketCreatedSuccesfully": "Ticket created successfully!",
+    "viewTicket": "View Ticket",
+    "email": "Email",
+    "invalidEmail": "Invalid email",
+    "emailRequired": "Email is required",
+    "summary": "Summary",
+    "summaryRequired": "Summary is required",
+    "priority": "Priority",
+    "high": "High",
+    "average": "Average",
+    "low": "Low",
+    "next": "Next",
+    "failedCreateTicket": "Failed to create ticket. Please try again later"
   },
   "AuthPage": {
     "register": "Register",
@@ -87,7 +133,9 @@
     "rowSelected": "row selected",
     "rowSelectedPlural": "rows selected",
     "sort": "Sort",
-    "rowsPerPage": "Rows per page"
+    "rowsPerPage": "Rows per page",
+    "salesforceAccount": "Salesforce account",
+    "jiraTickets": "JIRA tickets"
   },
   "Admin": {
     "block": "Block",

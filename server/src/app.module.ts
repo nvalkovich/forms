@@ -19,6 +19,9 @@ import { Topic } from './topic/entities/topic.entity';
 import { TagModule } from './tag/tag.module';
 import { Tag } from './tag/entities/tag.entity';
 import { Question } from './question/entities/question.entity';
+import { SalesforceService } from './salesforce/salesforce.service';
+import { SalesforceController } from './salesforce/salesforce.controller';
+import { JiraModule } from './jira/jira.module';
 
 @Module({
   imports: [
@@ -31,8 +34,14 @@ import { Question } from './question/entities/question.entity';
     TopicModule,
     QuestionModule,
     TagModule,
+    JiraModule,
   ],
-  controllers: [HealthController, AppController, UserController],
-  providers: [AppService, UserService, TemplateService],
+  controllers: [
+    HealthController,
+    AppController,
+    UserController,
+    SalesforceController,
+  ],
+  providers: [AppService, UserService, TemplateService, SalesforceService],
 })
 export class AppModule {}

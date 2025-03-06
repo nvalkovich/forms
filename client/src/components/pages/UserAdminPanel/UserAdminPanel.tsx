@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { UserTable } from './UserTable/UserTable';
 import { useAdminPanel } from '@/hooks/admin/useAdminPanel';
 import { User } from '@/types/user';
-import { StyledContainer, ConfirmationModal } from '@/components/common';
+import { StyledContainer } from '@/components/common';
+import { ConfirmationModal } from '@/components/modals/ConfirmationalModal/ConfirmationModal';
 import { getUsers } from '../../../services/api';
 import { useTranslations } from 'next-intl';
 import { toastError } from '@/utils/toastify/utils';
@@ -30,7 +31,7 @@ export const UserAdminPanel = () => {
         };
 
         fetchUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
 
     const currentUserId = user?.id;
@@ -38,10 +39,10 @@ export const UserAdminPanel = () => {
     const {
         users,
         rows,
-        selectedUsers,
+        selectedUsersIds,
         modalOpen,
         confirmationMessage,
-        setSelectedUsers,
+        setSelectedUsersIds,
         handleAction,
         handleConfirm,
         setModalOpen,
@@ -55,9 +56,9 @@ export const UserAdminPanel = () => {
         <StyledContainer>
             <UserTable
                 rows={rows}
-                selectedUsers={selectedUsers}
+                selectedUsersIds={selectedUsersIds}
                 users={users}
-                onSelectionChange={setSelectedUsers}
+                onSelectionChange={setSelectedUsersIds}
                 handleAction={handleAction}
             />
             <ConfirmationModal

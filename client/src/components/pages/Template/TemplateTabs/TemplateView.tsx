@@ -7,6 +7,7 @@ import { TemplateViewFooter } from './TemplateViewFooter';
 export const TemplateView = () => {
     const params = useParams();
     const id = params.id as string;
+
     const { template, loading } = useTemplates(id);
 
     if (loading) return <Loader />;

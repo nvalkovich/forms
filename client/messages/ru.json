@@ -6,7 +6,54 @@
     "networkError": "Ошибка соединения. Пожалуйста, проверьте своё соединение и попробуйте позже",
     "internalServerError": "Ошибка сервера. Пожалуйста, попробуйте позже",
     "operationNotPermitted": "Операция не разрешена",
-    "accessDenied": "Доступ запррещен!"
+    "accessDenied": "Доступ запрещен!",
+    "salesforceAccountDeleted": "Ошибка при обновлении аккаунта. Аккаунт был удален!"
+  },
+  "JiraTickets": {
+    "fetchError": "Ошибка при загрузке обращений",
+    "summary": "Содержание",
+    "priority": "Приоритет",
+    "status": "Статус",
+    "template": "Шаблон",
+    "link": "Ссылка",
+    "page": "Страница",
+    "of": "из",
+    "noRows": "Нет данных"
+  },
+  "SalesforceForm": {
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "email": "Электронная почта",
+    "phone": "Телефон",
+    "createAccount": "Создать аккаунт",
+    "accountCreated": "Аккаунт успешно создан!",
+    "errorWhileFormSubmit": "Ошибка при отправке формы! Пожалуйста, повторите позже",
+    "updateAccount": "Обновить аккаунт",
+    "accountUpdated": "Аккаунт успешно обновлен!"
+  },
+  "SalesforceFormValidationErrors": {
+    "firstNameRequired": "Имя - обязательное поле",
+    "lastNameRequired": "Фамилия - обязательное поле",
+    "invalidEmail": "Невалидная электронная почта",
+    "emailRequired": "Электронная почта - обязательное поле",
+    "invalidPhone": "Невалидный номер телефона"
+  },
+  "JiraTicketModal": {
+    "createTicket": "Создать обращение",
+    "ticketCreatedSuccesfully": "Обращение успешно создано!",
+    "viewTicket": "Показать обращение",
+    "email": "Электронная почта",
+    "invalidEmail": "Невалидная электронная почта",
+    "emailRequired": "Электронная почта - обязательное поле",
+    "summary": "Содержание",
+    "summaryRequired": "Содержание обязательно",
+    "priority": "Приоритет",
+    "priorityRequired": "Приоритет обязателен",
+    "high": "Высокий",
+    "average": "Средний",
+    "low": "Низкий",
+    "next": "Далее",
+    "failedCreateTicket": "Ошибка при создании обращения! Пожалуйста, повторите позже"
   },
   "AuthPage": {
     "register": "Регистрация",
@@ -91,7 +138,9 @@
     "rowSelected": "строка выбрана",
     "rowSelectedPlural": "строк выбрано",
     "sort": "Сортировка",
-    "rowsPerPage": "Строк на странице"
+    "rowsPerPage": "Строк на странице",
+    "salesforceAccount": "Salesforce аккаунт",
+    "jiraTickets": "JIRA обращения"
   },
   "Admin": {
     "block": "Заблокировать",

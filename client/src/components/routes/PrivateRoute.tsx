@@ -42,4 +42,4 @@ export const PrivateRoute = memo(
     },
 );
 
-PrivateRoute.displayName = 'PrivateRoute'
+PrivateRoute.displayName = 'PrivateRoute';

@@ -118,4 +118,36 @@ export class UserService {
       });
     }
   }
+
+  async updateSalesforceAccountId(
+    userId: string,
+    salesforceAccountId: string | null,
+  ) {
+    try {
+      const user = await this.findById(userId);
+      user.salesforceAccountId = salesforceAccountId;
+      await this.userRepo.save(user);
+      return user;
+    } catch {
+      throw new InternalServerErrorException({
+        message: ErrorMessageKeys.internalServerError,
+      });
+    }
+  }
+
+  async updateJiraAccountId(userId: string, jiraAccountId: string) {
+    try {
+      const user = await this.userRepo.findOne({ where: { id: userId } });
+      if (!user) {
+        throw new NotFoundException();
+      }
+
+      user.jiraAccountId = jiraAccountId;
+      await this.userRepo.save(user);
+
+      return user;
+    } catch (e) {
+      console.error(e.message);
+    }
+  }
 }

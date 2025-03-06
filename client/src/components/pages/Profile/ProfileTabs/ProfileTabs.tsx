@@ -2,30 +2,50 @@ import React, { useState } from 'react';
 import { Box, Tabs, Tab } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { TemplateTable } from './TemplateTable';
-
-const ProfileTabsIds = {
-    templates: 'tab-0',
-    forms: 'tab-1',
-};
+import SalesforceForm from './SalesforceAccountForm/SalesforceAccountForm';
+import { JiraTicketsTable } from './JiraTicketsTable/JiraTicketsTable';
 
 export const ProfileTabs = () => {
     const [tabValue, setTabValue] = useState(0);
     const t = useTranslations('Profile');
+
+    const tabs = [
+        { label: t('templates'), content: <TemplateTable /> },
+        { label: t('forms'), content: <></> },
+        { label: t('salesforceAccount'), content: <SalesforceForm /> },
+        { label: t('jiraTickets'), content: <JiraTicketsTable /> },
+    ];
 
     return (
         <Box>
             <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
                 <Tabs
                     value={tabValue}
-                    onChange={(e, newValue) => setTabValue(newValue)}
+                    onChange={(_, newValue) => setTabValue(newValue)}
                     aria-label="profile tabs"
                 >
-                    <Tab label={t('templates')} id={ProfileTabsIds.templates} />
-                    <Tab label={t('forms')} id={ProfileTabsIds.forms} />
+                    {tabs.map((tab, index) => (
+                        <Tab
+                            key={index}
+                            label={tab.label}
+                            id={`tab-${index}`}
+                            aria-controls={`tabpanel-${index}`}
+                        />
+                    ))}
                 </Tabs>
             </Box>
 
-            {tabValue === 0 && <TemplateTable />}
+            {tabs.map((tab, index) => (
+                <div
+                    key={index}
+                    role="tabpanel"
+                    hidden={tabValue !== index}
+                    id={`tabpanel-${index}`}
+                    aria-labelledby={`tab-${index}`}
+                >
+                    {tabValue === index && tab.content}
+                </div>
+            ))}
         </Box>
     );
 };

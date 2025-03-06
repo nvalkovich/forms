@@ -1,4 +1,4 @@
-import { PrivateRoute } from "./PrivateRoute";
-import { UnauthorizedRoute } from "./UnauthorizedRoute";
+import { PrivateRoute } from './PrivateRoute';
+import { UnauthorizedRoute } from './UnauthorizedRoute';
 
-export {PrivateRoute, UnauthorizedRoute}
+export { PrivateRoute, UnauthorizedRoute };

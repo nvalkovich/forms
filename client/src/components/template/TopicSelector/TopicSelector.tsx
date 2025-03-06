@@ -14,6 +14,7 @@ import { useTranslations } from 'next-intl';
 import { toastError } from '@/utils/toastify/utils';
 import { useTopic } from '@/hooks/template/useTopic';
 import { getTopicValueForView } from '@/utils/templateUtils';
+import { TemplateFormFields } from '@/types/template';
 
 export const TopicSelector = () => {
     const {
@@ -21,9 +22,12 @@ export const TopicSelector = () => {
         watch,
         formState: { errors },
     } = useFormContext();
+
+    const topicIdField = TemplateFormFields.topicId;
+
     const commonTranslations = useTranslations('TemplateBuilder');
     const topicsTranslations = useTranslations('Topics');
-    const selectedTopic = watch('topicId') || '';
+    const selectedTopic = watch(topicIdField) || '';
 
     const { topics, loading, error } = useTopic(undefined, true);
 
@@ -35,17 +39,22 @@ export const TopicSelector = () => {
     }, [error]);
 
     const handleChange = (event: SelectChangeEvent<string>) => {
-        setValue('topicId', event.target.value, { shouldValidate: true });
+        setValue(topicIdField, event.target.value, { shouldValidate: true });
+    };
+
+    const selectConfig = {
+        topicLabel: 'topic',
+        id: 'topic-select',
     };
 
     return (
         <FormControl fullWidth variant="outlined" error={!!errors.topicId}>
-            <InputLabel id="topic-label">
+            <InputLabel id={selectConfig.topicLabel}>
                 {commonTranslations('topic')}
             </InputLabel>
             <Select
-                labelId="topic-label"
-                id="topic-select"
+                labelId={selectConfig.topicLabel}
+                id={selectConfig.id}
                 value={selectedTopic}
                 onChange={handleChange}
                 label={commonTranslations('topic')}

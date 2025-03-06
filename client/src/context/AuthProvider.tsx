@@ -29,7 +29,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-function AuthProvider({ children }: { children: React.ReactNode }) {
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const { navigate } = useNavigation();
     const [token, setToken] = useLocalStorage<string | null>(
         LocalStorageKeys.token,
@@ -86,7 +86,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
             {children}
         </AuthContext.Provider>
     );
-}
+};
 
 export function useAuth() {
     const context = useContext(AuthContext);

@@ -1,10 +1,7 @@
 import { Box } from '@mui/material';
 import { useNavigation, Routes } from '@/hooks/useNavigation';
-import {
-    PlusButton,
-    ConfirmationModal,
-    StyledPaper,
-} from '@/components/common';
+import { PlusButton, StyledPaper } from '@/components/common';
+import { ConfirmationModal } from '@/components/modals/ConfirmationalModal/ConfirmationModal';
 import { TemplateTableActions } from './TemplateTableActions';
 import { TemplateTableRows } from './TemplateTableRows';
 import { useTranslations } from 'next-intl';

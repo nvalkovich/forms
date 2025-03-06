@@ -14,7 +14,6 @@ export interface TemplateTableRowsProps {
 }
 
 export const TemplateTableRows = ({
-    selectedTemplates,
     setSelectedTemplates,
 }: TemplateTableRowsProps) => {
     const { user } = useAuth();
@@ -39,7 +38,6 @@ export const TemplateTableRows = ({
         <Table
             rows={transformedRows}
             columns={columns}
-            selectedRows={selectedTemplates}
             onSelectionChange={setSelectedTemplates}
             onRowClick={handleRowClick}
         />

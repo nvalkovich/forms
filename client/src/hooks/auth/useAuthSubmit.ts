@@ -2,47 +2,16 @@ import { useAuth } from '@/context/AuthProvider';
 import { loginUser, registerUser } from '@/services/api';
 import { useTranslations } from 'next-intl';
 import { useNavigation, Routes } from '../useNavigation';
-import { User } from '@/types/user';
 import { AuthType } from '@/types/auth';
 import { useTranslationsHook } from '@/i18n/routing';
 import { toastSuccess, toastError } from '@/utils/toastify/utils';
+import { AuthResponse, AuthFormData } from '@/types/auth';
+import { FETCH_ERROR } from '@/constants';
 
-type AuthFormData = {
-    name?: string;
-    email: string;
-    password: string;
-};
-
-type AuthResponse = {
-    token: string;
-    user: User;
-};
-
-const useAuthMessages = (type: AuthType, t: useTranslationsHook) => {
-    const blokedUserMessage = t('userIsBlocked');
-
-    const authMessages =
-        type === AuthType.login
-            ? { success: t('loginSuccessful'), error: t('loginError') }
-            : { success: t('registerSuccessful'), error: t('registerError') };
-    return { blokedUserMessage, ...authMessages };
-};
-
-const handleAuthResponse = (
-    response: AuthResponse,
-    login: (token: string, user: User) => void,
-    messages: Record<string, string>,
-    navigate: (route: Routes) => void,
-) => {
-    if (response.user && response.user.isBlocked) {
-        toastError(messages.blokedUserMessage);
-        return;
-    }
-    if (response.token && response.user) {
-        login(response.token, response.user);
-        toastSuccess(messages.success);
-        navigate(Routes.profile);
-    }
+const getAuthMessages = (type: AuthType, t: useTranslationsHook) => {
+    return type === AuthType.login
+        ? { success: t('loginSuccessful'), error: t('loginError') }
+        : { success: t('registerSuccessful'), error: t('registerError') };
 };
 
 export const useAuthSubmit = (type: AuthType) => {
@@ -50,38 +19,51 @@ export const useAuthSubmit = (type: AuthType) => {
     const { login } = useAuth();
     const { navigate } = useNavigation();
 
-    const messages = useAuthMessages(type, t);
+    const { success, error } = getAuthMessages(type, t);
 
-    const handleRegisterAndLogin = async (data: AuthFormData) => {
-        if (type === AuthType.register && data.name) {
-            await registerUser(data.name, data.email, data.password);
+    const handleAuthResponse = (response: AuthResponse) => {
+        if (response.user && response.user.isBlocked) {
+            toastError(t('userIsBlocked'));
+            return;
         }
-        return await loginUser(data.email, data.password);
+        if (response.token && response.user) {
+            login(response.token, response.user);
+            toastSuccess(success);
+            navigate(Routes.profile);
+        }
     };
 
-    const getErrorMessage = (key: string) => {
-        try {
-            return t(key);
-        } catch {
-            return t('internalServerError');
-        }
+    const handleLogin = async (email: string, password: string) => {
+        return await loginUser(email, password);
+    };
+
+    const handleRegister = async (
+        name: string,
+        email: string,
+        password: string,
+    ) => {
+        return await registerUser(name, email, password);
     };
 
     const onSubmit = async (data: AuthFormData) => {
         try {
-            const response = await handleRegisterAndLogin(data);
-            handleAuthResponse(response, login, messages, navigate);
+            const response =
+                type === AuthType.register && data.name
+                    ? await handleRegister(data.name, data.email, data.password)
+                    : await handleLogin(data.email, data.password);
+            handleAuthResponse(response);
         } catch (err) {
             if (err instanceof Error) {
-                if (err.message.includes('Failed to fetch')) {
-                    toastError(getErrorMessage('networkError'));
+                if (err.message.includes(FETCH_ERROR)) {
+                    toastError(t('networkError'));
                 } else {
-                    toastError(getErrorMessage(err.message));
+                    toastError(t(err.message));
                 }
             } else {
-                toastError(getErrorMessage('internalServerError'));
+                toastError(error);
             }
         }
     };
+
     return { onSubmit };
 };

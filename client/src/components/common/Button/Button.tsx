@@ -16,10 +16,6 @@ const defaultStyles = {
     mt: 2,
     mb: 3,
     py: 1.5,
-    bgcolor: '#1976D2',
-    '&:hover': {
-        bgcolor: '#1565C0',
-    },
 };
 
 export const Button = ({

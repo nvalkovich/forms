@@ -23,9 +23,8 @@ export const useAdminPanel = (
     const t = useTranslations('Admin');
     const { user, refreshUser } = useAuth();
     const [users, setLocalUsers] = useState<User[]>(usersData);
-    const [selectedUsers, setSelectedUsers] = useState<GridRowSelectionModel>(
-        [],
-    );
+    const [selectedUsersIds, setSelectedUsersIds] =
+        useState<GridRowSelectionModel>([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalAction, setModalAction] = useState<AdminActionsTypes>(
         AdminActionsTypes.block,
@@ -44,7 +43,7 @@ export const useAdminPanel = (
 
     const handleAction = useCallback(
         (actionType: AdminActionsTypes) => {
-            if (!selectedUsers.length) {
+            if (!selectedUsersIds.length) {
                 toast.warning(t('selectAtLeastOneUser'));
                 return;
             }
@@ -52,7 +51,7 @@ export const useAdminPanel = (
             setConfirmationMessage(
                 getAdminConfirmationMessage(
                     t,
-                    selectedUsers as string[],
+                    selectedUsersIds as string[],
                     users,
                     actionType,
                     currentUserId,
@@ -60,7 +59,7 @@ export const useAdminPanel = (
             );
             setModalOpen(true);
         },
-        [selectedUsers, users, currentUserId, t],
+        [selectedUsersIds, users, currentUserId, t],
     );
 
     const updateUsersAndSelection = useCallback(
@@ -72,7 +71,7 @@ export const useAdminPanel = (
             );
             setLocalUsers(updatedUsers);
             setUsers(updatedUsers);
-            setSelectedUsers((prevSelected) =>
+            setSelectedUsersIds((prevSelected) =>
                 prevSelected.filter((id) =>
                     updatedUsers.some((u) => u.id === id),
                 ),
@@ -94,7 +93,7 @@ export const useAdminPanel = (
     const handleConfirm = useCallback(async () => {
         try {
             const usersToUpdate = filterUsersForAction(
-                selectedUsers as string[],
+                selectedUsersIds as string[],
                 users,
                 modalAction,
             );
@@ -116,7 +115,7 @@ export const useAdminPanel = (
             setConfirmationMessage('');
         }
     }, [
-        selectedUsers,
+        selectedUsersIds,
         users,
         modalAction,
         executeUserActions,
@@ -128,10 +127,10 @@ export const useAdminPanel = (
     return {
         users,
         rows,
-        selectedUsers,
+        selectedUsersIds,
         modalOpen,
         confirmationMessage,
-        setSelectedUsers,
+        setSelectedUsersIds,
         handleAction,
         handleConfirm,
         setModalOpen,

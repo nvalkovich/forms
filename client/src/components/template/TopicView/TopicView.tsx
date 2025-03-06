@@ -1,7 +1,8 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { TemplatesIcon } from '@/components/icons';
 import { getTopicValueForView } from '@/utils/templateUtils';
+import { SecondaryText } from '@/components/common';
 
 interface TopicViewProps {
     topic?: string;
@@ -21,9 +22,7 @@ export const TopicView = ({ topic, isLoading }: TopicViewProps) => {
     return (
         <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
             <TemplatesIcon />
-            <Typography sx={{ color: 'text.secondary' }}>
-                {topicText}
-            </Typography>
+            <SecondaryText content={topicText} />
         </Stack>
     );
 };

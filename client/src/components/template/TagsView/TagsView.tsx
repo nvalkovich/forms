@@ -1,6 +1,6 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { HashtagIcon } from '@/components/icons';
-import { Chip, ChipSizes } from '@/components/common';
+import { Chip, ChipSizes, SecondaryText } from '@/components/common';
 import { useTranslations } from 'next-intl';
 
 interface TagsViewProps {
@@ -25,9 +25,7 @@ export const TagsView = ({ tags = [], viewWithIcon = true }: TagsViewProps) => {
                     <Chip key={index} label={tag.name} size={ChipSizes.small} />
                 ))
             ) : (
-                <Typography color="text.secondary">
-                    {commonTranslations('noTagsSelected')}
-                </Typography>
+                <SecondaryText content={commonTranslations('noTagsSelected')} />
             )}
         </Stack>
     );
