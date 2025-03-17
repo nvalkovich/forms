@@ -48,8 +48,7 @@ export const useTickets = (accountId: string, token?: string | null) => {
         } finally {
             setLoading(false);
         }
-    }, [ accountId, token, page, pageSize]);
-
+    }, [accountId, token, page, pageSize]);
 
     useEffect(() => {
         fetchTickets();

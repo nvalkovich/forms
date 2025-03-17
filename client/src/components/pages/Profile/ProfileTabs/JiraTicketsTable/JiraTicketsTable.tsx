@@ -77,7 +77,6 @@ export const JiraTicketsTable = () => {
                             padding: '18px',
                         },
                         '& .MuiDataGrid-row': TABLE_STYLES.row,
-        
                     }}
                     getRowHeight={() => 'auto'}
                     localeText={{

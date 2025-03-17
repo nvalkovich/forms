@@ -5,12 +5,12 @@ import { TemplateTable } from './TemplateTable';
 import SalesforceForm from './SalesforceAccountForm/SalesforceAccountForm';
 import { JiraTicketsTable } from './JiraTicketsTable/JiraTicketsTable';
 import { useTickets } from '@/hooks/useTickets';
-import { useAuth } from '@/context/AuthProvider'; 
+import { useAuth } from '@/context/AuthProvider';
 
 export const ProfileTabs = () => {
     const [tabValue, setTabValue] = useState(0);
     const t = useTranslations('Profile');
-    const { user, token } = useAuth(); 
+    const { user, token } = useAuth();
 
     const JIRA_TICKETS_TAB_INDEX = 3;
 
